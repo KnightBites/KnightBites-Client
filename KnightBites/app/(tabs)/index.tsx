@@ -3,7 +3,7 @@ import { Image, StyleSheet, View, Text, FlatList } from 'react-native';
 export default function HomePage() {
   return (
     <View>
-      <Image source={require("@/assets/images/dining-hall.jpg")}></Image>
+      <Image style={styles.imageContainer} source={require("@/assets/images/dining-hall.jpg")}></Image>
       <View style={styles.textContainer}>
         <Text style={styles.mainText}>Hello, Knight Bites!</Text>
       </View>
@@ -38,5 +38,10 @@ const styles = StyleSheet.create({
     borderRadius: "15%",
     textWrap: "wrap",
     fontSize: "36pt",
+  },
+  imageContainer: {
+    alignContent: "center",
+    marginLeft: "auto",
+    marginRight: "auto",
   },
 });
