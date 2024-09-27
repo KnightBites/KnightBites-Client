@@ -1,0 +1,34 @@
+name: Pull Request Workflow
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v2
+
+      - name: Set Up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14'  # Specify your Node.js version
+
+      - name: Install Dependencies
+        run: npm install
+
+      - name: Run Tests
+        run: npm test
+
+      - name: Build Project
+        run: npm run build
+
+      - name: Send Slack Notification
+        uses: slackapi/slack-github-action@v1.27.0
+        with:
+          channel-id: C07LYU7R1QS 
+          slack-message: "A new pull request has been created: <${{ github.event.pull_request.html_url }}|${{ github.event.pull_request.title }}> by @${{ github.event.pull_request.user.login }}. Please reject or approve this request."
+
