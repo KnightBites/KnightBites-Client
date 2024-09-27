@@ -26,16 +26,19 @@ export default function HomePage() {
             img: require("@/assets/images/dining-hall.jpg"),
             name: "Test0",
             desc: "Woah, food!",
+            rating: 1,
           },
           {
             img: require("@/assets/images/spagetti.jpg"),
             name: "Spagetti",
             desc: "With tomato source",
+            rating: 3,
           },
           {
             img: require("@/assets/images/pizza.jpg"),
             name: "Pizza",
             desc: "Nutritious and delicious",
+            rating: 4.5,
           },
         ]}
         
@@ -44,6 +47,7 @@ export default function HomePage() {
               image={item.img}
               foodName={item.name}
               foodDescription={item.desc}
+              foodRating={item.rating}
             ></FoodPanel>
         }
         >
@@ -56,20 +60,20 @@ export default function HomePage() {
 const styles = StyleSheet.create({
   textContainer: {
     backgroundColor: "white",
-    borderRadius: "15%",
+    borderRadius: 15,
     maxWidth: "75%",
     marginLeft: "auto",
     marginRight: "auto",
     padding: 8,
+    margin: 10,
   },
   mainText: {
     textAlign: "center",
-    borderRadius: "15%",
-    textWrap: "wrap",
-    fontSize: "36pt",
+    borderRadius: 15,
+    fontSize: 36,
   },
   feed: {
     marginHorizontal: "auto",
-    minWidth: "min-content",
+    minWidth: 200, // use a numeric value here
   }
 });

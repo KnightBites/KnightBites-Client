@@ -1,35 +1,37 @@
 import { View, Text, Image, StyleSheet } from "react-native";
+import StarRating from "@/components/StarRating.tsx";
 
-export default function FoodPanel({image, foodName, foodDescription}) {
+export default function FoodPanel({image, foodName, foodDescription, foodRating}) {
   return (
     <View style={styles.panel}>
-      <View style={styles.imageContainer}>
+      {/* <View style={styles.imageContainer}>
         <Image style={styles.image} source={image}></Image>
-      </View>
+      </View> */}
       <View style={styles.information}>
         <Text style={styles.name}>{foodName}</Text>
         <Text style={styles.description}>{foodDescription}</Text>
+        <StarRating rating={foodRating}></StarRating>
       </View>
     </View>
   )
 }
 
-const styles: StyleSheet = StyleSheet.create({
+const styles = StyleSheet.create({
   imageContainer: {
     flex: 1,
-    margin: "10px",
-    minWidth: "200px", // min width keeps the image and text from colliding
-    width: "200px",
-    height: "200px",
+    margin: 10,
+    minWidth: 200,
+    width: 200,
+    height: 200,
   },
   image: {
-    width: "200px",
-    aspectRadio: "1/1",
-    height: "200px",
-    borderRadius: "10px",
+    width: 200,
+    aspectRatio: 1,
+    height: 200,
+    borderRadius: 10,
   },
   name: {
-    fontSize: "64pt",
+    fontSize: 32,
     flex: 1,
   },
   description: {
@@ -37,18 +39,17 @@ const styles: StyleSheet = StyleSheet.create({
   },
   panel: {
     backgroundColor: "grey",
-    display: "flex",
     flexDirection: "row",
     alignItems: "center",
     flexWrap: "wrap",
-    borderRadius: "10px",
+    borderRadius: 10,
     width: "100%",
+    marginTop: 15,
   },
   information: {
     flex: 3,
-    display: "flex",
     flexDirection: "column",
     height: "90%",
-    margin: "10px",
+    margin: 10,
   },
 });
