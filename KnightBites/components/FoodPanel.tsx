@@ -43,11 +43,10 @@ const styles = StyleSheet.create({
     alignItems: "center",
     flexWrap: "wrap",
     borderRadius: 10,
-    width: "100%",
     marginTop: 15,
+    width: "100%",
   },
   information: {
-    flex: 3,
     flexDirection: "column",
     height: "90%",
     margin: 10,
