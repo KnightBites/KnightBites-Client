@@ -1,18 +1,26 @@
-import { Image, StyleSheet, View, Text, FlatList } from 'react-native';
+import { Image, StyleSheet, View, Text, FlatList, TouchableOpacity, Button } from 'react-native';
 import FoodPanel from '@/components/FoodPanel.tsx';
 import DropDownPicker from 'react-native-dropdown-picker';
 import { useState } from 'react';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-export default function HomePage() {
+export default function HomePage({navigation}) {
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState<string | null>(null);
   const [items, setItems] = useState([
-    { label: 'Commons Dining Hall', value: 'option1' },
-    { label: 'Knollcrest Dining Hall', value: 'option2' },
-    { label: 'Johnnys Cafe', value: 'option3' },
-    { label: 'Peets Coffee', value: 'option4' },
-    { label: 'UpperCrust', value: 'option5' },
+    { label: 'Commons Dining Hall', value: 'Commons Dining Hall' },
+    { label: 'Knollcrest Dining Hall', value: 'Knollcrest Dining Hall' },
+    { label: 'Johnny\'s Cafe', value: 'Johnny\'s Cafe' },
+    { label: 'Peet\'s Coffee', value: 'Peet\'s Coffee' },
+    { label: 'UpperCrust', value: 'UpperCrust' },
   ]);
+
+  const handleNavigation = () => {
+    if(value){
+      navigation.navigate('DetailsPage', { name: value});
+    }
+  }
 
   return (
     <View style={styles.container}>
@@ -36,20 +44,12 @@ export default function HomePage() {
         />
       </View>
 
-      <View style={styles.textContainer}>
-        <FlatList
-          style={styles.teamNames}
-          data={[
-            { key: 'Kenny' },
-            { key: 'Lily' },
-            { key: 'Lujia' },
-            { key: 'Peter' },
-            { key: 'Jacob' },
-            { key: 'David' },
-          ]}
-          renderItem={({ item }) => <Text>{item.key}</Text>}
-        />
-      </View>
+            {/* Button to navigate to the selected dining hall */}
+            {value && (
+        <View style={styles.buttonContainer}>
+          <Button title={`View ${value} Menu`} onPress={handleNavigation} />
+        </View>
+      )}
 
       <View style={styles.feed}>
         <FlatList
@@ -83,6 +83,7 @@ export default function HomePage() {
   );
 }
 
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -106,6 +107,7 @@ const styles = StyleSheet.create({
   dropdownContainer: {
     position: 'relative', // Allows dropdown to overlay other content
     marginBottom: 20, // Adds space below the dropdown
+    zIndex: 1000,
   },
   dropdown: {
     zIndex: 1000, // Ensure the dropdown input is above other content
@@ -115,9 +117,13 @@ const styles = StyleSheet.create({
     top: 40, // Position the dropdown list below the dropdown input
     zIndex: 1000, // Ensure the dropdown list is above other content
   },
+  buttonContainer: {
+    marginTop: 20,
+    fontColor: 'black',
+    zIndex: 999, // Lower zIndex for the button, so it's not overlayed by the dropdown
+  },
   feed: {
     marginHorizontal: 'auto',
     minWidth: 'min-content',
   },
 });
-
