@@ -23,65 +23,70 @@ export default function HomePage({navigation}) {
   }
 
   return (
-    <View style={styles.container}>
-      <View style={styles.textContainer}>
-        <Text style={styles.mainText}>Hello, Knight Bites!</Text>
+    <View>
+      {/* Header */}
+      <View style={styles.headerBar}>
+        <Image style={styles.headerAppImage} source={require("@/assets/images/dining-hall.jpg")}></Image>
+        <Text style={styles.headerAppTitle}>KnightBites</Text>
+        <Text style={styles.headerUser}>Kenny</Text>
       </View>
 
-      {/* Dropdown Menu */}
-      <View style={styles.dropdownContainer}>
-        <DropDownPicker
-          open={open}
-          value={value}
-          items={items}
-          setOpen={setOpen}
-          setValue={setValue}
-          setItems={setItems}
-          placeholder="Select a dining venue"
-          containerStyle={{ height: 40 }}
-          style={styles.dropdown} // Apply styles to the dropdown
-          dropDownContainerStyle={styles.dropdownList} // Styles for the dropdown list
-        />
-      </View>
-
-      {/* Button to navigate to the selected dining hall */}
-      {value && (
-        <View style={styles.buttonContainer}>
-            <Button title={`View ${value} Menu`} onPress={handleNavigation} />
+      <View style={styles.container}>
+        {/* Dropdown Menu */}
+        <View style={styles.dropdownContainer}>
+          <DropDownPicker
+            open={open}
+            value={value}
+            items={items}
+            setOpen={setOpen}
+            setValue={setValue}
+            setItems={setItems}
+            placeholder="Select a dining venue"
+            containerStyle={{ height: 40 }}
+            style={styles.dropdown} // Apply styles to the dropdown
+            dropDownContainerStyle={styles.dropdownList} // Styles for the dropdown list
+          />
         </View>
-      )}
 
-      <View style={styles.feed}>
-        <FlatList
-          data={[
-            {
-              img: require('@/assets/images/dining-hall.jpg'),
-              name: 'Test0',
-              desc: 'Woah, food!',
-              rating: 2,
-            },
-            {
-              img: require('@/assets/images/spagetti.jpg'),
-              name: 'Spagetti',
-              desc: 'With tomato sauce',
-              rating: 4.5,
-            },
-            {
-              img: require('@/assets/images/pizza.jpg'),
-              name: 'Pizza',
-              desc: 'Nutritious and delicious',
-              rating: 3,
-            },
-          ]}
-          renderItem={({ item }) => (
-            <FoodPanel
-              image={item.img}
-              foodName={item.name}
-              foodDescription={item.desc}
-              foodRating={item.rating}
-            />
-          )}
-        />
+        {/* Button to navigate to the selected dining hall */}
+        {value && (
+          <View style={styles.buttonContainer}>
+              <Button title={`View ${value} Menu`} onPress={handleNavigation} />
+          </View>
+        )}
+
+        <View style={styles.feed}>
+          <FlatList
+            data={[
+              {
+                img: require('@/assets/images/dining-hall.jpg'),
+                name: 'Test0',
+                desc: 'Woah, food!',
+                rating: 2,
+              },
+              {
+                img: require('@/assets/images/spagetti.jpg'),
+                name: 'Spagetti',
+                desc: 'With tomato sauce',
+                rating: 4.5,
+              },
+              {
+                img: require('@/assets/images/pizza.jpg'),
+                name: 'Pizza',
+                desc: 'Nutritious and delicious',
+                rating: 3,
+              },
+            ]}
+            renderItem={({ item }) => (
+              <FoodPanel
+                image={item.img}
+                foodName={item.name}
+                foodDescription={item.desc}
+                foodRating={item.rating}
+              />
+            )}
+          />
+        </View>
       </View>
     </View>
   );
@@ -89,23 +94,28 @@ export default function HomePage({navigation}) {
 
 
 const styles = StyleSheet.create({
+  headerBar: {
+    width: "100%",
+    position: "sticky",
+    backgroundColor: "#880015",
+    padding: 15,
+    alignItems: "center",
+    flexDirection: "row",
+  },
+  headerUser: {
+    marginLeft: "auto",
+    fontSize: 20,
+  },
+  headerAppTitle: {
+    fontSize: 20,
+  },
+  headerAppImage: {
+    width: 50,
+    height: 50,
+    marginRight: 15,
+  },
   container: {
     padding: 20,
-  },
-  textContainer: {
-    backgroundColor: 'white',
-    borderRadius: 15,
-    maxWidth: '75%',
-    marginLeft: 'auto',
-    marginRight: 'auto',
-    padding: 8,
-    marginTop: 50,
-  },
-  mainText: {
-    textAlign: 'center',
-    fontSize: 36,
-    marginBottom: 25,
-    marginTop: 25,
   },
   dropdownContainer: {
     position: 'relative', // Allows dropdown to overlay other content
