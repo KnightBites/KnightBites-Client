@@ -10,12 +10,12 @@ jobs:
 
     steps:
       - name: Checkout Code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Set Up Node.js
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
         with:
-          node-version: '14'  # Specify your Node.js version
+          node-version: '14'
 
       - name: Install Dependencies
         run: npm install
@@ -29,6 +29,6 @@ jobs:
       - name: Send Slack Notification
         uses: slackapi/slack-github-action@v1.27.0
         with:
-          channel-id: C07LYU7R1QS 
           slack-message: "A new pull request has been created: <${{ github.event.pull_request.html_url }}|${{ github.event.pull_request.title }}> by @${{ github.event.pull_request.user.login }}. Please reject or approve this request."
-
+          channel-id: C07LYU7R1QS #KnightBites Slack ID
+          SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }} #I believe we need to add a secret? 
