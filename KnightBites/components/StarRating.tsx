@@ -1,8 +1,14 @@
 import { View, StyleSheet } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome'; // using FontAwesome for stars
+import { useState, useEffect } from "react";
 
-export default function StarRating({ rating }) {
+export default function StarRating({ foodRating }) {
   const stars = [];
+  const [rating, setRating] = useState(foodRating);
+
+  useEffect(() => {
+    setRating(foodRating);
+  }, [foodRating]);
 
   // Loop over 5 stars
   for (let i = 1; i <= 5; i++) {

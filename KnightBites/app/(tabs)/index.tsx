@@ -9,18 +9,52 @@ export default function HomePage({navigation}) {
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState<string | null>(null);
   const [items, setItems] = useState([
-    { label: 'Commons Dining Hall', value: 'Commons Dining Hall' },
-    { label: 'Knollcrest Dining Hall', value: 'Knollcrest Dining Hall' },
-    { label: 'Johnny\'s Cafe', value: 'Johnny\'s Cafe' },
-    { label: 'Peet\'s Coffee', value: 'Peet\'s Coffee' },
-    { label: 'UpperCrust', value: 'UpperCrust' },
+    { label: 'Commons Dining Hall', value: 0 },
+    { label: 'Knollcrest Dining Hall', value: 1 },
+    { label: 'Johnny\'s Cafe', value: 2 },
+    { label: 'Peet\'s Coffee', value: 3 },
+    { label: 'UpperCrust', value: 4 },
   ]);
 
-  const handleNavigation = () => {
+  /* const handleNavigation = () => {
     if(value){
       navigation.navigate('DetailsPage', { name: value});
     }
+  } */
+
+  interface Dish {
+    name: string,
+    desc: string,
+    rating: number,
+    respectiveCafeteria: number,
   }
+
+  const getDishData = (): Dish[] => {
+    // this response will be recived from the database in the future
+    const resp: Dish[] = [
+      {
+        name: 'Test0',
+        desc: 'Woah, food!',
+        rating: 2,
+        respectiveCafeteria: 0,
+      },
+      {
+        name: 'Spagetti',
+        desc: 'With tomato sauce',
+        rating: 4.5,
+        respectiveCafeteria: 1,
+      },
+      {
+        name: 'Pizza',
+        desc: 'Nutritious and delicious',
+        rating: 3,
+        respectiveCafeteria: 2,
+      },
+    ]
+    
+    // do any wrangling of the data
+    return resp.filter(dish => dish.respectiveCafeteria == value);
+  };
 
   return (
     <View>
@@ -49,34 +83,15 @@ export default function HomePage({navigation}) {
         </View>
 
         {/* Button to navigate to the selected dining hall */}
-        {value && (
+        {/* {value && (
           <View style={styles.buttonContainer}>
-              <Button title={`View ${value} Menu`} onPress={handleNavigation} />
+            <Button title={`View ${label} Menu`} onPress={handleNavigation} />
           </View>
-        )}
+        )} */}
 
         <View style={styles.feed}>
           <FlatList
-            data={[
-              {
-                img: require('@/assets/images/dining-hall.jpg'),
-                name: 'Test0',
-                desc: 'Woah, food!',
-                rating: 2,
-              },
-              {
-                img: require('@/assets/images/spagetti.jpg'),
-                name: 'Spagetti',
-                desc: 'With tomato sauce',
-                rating: 4.5,
-              },
-              {
-                img: require('@/assets/images/pizza.jpg'),
-                name: 'Pizza',
-                desc: 'Nutritious and delicious',
-                rating: 3,
-              },
-            ]}
+            data={getDishData()}
             renderItem={({ item }) => (
               <FoodPanel
                 image={item.img}
