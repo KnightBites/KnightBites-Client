@@ -9,9 +9,27 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3  # Latest version
+
+      - name: Set Up Node.js
+        uses: actions/setup-node@v3  # Latest version
+        with:
+          node-version: '14'
+
+      - name: Install Dependencies
+        run: npm install
+
+      - name: Run Tests
+        run: npm test
+
+      - name: Build Project
+        run: npm run build
+
       - name: Send Slack Notification
         uses: slackapi/slack-github-action@v1.27.0
         with:
           slack-message: "A new pull request has been created: <${{ github.event.pull_request.html_url }}|${{ github.event.pull_request.title }}> by @${{ github.event.pull_request.user.login }}. Please reject or approve this request."
-          channel-id: C07LYU7R1QS #KnightBites Slack ID
-          SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }} #Secret found in settings from app
+          channel-id: C07LYU7R1QS
+          SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}  # Reference secret securely
+
