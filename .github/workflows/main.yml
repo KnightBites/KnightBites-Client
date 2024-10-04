@@ -31,4 +31,4 @@ jobs:
         with:
           slack-message: "A new pull request has been created: <${{ github.event.pull_request.html_url }}|${{ github.event.pull_request.title }}> by @${{ github.event.pull_request.user.login }}. Please reject or approve this request."
           channel-id: C07LYU7R1QS #KnightBites Slack ID
-          SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }} #I believe we need to add a secret? 
+          SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }} #Secret found in settings from app
