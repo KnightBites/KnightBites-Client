@@ -1,14 +1,19 @@
-import { Image, StyleSheet, View, Text, FlatList, TouchableOpacity, Button } from 'react-native';
-import FoodPanel from '@/components/FoodPanel.tsx';
+import { Image, StyleSheet, View, Text, FlatList, TouchableOpacity, Button, TextInput } from 'react-native';
+import FoodPanel from '@/components/FoodPanel';
 import DropDownPicker from 'react-native-dropdown-picker';
+import Header from '@/components/Header';
+import Footer from '@/components/Footer';
 import { useState } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import styles from '@/constants/Styles';
 
 export default function HomePage({navigation}) {
   const [open, setOpen] = useState(false);
-  const [value, setValue] = useState<string | null>(null);
+  const [search, setSearch] = useState('');
+  const [restaurant, setRestaurant] = useState(-1);
   const [items, setItems] = useState([
+    { label: 'Everywhere', value: -1 },
     { label: 'Commons Dining Hall', value: 0 },
     { label: 'Knollcrest Dining Hall', value: 1 },
     { label: 'Johnny\'s Cafe', value: 2 },
@@ -27,7 +32,16 @@ export default function HomePage({navigation}) {
     desc: string,
     rating: number,
     respectiveCafeteria: number,
+    img: string
   }
+
+  const defaultDishData: Dish[] = [{
+    name: 'No Dish Found',
+    desc: 'Try a different search',
+    rating: 0,
+    respectiveCafeteria: -1,
+    img: 'https://via.placeholder.com/200',
+  }]
 
   const getDishData = (): Dish[] => {
     // this response will be recived from the database in the future
@@ -37,49 +51,83 @@ export default function HomePage({navigation}) {
         desc: 'Woah, food!',
         rating: 2,
         respectiveCafeteria: 0,
+        img: 'https://via.placeholder.com/200',
       },
       {
         name: 'Spagetti',
         desc: 'With tomato sauce',
         rating: 4.5,
         respectiveCafeteria: 1,
+        img: 'https://via.placeholder.com/200',
       },
       {
         name: 'Pizza',
         desc: 'Nutritious and delicious',
         rating: 3,
         respectiveCafeteria: 2,
+        img: 'https://via.placeholder.com/200',
+      },
+      {
+        name: 'Coffee',
+        desc: 'Hyperactive-inator',
+        rating: 6,
+        respectiveCafeteria: 3,
+        img: 'https://via.placeholder.com/200',
+      },
+      {
+        name: 'Olive',
+        desc: 'Its just one olive.',
+        rating: 2,
+        respectiveCafeteria: 4,
+        img: 'https://via.placeholder.com/200',
       },
     ]
     
     // do any wrangling of the data
-    return resp.filter(dish => dish.respectiveCafeteria == value);
+    const filtered = resp.filter(dish => (
+      (dish.respectiveCafeteria == restaurant || restaurant == -1) &&
+      (dish.name.toLowerCase().includes(search.toLowerCase()) || search == '')
+    ));
+
+    if (filtered.length == 0) {
+      return defaultDishData;
+    } else {
+      return filtered;
+    }
   };
 
   return (
-    <View>
+    <View style={styles.container}>
       {/* Header */}
-      <View style={styles.headerBar}>
-        <Image style={styles.headerAppImage} source={require("@/assets/images/dining-hall.jpg")}></Image>
-        <Text style={styles.headerAppTitle}>KnightBites</Text>
-        <Text style={styles.headerUser}>Kenny</Text>
-      </View>
+      <Header />
 
-      <View style={styles.container}>
+      {/* Main content */}
+      <View style={styles.mainContainer}>
         {/* Dropdown Menu */}
-        <View style={styles.dropdownContainer}>
-          <DropDownPicker
-            open={open}
-            value={value}
-            items={items}
-            setOpen={setOpen}
-            setValue={setValue}
-            setItems={setItems}
-            placeholder="Select a dining venue"
-            containerStyle={{ height: 40 }}
-            style={styles.dropdown} // Apply styles to the dropdown
-            dropDownContainerStyle={styles.dropdownList} // Styles for the dropdown list
-          />
+        <View style={styles.filterContainer}>
+          <View style={styles.searchContainer}>
+            <TextInput 
+              placeholder="Search for a dish"
+              onChangeText={setSearch}
+              value={search}
+              style={styles.searchBar}
+            />
+          </View>
+          <View style={styles.dropdownContainer}>
+            <DropDownPicker
+              open={open}
+              value={restaurant}
+              items={items}
+              setOpen={setOpen}
+              setValue={setRestaurant}
+              setItems={setItems}
+              placeholder="Everywhere"
+              textStyle={styles.dropdown} // Apply styles to the dropdown text
+              containerStyle={styles.dropdown} // Apply styles to the dropdown
+              style={styles.dropdown} // Apply styles to the dropdown
+              dropDownContainerStyle={styles.dropdownList} // Styles for the dropdown list
+            />
+          </View>
         </View>
 
         {/* Button to navigate to the selected dining hall */}
@@ -89,9 +137,10 @@ export default function HomePage({navigation}) {
           </View>
         )} */}
 
-        <View style={styles.feed}>
+        <View style={styles.feedContainer}>
           <FlatList
             data={getDishData()}
+            style={styles.feed}
             renderItem={({ item }) => (
               <FoodPanel
                 image={item.img}
@@ -103,55 +152,11 @@ export default function HomePage({navigation}) {
           />
         </View>
       </View>
+
+      <Footer />
+
     </View>
   );
 }
 
-
-const styles = StyleSheet.create({
-  headerBar: {
-    width: "100%",
-    position: "sticky",
-    backgroundColor: "#880015",
-    padding: 15,
-    alignItems: "center",
-    flexDirection: "row",
-  },
-  headerUser: {
-    marginLeft: "auto",
-    fontSize: 20,
-  },
-  headerAppTitle: {
-    fontSize: 20,
-  },
-  headerAppImage: {
-    width: 50,
-    height: 50,
-    marginRight: 15,
-  },
-  container: {
-    padding: 20,
-  },
-  dropdownContainer: {
-    position: 'relative', // Allows dropdown to overlay other content
-    marginBottom: 20, // Adds space below the dropdown
-    zIndex: 1000,
-  },
-  dropdown: {
-    zIndex: 1000, // Ensure the dropdown input is above other content
-  },
-  dropdownList: {
-    position: 'absolute', // Overlay dropdown list
-    top: 40, // Position the dropdown list below the dropdown input
-    zIndex: 1000, // Ensure the dropdown list is above other content
-  },
-  buttonContainer: {
-    marginTop: 20,
-    fontColor: 'black',
-    zIndex: 999, // Lower zIndex for the button, so it's not overlayed by the dropdown
-  },
-  feed: {
-    alignItems: "center",
-  },
-});
-
+// moved styles to constants/Styles.ts
