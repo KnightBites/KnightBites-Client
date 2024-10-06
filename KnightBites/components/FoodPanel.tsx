@@ -1,16 +1,14 @@
 import { View, Text, Image, StyleSheet } from "react-native";
 import StarRating from "@/components/StarRating.tsx";
 
-export default function FoodPanel({image, foodName, foodDescription, foodRating}) {
+export default function FoodPanel({foodName, foodDescription, foodRating}) {
+
   return (
     <View style={styles.panel}>
-      {/* <View style={styles.imageContainer}>
-        <Image style={styles.image} source={image}></Image>
-      </View> */}
       <View style={styles.information}>
         <Text style={styles.name}>{foodName}</Text>
         <Text style={styles.description}>{foodDescription}</Text>
-        <StarRating rating={foodRating}></StarRating>
+        <StarRating foodRating={foodRating}></StarRating>
       </View>
     </View>
   )
