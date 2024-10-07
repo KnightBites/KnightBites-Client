@@ -86,14 +86,10 @@ export default function HomePage({navigation}) {
     // do any wrangling of the data
     const filtered = resp.filter(dish => (
       (dish.respectiveCafeteria == restaurant || restaurant == -1) &&
-      (dish.name.toLowerCase().includes(search.toLowerCase()) || search == '')
+      (dish.name.toLowerCase().includes(search.toLowerCase()))
     ));
 
-    if (filtered.length == 0) {
-      return defaultDishData;
-    } else {
-      return filtered;
-    }
+    return (filtered.length == 0 ? defaultDishData : filtered);
   };
 
   return (
