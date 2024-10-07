@@ -57,6 +57,7 @@ const styles = StyleSheet.create({
       flex: 1,
       marginHorizontal: 10,
       width: '100%',
+      minWidth: 100,
       height: '100%',
     },
     dropdown: {
@@ -69,7 +70,11 @@ const styles = StyleSheet.create({
     },
     dropdownList: {
       position: 'absolute', // Overlay dropdown list
-      top: 80, // Position the dropdown list below the dropdown input
+      top: 60, // Position the dropdown list below the dropdown input
+      minHeight: 250,
+    },
+    dropdownListItem: {
+      fontSize: 15,
     },
     searchBar: {
       height: '100%',

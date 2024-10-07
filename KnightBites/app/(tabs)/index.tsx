@@ -126,6 +126,8 @@ export default function HomePage({navigation}) {
               containerStyle={styles.dropdown} // Apply styles to the dropdown
               style={styles.dropdown} // Apply styles to the dropdown
               dropDownContainerStyle={styles.dropdownList} // Styles for the dropdown list
+              listItemContainerStyle={styles.dropdownListItem} // Styles for the dropdown list
+              listItemLabelStyle={styles.dropdownListItem} // Styles for the dropdown list
             />
           </View>
         </View>
