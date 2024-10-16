@@ -1,9 +1,10 @@
-import { StyleSheet, Text, View, Image } from "react-native";
+import { StyleSheet, Text, View, Image, TextInput } from "react-native";
 import { MainStyles } from "@/constants/Styles";
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import Dish from "@/interfaces/Dish";
 import StarRating from "@/components/StarRating";
+import RankableStars from "@/components/RankableStars";
 import { Colors } from "@/constants/Colors";
 
 function translateCafeteria(value: number) {
@@ -23,31 +24,41 @@ function translateCafeteria(value: number) {
   }
 }
 
+function recordComment(comment: String) {
+  // this will talk to the database in the future
+}
+
 export default function FoodPage({navigation, dish}) {
   return (
-    <View>
+    <View style={styles.mainView}>
       <Header />
-        <View style={styles.infoSection}>
-          <View style={styles.headerInfo}>
-            <Image style={styles.image} source={{uri: dish.img}} />
-            <View style={styles.nameAndRating}>
-              <Text style={styles.name}>{dish.name}</Text>
-              <StarRating foodRating={dish.rating}></StarRating>
-            </View>
+      <View style={styles.infoSection}>
+        <View style={styles.headerInfo}>
+          <Image style={styles.image} source={{uri: dish.img}} />
+          <View style={styles.nameAndRating}>
+            <Text style={styles.name}>{dish.name}</Text>
+            <StarRating foodRating={dish.rating}></StarRating>
           </View>
-          <Text style={styles.description}>{dish.desc}</Text>
-          <Text style={styles.locations}>Locations: {translateCafeteria(dish.respectiveCafeteria)}</Text>
         </View>
-        <View style={styles.yourRating}>
-          <Text>Your Rating: </Text>
-          <StarRating foodRating={dish.rating}></StarRating>
-        </View>
-      <Footer />
+        <Text style={styles.description}>{dish.desc}</Text>
+        <Text style={styles.locations}>Locations: {translateCafeteria(dish.respectiveCafeteria)}</Text>
+      </View>
+      <View style={styles.yourRating}>
+        <Text>Your Rating: </Text>
+        <RankableStars />
+      </View>
+      <View style={styles.yourComment}>
+        <Text>Your Comment: </Text>
+        <TextInput onChangeText={recordComment} style={styles.commentEntry} />
+      </View>
     </View>
   )
 }
 
 const styles = StyleSheet.create({
+  mainView: {
+    backgroundColor: "lightgrey",
+  },
   infoSection: {
     backgroundColor: "lightgrey",
     padding: 15,
@@ -74,5 +85,15 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     alignContent: "center",
+  },
+  yourComment: {
+    flexDirection: "row",
+    alignItems: "center",
+    alignContent: "center",
+  },
+  commentEntry: {
+    backgroundColor: "white",
+    borderWidth: 2,
+    minWidth: 200,
   },
 });
