@@ -11,13 +11,13 @@ import Dish from "@/interfaces/Dish";
 
 import FoodPage from "@/components/FoodPage";
 
-export default function EntryPoint() {
-  return (
-    <FoodPage dish={{name: "Yummy", desc:"cool", rating: 3, respectiveCafeteria: -1, img: 'https://placehold.co/400'}} />
-  )
-}
+// export default function EntryPoint() {
+//   return (
+//     <FoodPage dish={{name: "Yummy", desc:"cool", rating: 3, respectiveCafeteria: -1, img: 'https://placehold.co/400'}} />
+//   )
+// }
 
-export function HomePage({navigation}) {
+export default function HomePage({navigation}) {
   const [open, setOpen] = useState(false);
   const [search, setSearch] = useState('');
   const [restaurant, setRestaurant] = useState(-1);
