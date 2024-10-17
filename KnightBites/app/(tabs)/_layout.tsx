@@ -29,6 +29,7 @@ export default function TabLayout() {
           title: 'About',
           tabBarIcon: ({ color, focused }) => (
             <TabBarIcon name={focused ? 'help-circle-outline' : 'help-circle-outline'} color={color} />
+            // https://ionic.io/ionicons is where you can find the names of the icons such as 'help-circle-outline'
           ),
         }}
       />
