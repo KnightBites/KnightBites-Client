@@ -11,13 +11,13 @@ import Dish from "@/interfaces/Dish";
 
 import FoodPage from "@/components/FoodPage";
 
-// export default function EntryPoint() {
-//   return (
-//     <FoodPage dish={{name: "Yummy", desc:"cool", rating: 3, respectiveCafeteria: -1, img: 'https://placehold.co/400'}} />
-//   )
-// }
+export default function EntryPoint() {
+  return (
+    <FoodPage dish={{name: "Yummy", desc:"cool", rating: 3, respectiveCafeteria: -1, img: 'https://placehold.co/400'}} />
+  )
+}
 
-export default function HomePage({navigation}) {
+export function HomePage({navigation}) {
   const [open, setOpen] = useState(false);
   const [search, setSearch] = useState('');
   const [restaurant, setRestaurant] = useState(-1);
@@ -30,11 +30,11 @@ export default function HomePage({navigation}) {
     { label: 'UpperCrust', value: 4 },
   ]);
 
-  /* const handleNavigation = () => {
+  const handleNavigation = () => {
     if(value){
       navigation.navigate('DetailsPage', { name: value});
     }
-  } */
+  }
 
   const defaultDishData: Dish[] = [{
     name: 'No Dish Found',
