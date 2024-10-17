@@ -1,5 +1,9 @@
 import { View, Text, Image, StyleSheet } from "react-native";
-import StarRating from "@/components/StarRating.tsx";
+import StarRating from "@/components/StarRating";
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import FoodPage from "@/components/FoodPage";
+
+const Stack = createNativeStackNavigator();
 
 export default function FoodPanel({foodName, foodDescription, foodRating}) {
 

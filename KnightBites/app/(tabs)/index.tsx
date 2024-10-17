@@ -7,6 +7,15 @@ import { useState } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import styles from '@/constants/Styles';
+import Dish from "@/interfaces/Dish";
+
+import FoodPage from "@/components/FoodPage";
+
+// export default function EntryPoint() {
+//   return (
+//     <FoodPage dish={{name: "Yummy", desc:"cool", rating: 3, respectiveCafeteria: -1, img: 'https://placehold.co/400'}} />
+//   )
+// }
 
 export default function HomePage({navigation}) {
   const [open, setOpen] = useState(false);
@@ -26,14 +35,6 @@ export default function HomePage({navigation}) {
       navigation.navigate('DetailsPage', { name: value});
     }
   } */
-
-  interface Dish {
-    name: string,
-    desc: string,
-    rating: number,
-    respectiveCafeteria: number,
-    img: string
-  }
 
   const defaultDishData: Dish[] = [{
     name: 'No Dish Found',
@@ -128,13 +129,6 @@ export default function HomePage({navigation}) {
           </View>
         </View>
 
-        {/* Button to navigate to the selected dining hall */}
-        {/* {value && (
-          <View style={styles.buttonContainer}>
-            <Button title={`View ${label} Menu`} onPress={handleNavigation} />
-          </View>
-        )} */}
-
         <View style={styles.feedContainer}>
           <FlatList
             data={getDishData()}
@@ -157,4 +151,4 @@ export default function HomePage({navigation}) {
   );
 }
 
-// moved styles to constants/Styles.ts
+// styles in constants/Styles.ts
