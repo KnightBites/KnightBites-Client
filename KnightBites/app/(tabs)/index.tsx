@@ -1,7 +1,7 @@
-import { Image, StyleSheet, View, Text, FlatList, TouchableOpacity, Button, TextInput } from 'react-native';
+import { Image, StyleSheet, View, Text, FlatList, TouchableOpacity, Button, TextInput, Pressable} from 'react-native';
 import FoodPanel from '@/components/FoodPanel';
 import DropDownPicker from 'react-native-dropdown-picker';
-import Header from '@/components/Header';
+import { Header, HeaderRight } from '@/components/Header';
 import Footer from '@/components/Footer';
 import { useState } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
@@ -9,15 +9,39 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import styles from '@/constants/Styles';
 import Dish from "@/interfaces/Dish";
 
+////////
+// Pages
+////
 import FoodPage from "@/components/FoodPage";
+////////
 
-// export default function EntryPoint() {
-//   return (
-//     <FoodPage dish={{name: "Yummy", desc:"cool", rating: 3, respectiveCafeteria: -1, img: 'https://placehold.co/400'}} />
-//   )
-// }
+const Stack = createNativeStackNavigator();
 
-export default function HomePage({navigation}) {
+export default function EntryPoint() {
+  return (
+    <Stack.Navigator
+      initialRouteName="home"
+      screenOptions={{
+        headerTitle: props => <Header />,
+        headerStyle: {
+          backgroundColor: "#880015",
+          height: 70,
+        },
+        headerRight: props => <HeaderRight />,
+      }}
+    >
+      <Stack.Screen name="home" component={HomePage} />
+      <Stack.Screen name="foodPage" component={FoodPage} 
+        initialParams={
+          {dish: {name: "Yummy", desc:"cool", rating: 3, respectiveCafeteria: -1, img: 'https://placehold.co/400'}}
+        }
+      />
+
+    </Stack.Navigator>
+  )
+ }
+
+function HomePage({navigation}) {
   const [open, setOpen] = useState(false);
   const [search, setSearch] = useState('');
   const [restaurant, setRestaurant] = useState(-1);
@@ -29,12 +53,6 @@ export default function HomePage({navigation}) {
     { label: 'Peet\'s Coffee', value: 3 },
     { label: 'UpperCrust', value: 4 },
   ]);
-
-  /* const handleNavigation = () => {
-    if(value){
-      navigation.navigate('DetailsPage', { name: value});
-    }
-  } */
 
   const defaultDishData: Dish[] = [{
     name: 'No Dish Found',
@@ -95,8 +113,7 @@ export default function HomePage({navigation}) {
 
   return (
     <View style={styles.container}>
-      {/* Header */}
-      <Header />
+      {/* Header handled by stack navigator*/}
 
       {/* Main content */}
       <View style={styles.mainContainer}>
@@ -134,12 +151,14 @@ export default function HomePage({navigation}) {
             data={getDishData()}
             style={styles.feed}
             renderItem={({ item }) => (
-              <FoodPanel
-                image={item.img}
-                foodName={item.name}
-                foodDescription={item.desc}
-                foodRating={item.rating}
-              />
+              <Pressable onPress={() => navigation.navigate("foodPage", {dish: item})}>
+                <FoodPanel
+                  image={item.img}
+                  foodName={item.name}
+                  foodDescription={item.desc}
+                  foodRating={item.rating}
+                />
+              </Pressable>
             )}
           />
         </View>

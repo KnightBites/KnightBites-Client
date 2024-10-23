@@ -1,6 +1,5 @@
 import { StyleSheet, Text, View, Image, TextInput } from "react-native";
 import { MainStyles } from "@/constants/Styles";
-import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import Dish from "@/interfaces/Dish";
 import StarRating from "@/components/StarRating";
@@ -28,10 +27,13 @@ function recordComment(comment: String) {
   // this will talk to the database in the future
 }
 
-export default function FoodPage({navigation, dish}) {
+// example usage:
+// <FoodPage dish={{name: "Yummy", desc:"cool", rating: 3, respectiveCafeteria: -1, img: 'https://placehold.co/400'}} />
+export default function FoodPage({route, navigation}) {
+  const {dish} = route.params; // extract dish from route params
+
   return (
     <View style={styles.mainView}>
-      <Header />
       <View style={styles.infoSection}>
         <View style={styles.headerInfo}>
           <Image style={styles.image} source={{uri: dish.img}} />
