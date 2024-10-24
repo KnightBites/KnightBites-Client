@@ -16,7 +16,7 @@ const inappropriateWordsPath = path.join(__dirname, 'inappropriate.txt');
 const inappropriateWords = fs.readFileSync(inappropriateWordsPath, 'utf-8').split('\n').map(word => word.trim());
 
 // Toggle this to print all inappropriate words to verify they are read correctly (green text)
-//console.log('Inappropriate Words:', inappropriateWords);
+// console.log('Inappropriate Words:', inappropriateWords);
 
 // Function to escape special characters in a string for use in a regular expression
 function escapeRegExp(string) {
@@ -93,4 +93,4 @@ function promptUser() {
 }
 
 promptUser(); 
-// End of interactive tester*/
+// End of interactive tester */
