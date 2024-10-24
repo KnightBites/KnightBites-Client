@@ -42,6 +42,7 @@ export default function EntryPoint() {
  }
 
 function HomePage({navigation}) {
+
   const [open, setOpen] = useState(false);
   const [search, setSearch] = useState('');
   const [restaurant, setRestaurant] = useState(-1);
@@ -53,6 +54,7 @@ function HomePage({navigation}) {
     { label: 'Peet\'s Coffee', value: 3 },
     { label: 'UpperCrust', value: 4 },
   ]);
+
 
   const defaultDishData: Dish[] = [{
     name: 'No Dish Found',

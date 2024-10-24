@@ -18,7 +18,7 @@ const styles = StyleSheet.create({
     },
     headerAppTitle: {
       fontSize: 40,
-      color: "yellow",
+      color: "gold",
       fontWeight: "bold",
     },
     headerAppImage: {
