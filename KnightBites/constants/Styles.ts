@@ -5,11 +5,11 @@ const styles = StyleSheet.create({
     headerBar: {
       width: "100%",
       position: "sticky",
-      backgroundColor: "#880015",
       padding: 15,
       alignItems: "center",
       flexDirection: "row",
       flex: 1,
+      marginTop: 20,
       marginBottom: 20,
     },
     headerUser: {
