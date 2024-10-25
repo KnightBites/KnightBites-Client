@@ -103,7 +103,7 @@ const styles = StyleSheet.create({
     },
     feed: {
       borderColor: 'black',
-      backgroundColor: '#cccccc',
+      backgroundColor: 'darkred',
       borderRadius: 10,
       borderWidth: 5,
       width: '100%',
