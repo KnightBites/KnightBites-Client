@@ -7,9 +7,16 @@ const Header = () => {
     <View style={styles.headerBar}>
       <Image style={styles.headerAppImage} source={require("@/assets/images/dining-hall.jpg")}></Image>
       <Text style={styles.headerAppTitle}>KnightBites</Text>
-      <Text style={styles.headerUser}>Kenny</Text>
     </View>
   );
 };
 
-export default Header;
+const HeaderRight = () => {
+  return (
+    <View style={{marginRight: 10}}>
+      <Text style={styles.headerUser}>Kenny</Text>
+    </View>
+  )
+}
+
+export { Header, HeaderRight };

@@ -22,8 +22,8 @@ export default function RankableStars({ foodRating = 0 }) {
     setRating(foodRating);
   }, [foodRating]);
 
-  for (let i = 0; i < 5; i++) {
-    stars.push(<TouchableOpacity onPress={rate(i)}><Icon key={i} name={(i <= rating) ? "star" : "star-o"} style={styles.star} /></TouchableOpacity>);
+  for (let i = 1; i <= 5; i++) {
+    stars.push(<TouchableOpacity key={i} onPress={rate(i)}><Icon name={(i <= rating) ? "star" : "star-o"} style={styles.star} /></TouchableOpacity>);
   }
 
   return <View style={styles.starContainer}>{stars}</View>;
