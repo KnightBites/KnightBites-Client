@@ -20,6 +20,7 @@ const styles = StyleSheet.create({
       fontSize: 40,
       color: "gold",
       fontWeight: "bold",
+      marginVertical: 10
     },
     headerAppImage: {
       width: 50,
@@ -140,6 +141,7 @@ const styles = StyleSheet.create({
       shadowColor: 'grey',
       shadowOpacity: 0.25,
       elevation: 5,
+      marginVertical: 10
     },
     loginTextBarHover: {
       borderColor: 'blue' //Testing this, just to see what it looks like later?? 
