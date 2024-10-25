@@ -2,7 +2,6 @@ import { Image, StyleSheet, View, Text, FlatList, TouchableOpacity, Button, Text
 import FoodPanel from '@/components/FoodPanel';
 import DropDownPicker from 'react-native-dropdown-picker';
 import { Header, HeaderRight } from '@/components/Header';
-import Footer from '@/components/Footer';
 import { useState } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -13,6 +12,8 @@ import Dish from "@/interfaces/Dish";
 // Pages
 ////
 import FoodPage from "@/components/FoodPage";
+import LoginPage from "@/components/LoginPage";
+import RegisterPage from "@/components/RegistrationPage";
 ////////
 
 const Stack = createNativeStackNavigator();
@@ -20,7 +21,7 @@ const Stack = createNativeStackNavigator();
 export default function EntryPoint() {
   return (
     <Stack.Navigator
-      initialRouteName="home"
+      initialRouteName="login"
       screenOptions={{
         headerTitle: props => <Header />,
         headerStyle: {
@@ -30,19 +31,22 @@ export default function EntryPoint() {
         headerRight: props => <HeaderRight />,
       }}
     >
-      <Stack.Screen name="home" component={HomePage} />
+      <Stack.Screen name="home" component={HomePage}
+        options={{headerLeft: props => {}}} // to get rid of button going back to login page
+      />
       <Stack.Screen name="foodPage" component={FoodPage} 
         initialParams={
           {dish: {name: "Yummy", desc:"cool", rating: 3, respectiveCafeteria: -1, img: 'https://placehold.co/400'}}
         }
       />
+      <Stack.Screen name="login" component={LoginPage} />
+      <Stack.Screen name="registration" component={RegisterPage} />
 
     </Stack.Navigator>
   )
  }
 
 function HomePage({navigation}) {
-
   const [open, setOpen] = useState(false);
   const [search, setSearch] = useState('');
   const [restaurant, setRestaurant] = useState(-1);
@@ -165,8 +169,6 @@ function HomePage({navigation}) {
           />
         </View>
       </View>
-
-      <Footer />
 
     </View>
   );
