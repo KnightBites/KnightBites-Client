@@ -50,7 +50,7 @@ export default function DetailsPage() {
           {'\n'}
           Jacob Tocila, Peter Lund
           {'\n'}
-          David Barry, Lucia Li
+          David Barry, Lujia Li
         </Text>
       </View>
 
