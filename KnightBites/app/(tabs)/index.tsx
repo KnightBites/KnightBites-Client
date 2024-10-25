@@ -73,7 +73,7 @@ function HomePage({navigation}) {
     const resp: Dish[] = [
       {
         name: 'Test0',
-        desc: 'Woah, food!',
+        desc: 'Woah, food! (This is a very, very long description in order to test the wrapping of text in the description field. It should wrap around and look nice.)',
         rating: 2,
         respectiveCafeteria: 0,
         img: 'https://via.placeholder.com/200',
@@ -157,12 +157,10 @@ function HomePage({navigation}) {
             data={getDishData()}
             style={styles.feed}
             renderItem={({ item }) => (
-              <Pressable onPress={() => navigation.navigate("foodPage", {dish: item})}>
+              <Pressable onPress={() => navigation.navigate("foodPage", {dish: item, review: 0})}>
                 <FoodPanel
-                  image={item.img}
-                  foodName={item.name}
-                  foodDescription={item.desc}
-                  foodRating={item.rating}
+                  navigation={navigation}
+                  dish={item}
                 />
               </Pressable>
             )}
