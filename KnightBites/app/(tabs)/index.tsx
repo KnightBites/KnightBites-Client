@@ -1,7 +1,7 @@
-import { Image, StyleSheet, View, Text, FlatList, TouchableOpacity, Button, TextInput } from 'react-native';
+import { Image, StyleSheet, View, Text, FlatList, TouchableOpacity, Button, TextInput, Pressable} from 'react-native';
 import FoodPanel from '@/components/FoodPanel';
 import DropDownPicker from 'react-native-dropdown-picker';
-import Header from '@/components/Header';
+import { Header, HeaderRight } from '@/components/Header';
 import Footer from '@/components/Footer';
 import { useState } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
@@ -10,13 +10,37 @@ import styles from '@/constants/Styles';
 import Dish from "@/interfaces/Dish";
 import LoginPage from "@/components/LoginPage";
 
+////////
+// Pages
+////
 import FoodPage from "@/components/FoodPage";
+////////
+
+const Stack = createNativeStackNavigator();
 
 export default function EntryPoint() {
   return (
-    <LoginPage />
+    <Stack.Navigator
+      initialRouteName="home"
+      screenOptions={{
+        headerTitle: props => <Header />,
+        headerStyle: {
+          backgroundColor: "#880015",
+          height: 70,
+        },
+        headerRight: props => <HeaderRight />,
+      }}
+    >
+      <Stack.Screen name="home" component={HomePage} />
+      <Stack.Screen name="foodPage" component={FoodPage} 
+        initialParams={
+          {dish: {name: "Yummy", desc:"cool", rating: 3, respectiveCafeteria: -1, img: 'https://placehold.co/400'}}
+        }
+      />
+
+    </Stack.Navigator>
   )
-}
+ }
 
 function HomePage({navigation}) {
   const [open, setOpen] = useState(false);
@@ -31,11 +55,6 @@ function HomePage({navigation}) {
     { label: 'UpperCrust', value: 4 },
   ]);
 
-  /* const handleNavigation = () => {
-    if(value){
-      navigation.navigate('DetailsPage', { name: value});
-    }
-  } */
 
   const defaultDishData: Dish[] = [{
     name: 'No Dish Found',
@@ -96,8 +115,7 @@ function HomePage({navigation}) {
 
   return (
     <View style={styles.container}>
-      {/* Header */}
-      <Header />
+      {/* Header handled by stack navigator*/}
 
       {/* Main content */}
       <View style={styles.mainContainer}>
@@ -135,12 +153,14 @@ function HomePage({navigation}) {
             data={getDishData()}
             style={styles.feed}
             renderItem={({ item }) => (
-              <FoodPanel
-                image={item.img}
-                foodName={item.name}
-                foodDescription={item.desc}
-                foodRating={item.rating}
-              />
+              <Pressable onPress={() => navigation.navigate("foodPage", {dish: item})}>
+                <FoodPanel
+                  image={item.img}
+                  foodName={item.name}
+                  foodDescription={item.desc}
+                  foodRating={item.rating}
+                />
+              </Pressable>
             )}
           />
         </View>
