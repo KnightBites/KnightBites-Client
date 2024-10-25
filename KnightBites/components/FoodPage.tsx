@@ -1,6 +1,5 @@
 import { StyleSheet, Text, View, Image, TextInput } from "react-native";
 import { MainStyles } from "@/constants/Styles";
-import Footer from '@/components/Footer';
 import Dish from "@/interfaces/Dish";
 import StarRating from "@/components/StarRating";
 import RankableStars from "@/components/RankableStars";
@@ -30,7 +29,7 @@ function recordComment(comment: String) {
 // example usage:
 // <FoodPage dish={{name: "Yummy", desc:"cool", rating: 3, respectiveCafeteria: -1, img: 'https://placehold.co/400'}} />
 export default function FoodPage({route, navigation}) {
-  const {dish} = route.params; // extract dish from route params
+  const {dish, review} = route.params; // extract dish from route params
 
   return (
     <View style={styles.mainView}>
@@ -47,7 +46,7 @@ export default function FoodPage({route, navigation}) {
       </View>
       <View style={styles.yourRating}>
         <Text>Your Rating: </Text>
-        <RankableStars />
+        <RankableStars foodRating={review}/>
       </View>
       <View style={styles.yourComment}>
         <Text>Your Comment: </Text>
