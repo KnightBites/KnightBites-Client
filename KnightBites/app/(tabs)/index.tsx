@@ -8,16 +8,17 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import styles from '@/constants/Styles';
 import Dish from "@/interfaces/Dish";
+import LoginPage from "@/components/LoginPage";
 
 import FoodPage from "@/components/FoodPage";
 
-// export default function EntryPoint() {
-//   return (
-//     <FoodPage dish={{name: "Yummy", desc:"cool", rating: 3, respectiveCafeteria: -1, img: 'https://placehold.co/400'}} />
-//   )
-// }
+export default function EntryPoint() {
+  return (
+    <LoginPage />
+  )
+}
 
-export default function HomePage({navigation}) {
+function HomePage({navigation}) {
   const [open, setOpen] = useState(false);
   const [search, setSearch] = useState('');
   const [restaurant, setRestaurant] = useState(-1);

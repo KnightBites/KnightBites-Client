@@ -126,7 +126,33 @@ const styles = StyleSheet.create({
       color: "black",
       fontSize: 30,
       alignSelf: "flex-start",
+    },
+
+    // The following styles are for the login page. 
+    //loginTextBar is the style of entering in the passwords and usernames. 
+
+    loginTextBar: {
+      borderRadius: 15,
+      borderColor: 'black',
+      borderWidth: 2,
+      width: 250,
+      padding: 10,
+      shadowColor: 'grey',
+      shadowOpacity: 0.25,
+      elevation: 5,
+    },
+    loginTextBarHover: {
+      borderColor: 'blue' //Testing this, just to see what it looks like later?? 
+    },
+
+    submitRegistrationButton: {
+      borderRadius: 25,
+      borderColor: "pink", 
+      borderWidth: 5, 
+      width: 100,
+      textAlign: "center"
     }
+
   });
 
   export default styles;
