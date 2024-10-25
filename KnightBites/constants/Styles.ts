@@ -1,5 +1,6 @@
 import { StyleSheet } from "react-native";
 import { Colors } from "@/constants/Colors";
+import { ColorSpace } from "react-native-reanimated";
 
 const styles = StyleSheet.create({
     headerBar: {
@@ -157,4 +158,4 @@ const styles = StyleSheet.create({
 
   });
 
-  export default styles;
+export default styles;
