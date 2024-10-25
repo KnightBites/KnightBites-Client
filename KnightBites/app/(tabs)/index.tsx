@@ -95,7 +95,7 @@ function HomePage({navigation}) {
       {
         name: 'Coffee',
         desc: 'Hyperactive-inator',
-        rating: 5,
+        rating: 6,
         respectiveCafeteria: 3,
         img: 'https://via.placeholder.com/200',
       },
