@@ -32,7 +32,7 @@ function registerAccount(username: string, password: string) {
     // hit db here
 }
 
-export default function RegistrationPage() {
+export default function RegistrationPage({navigation}) {
 
     const [ username, setUsername ] = useState("");
     const [ ps1, setPs1 ] = useState("");
@@ -82,6 +82,7 @@ export default function RegistrationPage() {
           onPress={() => {
             if (validatePassword(ps1, ps2)) {
               registerAccount(username, ps1);
+              navigation.navigate("login");
             } else {
               alert('Check ya passwords: passwords do not match'); //I think this is automatically freaking out since we have no db, so it will always say no
             }
@@ -89,6 +90,9 @@ export default function RegistrationPage() {
         >
           <Text style = {styles.submitRegistrationButton}>Submit</Text>
         </TouchableOpacity>
+
+        <TouchableOpacity onPress={() => navigation.navigate("login")}><Text>Already have an account? Login here.</Text></TouchableOpacity>
+
       </View>
     );
   };

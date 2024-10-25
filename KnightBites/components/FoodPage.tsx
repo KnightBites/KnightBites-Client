@@ -1,6 +1,5 @@
 import { StyleSheet, Text, View, Image, TextInput } from "react-native";
 import { MainStyles } from "@/constants/Styles";
-import Footer from '@/components/Footer';
 import Dish from "@/interfaces/Dish";
 import StarRating from "@/components/StarRating";
 import RankableStars from "@/components/RankableStars";
