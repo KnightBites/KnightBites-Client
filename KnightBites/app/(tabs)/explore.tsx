@@ -33,6 +33,7 @@ export default function DetailsPage() {
           {'\n\n'}
           2. Click on a dish to view more information about it.
           {'\n\n'}
+
           3. Write a review and rate the dish a rating 0-5 stars.
           {'\n\n'}
           Enjoy!
