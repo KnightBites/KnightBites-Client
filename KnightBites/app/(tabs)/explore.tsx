@@ -32,7 +32,7 @@ export default function DetailsPage() {
           <Text style={{ fontWeight: 'bold' }}>
             {'\n'}How to use KnightBites:
           </Text>
-          {'\n\n'}
+          {'\n'}
           1. Click on the "Home" tab to view the dishes available. You can also filter by dining hall.
           {'\n\n'}
           2. Click on a dish to view more information about it.
