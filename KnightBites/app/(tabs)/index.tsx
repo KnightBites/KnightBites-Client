@@ -1,4 +1,4 @@
-import { Image, StyleSheet, View, Text, FlatList, TouchableOpacity, Button, TextInput, Pressable} from 'react-native';
+import { Image, StyleSheet, View, Text, FlatList, TouchableOpacity, Button, TextInput, Pressable } from 'react-native';
 import FoodPanel from '@/components/FoodPanel';
 import DropDownPicker from 'react-native-dropdown-picker';
 import { Header, HeaderRight } from '@/components/Header';
@@ -20,7 +20,7 @@ const Stack = createNativeStackNavigator();
 export default function EntryPoint() {
   return (
     <Stack.Navigator
-      initialRouteName="home"
+      initialRouteName="Home"
       screenOptions={{
         headerTitle: props => <Header />,
         headerStyle: {
@@ -30,18 +30,18 @@ export default function EntryPoint() {
         headerRight: props => <HeaderRight />,
       }}
     >
-      <Stack.Screen name="home" component={HomePage} />
-      <Stack.Screen name="foodPage" component={FoodPage} 
+      <Stack.Screen name="Home" component={HomePage} />
+      <Stack.Screen name="foodPage" component={FoodPage}
         initialParams={
-          {dish: {name: "Yummy", desc:"cool", rating: 3, respectiveCafeteria: -1, img: 'https://placehold.co/400'}}
+          { dish: { name: "Yummy", desc: "cool", rating: 3, respectiveCafeteria: -1, img: 'https://placehold.co/400' } }
         }
       />
 
     </Stack.Navigator>
   )
- }
+}
 
-function HomePage({navigation}) {
+function HomePage({ navigation }) {
 
   const [open, setOpen] = useState(false);
   const [search, setSearch] = useState('');
@@ -68,8 +68,8 @@ function HomePage({navigation}) {
     // this response will be recived from the database in the future
     const resp: Dish[] = [
       {
-        name: 'Test0',
-        desc: 'Woah, food!',
+        name: 'Corn bread',
+        desc: 'Woah, corn bread!',
         rating: 2,
         respectiveCafeteria: 0,
         img: 'https://via.placeholder.com/200',
@@ -91,19 +91,19 @@ function HomePage({navigation}) {
       {
         name: 'Coffee',
         desc: 'Hyperactive-inator',
-        rating: 6,
+        rating: 5,
         respectiveCafeteria: 3,
         img: 'https://via.placeholder.com/200',
       },
       {
         name: 'Olive',
         desc: 'Its just one olive.',
-        rating: 2,
+        rating: .5,
         respectiveCafeteria: 4,
         img: 'https://via.placeholder.com/200',
       },
     ]
-    
+
     // do any wrangling of the data
     const filtered = resp.filter(dish => (
       (dish.respectiveCafeteria == restaurant || restaurant == -1) &&
@@ -122,11 +122,11 @@ function HomePage({navigation}) {
         {/* Dropdown Menu */}
         <View style={styles.filterContainer}>
           <View style={styles.searchContainer}>
-            <TextInput 
+            <TextInput
               placeholder="Search for a dish"
               onChangeText={setSearch}
               value={search}
-              style={styles.searchBar}
+              style={[styles.searchBar, { color: 'black' }]}
             />
           </View>
           <View style={styles.dropdownContainer}>
@@ -153,7 +153,7 @@ function HomePage({navigation}) {
             data={getDishData()}
             style={styles.feed}
             renderItem={({ item }) => (
-              <Pressable onPress={() => navigation.navigate("foodPage", {dish: item})}>
+              <Pressable onPress={() => navigation.navigate("foodPage", { dish: item })}>
                 <FoodPanel
                   image={item.img}
                   foodName={item.name}
@@ -166,7 +166,7 @@ function HomePage({navigation}) {
         </View>
       </View>
 
-      <Footer />
+      {/* <Footer /> */}
 
     </View>
   );

@@ -8,15 +8,19 @@ import styles from '@/constants/Styles';
 export default function DetailsPage() {
   return (
     <View style={styles.container}>
-      <View style={{ height: 20 }} />
-      <View style={styles.headerBar}>
-        <Text style={styles.headerAppTitle}>KnightBites</Text>
+      <View style={{ height: 16 }} />
+      <View style={{ backgroundColor: 'maroon', padding: 10, position: 'absolute', top: 0, left: 0, right: 0, height: 60, justifyContent: 'center' }}>
       </View>
+      {/* 'absolute' position includes the top part of the iOS screen that includes the time. */}
+      <View style={{ backgroundColor: 'maroon', padding: 10, position: 'sticky', top: 0, left: 0, right: 0, height: 60, justifyContent: 'center' }}>
+        <Text style={{ color: 'gold', textAlign: 'center', fontSize: 24, fontWeight: 'bold' }}>KnightBites</Text>
+      </View>
+      {/* 'sticky' position sets the banner for the rest of the page. Needs both 'absolute' and 'sticky' to look nice. */}
 
       <View style={styles.mainContainer}>
         <Text style={{ textAlign: 'center' }}> {/* All text on the page is centered. */}
           <Text style={{ fontWeight: 'bold' }}>
-            Welcome to KnightBites!{'\n'}
+            {'\n'}Welcome to KnightBites!{'\n'}
           </Text>
           We want this app to serve as a forum for Calvin students to rank and review the food served at the dining halls on campus.
           {'\n\n'}
@@ -26,7 +30,7 @@ export default function DetailsPage() {
           {'\n\n'}
 
           <Text style={{ fontWeight: 'bold' }}>
-            How to use KnightBites:
+            {'\n'}How to use KnightBites:
           </Text>
           {'\n\n'}
           1. Click on the "Home" tab to view the dishes available. You can also filter by dining hall.
@@ -37,7 +41,10 @@ export default function DetailsPage() {
           {'\n\n'}
           Enjoy!
 
-          {'\n\n\n\n'}{/* Add some space at the bottom of the page */}
+        </Text>
+      </View>
+      <View style={{ backgroundColor: 'maroon', padding: 10 }}>
+        <Text style={{ color: 'white', textAlign: 'center' }}>
           Developed by the KnightBites Team:{'\n'}
           Kenny Howes, Lily McAboy
           {'\n'}
