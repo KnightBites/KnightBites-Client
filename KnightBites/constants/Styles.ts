@@ -131,17 +131,18 @@ const styles = StyleSheet.create({
 
     // The following styles are for the login page. 
     //loginTextBar is the style of entering in the passwords and usernames. 
-
     loginTextBar: {
       borderRadius: 15,
       borderColor: 'black',
       borderWidth: 2,
       width: 250,
+      alignItems: "center",
       padding: 10,
       shadowColor: 'grey',
       shadowOpacity: 0.25,
       elevation: 5,
-      marginVertical: 10
+      marginVertical: 10,
+      position: "sticky",
     },
     loginTextBarHover: {
       borderColor: 'blue' //Testing this, just to see what it looks like later?? 
@@ -149,11 +150,20 @@ const styles = StyleSheet.create({
 
     submitRegistrationButton: {
       borderRadius: 25,
-      borderColor: "pink", 
-      borderWidth: 5, 
+      borderColor: "black", 
+      borderWidth: 2, 
       width: 100,
-      textAlign: "center"
-    }
+      height: 40, 
+      textAlign: "center",
+      alignContent: "center",
+      fontSize: 15
+    },
+    toggleText: {
+      color: 'black',
+      fontSize: 14,
+      marginTop: 8,
+      alignItems: "center"
+    },
 
   });
 
