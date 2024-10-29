@@ -1,20 +1,20 @@
-import { StyleSheet } from "react-native";
+import { StyleSheet, Dimensions } from "react-native";
 import { Colors } from "@/constants/Colors";
 
 const styles = StyleSheet.create({
     headerBar: {
       width: "100%",
-      position: "sticky",
-      padding: 15,
-      alignItems: "center",
+      position: "relative",
+      alignItems: "flex-start",
       flexDirection: "row",
-      flex: 1,
-      marginTop: 20,
-      marginBottom: 20,
+      flex: 1,      
+      marginTop: 5,
+      marginBottom: 20
     },
     headerUser: {
       marginLeft: "auto",
       fontSize: 20,
+      color: "white"
     },
     headerAppTitle: {
       fontSize: 40,
@@ -28,7 +28,7 @@ const styles = StyleSheet.create({
       marginRight: 15,
     },
     container: {
-      flexDirection: "column",
+      flexDirection: "row",
       height: "100%",
       width: "100%",
       backgroundColor: Colors.light.background,
@@ -53,13 +53,19 @@ const styles = StyleSheet.create({
       marginHorizontal: 10,
       width: '100%',
       height: '100%',
+      marginTop: 10,
+      marginBottom: 10,
     },
+
+    // This starts the Dropdown option styles
     dropdownContainer: {
       flex: 1,
       marginHorizontal: 10,
       width: '100%',
       minWidth: 100,
       height: '100%',
+      marginTop: 10,
+      marginBottom: 10,
     },
     dropdown: {
       zIndex: 1000, // Ensure the dropdown input is above other content
@@ -77,6 +83,9 @@ const styles = StyleSheet.create({
     dropdownListItem: {
       fontSize: 15,
     },
+
+    //////////////
+
     searchBar: {
       height: '100%',
       borderColor: 'black',
@@ -156,7 +165,7 @@ const styles = StyleSheet.create({
       height: 40, 
       textAlign: "center",
       alignContent: "center",
-      fontSize: 15
+      fontSize: 15,
     },
     toggleText: {
       color: 'black',

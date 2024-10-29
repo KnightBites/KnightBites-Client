@@ -51,6 +51,13 @@ export default function RegistrationPage({navigation}) {
           onBlur={() => setIsFocused(false)}
           placeholder="Enter your email"
         />
+      
+      <View>
+        <TextInput
+          style={styles.loginTextBar}
+          placeholder="Enter a username">
+        </TextInput>
+      </View>
   
       <View>
         <TextInput
@@ -71,7 +78,7 @@ export default function RegistrationPage({navigation}) {
 
       <TouchableOpacity onPress={() => allowPasswordVisible(!isPasswordVisible)}>
         <Text style={[styles.toggleText, {alignItems: "center", textAlign: "center", marginBottom: 10, textDecorationLine: 'underline' }]}>
-          {isPasswordVisible ? 'Hide Password' : 'Show Password'} 
+          {isPasswordVisible ? 'Hide Passwords' : 'Show Passwords'} 
         </Text>
       </TouchableOpacity>
 
@@ -83,7 +90,7 @@ export default function RegistrationPage({navigation}) {
               registerAccount(username, ps1);
               navigation.navigate("login");
             } else {
-              alert('Check ya passwords: passwords do not match'); //I think this is automatically freaking out since we have no db, so it will always say no
+              alert('Your passwords do not match'); //I think this is automatically freaking out since we have no db, so it will always say no
             }
           }}
         >
