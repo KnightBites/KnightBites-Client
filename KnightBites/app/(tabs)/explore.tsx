@@ -37,7 +37,7 @@ export default function DetailsPage() {
           {'\n\n'}
           2. Click on a dish to view more information about it.
           {'\n\n'}
-          3. Write a review and rate the dish a rating 0-5 stars.
+          3. Write a review and rate the dish a rating 1-5 stars.
           {'\n\n'}
           Enjoy!
 
@@ -50,7 +50,7 @@ export default function DetailsPage() {
           {'\n'}
           Jacob Tocila, Peter Lund
           {'\n'}
-          David Barry, Lucia Li
+          David Barry, Lujia Li
         </Text>
       </View>
 
