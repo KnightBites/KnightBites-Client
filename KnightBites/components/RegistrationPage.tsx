@@ -41,18 +41,17 @@ export default function RegistrationPage({navigation}) {
     const [isPasswordVisible, allowPasswordVisible] = useState(false);
 
     return (
-        <View>
-        <Text>Username: </Text>
+        <View style = {{alignItems: "center"}}>
+        <Text style = {{fontSize: 25, marginBottom: 10, marginTop: 20 }}>Register Your Account </Text>
         <TextInput
           style={[styles.loginTextBar, isFocused && styles.loginTextBarHover]}
           value={username}
           onChangeText={setUsername} // When the user types, it sets the username
           onFocus={() => setIsFocused(true)}
           onBlur={() => setIsFocused(false)}
-          placeholder="Enter a username"
+          placeholder="Enter your email"
         />
   
-  <Text>Password: </Text>
       <View>
         <TextInput
           style={styles.loginTextBar}
@@ -62,14 +61,6 @@ export default function RegistrationPage({navigation}) {
           placeholder="Enter a password"
         />
 
-        <TouchableOpacity onPress={() => allowPasswordVisible(!isPasswordVisible)}>
-          <Text style={styles.toggleText}>
-            {isPasswordVisible ? 'Hide' : 'Show'} 
-          </Text>
-        </TouchableOpacity>
-      </View>
-
-      <Text>Retype Password: </Text>
       <TextInput
         style={styles.loginTextBar}
         value={ps2}
@@ -77,6 +68,14 @@ export default function RegistrationPage({navigation}) {
         secureTextEntry={!isPasswordVisible}  
         placeholder="Re-enter the password"
       />
+
+      <TouchableOpacity onPress={() => allowPasswordVisible(!isPasswordVisible)}>
+        <Text style={[styles.toggleText, {alignItems: "center", textAlign: "center", marginBottom: 10, textDecorationLine: 'underline' }]}>
+          {isPasswordVisible ? 'Hide Password' : 'Show Password'} 
+        </Text>
+      </TouchableOpacity>
+
+      </View>
   
         <TouchableOpacity
           onPress={() => {
@@ -91,7 +90,7 @@ export default function RegistrationPage({navigation}) {
           <Text style = {styles.submitRegistrationButton}>Submit</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity onPress={() => navigation.navigate("login")}><Text>Already have an account? Login here.</Text></TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate("login")}><Text style = {{marginTop: 15, color: "blue"}}>Already have an account? Login here.</Text></TouchableOpacity>
 
       </View>
     );
