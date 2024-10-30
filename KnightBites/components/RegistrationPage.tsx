@@ -28,6 +28,11 @@ function validatePassword(ps1: string, ps2: string): boolean {
     )
 }
 
+function registerDietaryRestrictions(vegan: boolean, vegetarian: boolean, halal: boolean){
+  // hit db here
+}
+
+
 function registerAccount(username: string, password: string) {
     // hit db here
 }
@@ -39,6 +44,16 @@ export default function RegistrationPage({navigation}) {
     const [ ps2, setPs2 ] = useState("");
     const [isFocused, setIsFocused] = useState(false);
     const [isPasswordVisible, allowPasswordVisible] = useState(false);
+    const [vegan, setVegan] = useState(false)
+    const [vegetarian, setVegetarian] = useState(false);
+    const [selected, setSelected] = useState({ vegan: false, vegetarian: false, halal: false });
+
+    const handleSelect = (type) => {
+      setSelected((prevSelected) => ({
+        ...prevSelected,
+        [type]: !prevSelected[type], // Toggle selection for the chosen type
+      }));
+    };
 
     return (
         <View style = {{alignItems: "center"}}>
@@ -83,8 +98,33 @@ export default function RegistrationPage({navigation}) {
       </TouchableOpacity>
 
       </View>
+
+      <Text> Please select your dietary restrictions.</Text>
+
+      <View style = {styles.dietaryRestrictionContainer}>
+      <TouchableOpacity
+        style={[styles.dietaryRestrictionButton, selected.vegan && styles.dietaryRestrictionButtonSelection]}
+        onPress={() => handleSelect('vegan')}
+      >
+        <Text>Vegan</Text>
+      </TouchableOpacity>
+      <TouchableOpacity
+        style={[styles.dietaryRestrictionButton, selected.vegetarian && styles.dietaryRestrictionButtonSelection]}
+        onPress={() => handleSelect('vegetarian')}
+      >
+        <Text>Vegetarian</Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity
+        style={[styles.dietaryRestrictionButton, selected.halal && styles.dietaryRestrictionButtonSelection]}
+        onPress={() => handleSelect('halal')}
+      >
+        <Text>Halal</Text>
+      </TouchableOpacity>
+
+      </View>
   
-        <TouchableOpacity
+        <TouchableOpacity style = {styles.submitRegistrationButton}
           onPress={() => {
             if (validatePassword(ps1, ps2)) {
               registerAccount(username, ps1);
@@ -94,7 +134,7 @@ export default function RegistrationPage({navigation}) {
             }
           }}
         >
-          <Text style = {styles.submitRegistrationButton}>Submit</Text>
+          <Text>Submit</Text>
         </TouchableOpacity>
 
         <TouchableOpacity onPress={() => navigation.navigate("login")}><Text style = {{marginTop: 15, color: "blue"}}>Already have an account? Login here.</Text></TouchableOpacity>
