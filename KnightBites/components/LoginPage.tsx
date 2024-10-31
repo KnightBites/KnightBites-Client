@@ -21,7 +21,7 @@ export default function LoginPage({navigation}) {
 
   return (
       <View style = {{alignItems: "center"}}>
-      <Text style = {{fontSize: 25, marginBottom: 10, marginTop: 20 }}>Log In </Text>
+      <Text style = {{fontSize: 25, marginBottom: 10, marginTop: 40 }}>Log In </Text>
       <TextInput
         style={[styles.loginTextBar, isFocused && styles.loginTextBarHover] }
         value={username}
@@ -50,13 +50,14 @@ export default function LoginPage({navigation}) {
           if (validateAccount(username, pass)) {
             navigation.navigate("home");
           } else {
-            alert('Passwords do not match'); //I think this is automatically freaking out since we have no db, so it will always say no
+            alert('Your username or password is incorrect. Try again.'); //I think this is automatically freaking out since we have no db, so it will always say no
           }
         }}
       >
         <Text style = {[styles.submitRegistrationButton]}>Submit</Text>
       </TouchableOpacity>
     <TouchableOpacity onPress={() => navigation.navigate("registration")}><Text style = {{marginTop: 15, color: "blue"}}>Don't have an account? Register here.</Text></TouchableOpacity>
+    <TouchableOpacity onPress={() => navigation.navigate("recovery")}><Text style = {{marginTop: 15, color: "blue"}}>Forgot your password? Recover account here. </Text></TouchableOpacity>
     </View>
   );
 };

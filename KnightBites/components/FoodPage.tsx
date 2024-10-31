@@ -91,10 +91,12 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     alignContent: "center",
+    borderRadius: 15
   },
   commentEntry: {
     backgroundColor: "white",
     borderWidth: 2,
     minWidth: 200,
+    borderRadius: 200
   },
 });

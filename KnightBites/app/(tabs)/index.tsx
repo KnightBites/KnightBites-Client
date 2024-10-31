@@ -14,6 +14,7 @@ import Dish from "@/interfaces/Dish";
 import FoodPage from "@/components/FoodPage";
 import LoginPage from "@/components/LoginPage";
 import RegisterPage from "@/components/RegistrationPage";
+import RecoverPage from "@/components/RecoverAccountPage";
 ////////
 
 const Stack = createNativeStackNavigator();
@@ -41,6 +42,7 @@ export default function EntryPoint() {
       />
       <Stack.Screen name="login" component={LoginPage} />
       <Stack.Screen name="registration" component={RegisterPage} />
+      <Stack.Screen name="recovery" component={RecoverPage} />
 
     </Stack.Navigator>
   )
