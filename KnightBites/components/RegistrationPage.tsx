@@ -5,6 +5,7 @@ import {
     Linking,
 } from 'react-native';
 import styles from '@/constants/Styles';
+import { Colors } from '@/constants/Colors';
 
 
 // NOT IN WORKING STATE
@@ -56,7 +57,7 @@ export default function RegistrationPage({navigation}) {
     };
 
     return (
-        <View style = {{alignItems: "center"}}>
+      <View style = {{alignItems: "center", flex: 1, backgroundColor: Colors.light.background}}>
         <Text style = {{fontSize: 25, marginBottom: 10, marginTop: 20 }}>Register Your Account </Text>
         <TextInput
           style={[styles.loginTextBar, isFocused && styles.loginTextBarHover]}
@@ -67,62 +68,62 @@ export default function RegistrationPage({navigation}) {
           placeholder="Enter your email"
         />
       
-      <View>
-        <TextInput
-          style={styles.loginTextBar}
-          placeholder="Enter a username">
-        </TextInput>
-      </View>
+        <View>
+          <TextInput
+            style={styles.loginTextBar}
+            placeholder="Enter a username">
+          </TextInput>
+        </View>
   
-      <View>
-        <TextInput
-          style={styles.loginTextBar}
-          value={ps1}
-          onChangeText={setPs1}
-          secureTextEntry={!isPasswordVisible} 
-          placeholder="Enter a password"
-        />
+        <View>
+          <TextInput
+            style={styles.loginTextBar}
+            value={ps1}
+            onChangeText={setPs1}
+            secureTextEntry={!isPasswordVisible} 
+            placeholder="Enter a password"
+          />
 
-      <TextInput
-        style={styles.loginTextBar}
-        value={ps2}
-        onChangeText={setPs2}
-        secureTextEntry={!isPasswordVisible}  
-        placeholder="Re-enter the password"
-      />
+          <TextInput
+            style={styles.loginTextBar}
+            value={ps2}
+            onChangeText={setPs2}
+            secureTextEntry={!isPasswordVisible}  
+            placeholder="Re-enter the password"
+          />
 
-      <TouchableOpacity onPress={() => allowPasswordVisible(!isPasswordVisible)}>
-        <Text style={[styles.toggleText, {alignItems: "center", textAlign: "center", marginBottom: 10, textDecorationLine: 'underline' }]}>
-          {isPasswordVisible ? 'Hide Passwords' : 'Show Passwords'} 
-        </Text>
-      </TouchableOpacity>
+          <TouchableOpacity onPress={() => allowPasswordVisible(!isPasswordVisible)}>
+            <Text style={[styles.toggleText, {alignItems: "center", textAlign: "center", marginBottom: 10, textDecorationLine: 'underline' }]}>
+              {isPasswordVisible ? 'Hide Passwords' : 'Show Passwords'} 
+            </Text>
+          </TouchableOpacity>
 
-      </View>
+        </View>
 
-      <Text> Please select your dietary restrictions.</Text>
+        <Text> Please select your dietary restrictions.</Text>
 
-      <View style = {styles.dietaryRestrictionContainer}>
-      <TouchableOpacity
-        style={[styles.dietaryRestrictionButton, selected.vegan && styles.dietaryRestrictionButtonSelection]}
-        onPress={() => handleSelect('vegan')}
-      >
-        <Text>Vegan</Text>
-      </TouchableOpacity>
-      <TouchableOpacity
-        style={[styles.dietaryRestrictionButton, selected.vegetarian && styles.dietaryRestrictionButtonSelection]}
-        onPress={() => handleSelect('vegetarian')}
-      >
-        <Text>Vegetarian</Text>
-      </TouchableOpacity>
+        <View style = {styles.dietaryRestrictionContainer}>
+          <TouchableOpacity
+            style={[styles.dietaryRestrictionButton, selected.vegan && styles.dietaryRestrictionButtonSelection]}
+            onPress={() => handleSelect('vegan')}
+          >
+            <Text>Vegan</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={[styles.dietaryRestrictionButton, selected.vegetarian && styles.dietaryRestrictionButtonSelection]}
+            onPress={() => handleSelect('vegetarian')}
+          >
+            <Text>Vegetarian</Text>
+          </TouchableOpacity>
 
-      <TouchableOpacity
-        style={[styles.dietaryRestrictionButton, selected.halal && styles.dietaryRestrictionButtonSelection]}
-        onPress={() => handleSelect('halal')}
-      >
-        <Text>Halal</Text>
-      </TouchableOpacity>
+          <TouchableOpacity
+            style={[styles.dietaryRestrictionButton, selected.halal && styles.dietaryRestrictionButtonSelection]}
+            onPress={() => handleSelect('halal')}
+          >
+            <Text>Halal</Text>
+          </TouchableOpacity>
 
-      </View>
+        </View>
   
         <TouchableOpacity style = {styles.submitRegistrationButton}
           onPress={() => {

@@ -147,7 +147,7 @@ const styles = StyleSheet.create({
       width: 250,
       alignItems: "center",
       padding: 10,
-      shadowColor: 'grey',
+      shadowColor: Colors.light.background,
       shadowOpacity: 0.25,
       elevation: 5,
       marginVertical: 10,
