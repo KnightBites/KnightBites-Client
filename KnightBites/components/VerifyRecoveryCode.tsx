@@ -5,7 +5,6 @@ import {
     Linking, Alert
 } from 'react-native';
 import styles from '@/constants/Styles';
-import { Colors } from '@/constants/Colors';
 
 
 // NOT IN WORKING STATE
@@ -51,9 +50,9 @@ export default function RegistrationPage({navigation}) {
 
 
     return (
-      <View style = {{alignItems: "center", flex: 1, backgroundColor: Colors.light.background}}>
+        <View style = {{alignItems: "center"}}>
         <Text style = {{fontSize: 25, marginBottom: 10, marginTop: 20 }}>Recover Your Account </Text>
-        <Text style = {{marginLeft: 25, marginRight: 25, textAlign: 'center'}}> We'll send you a recovery code to reset your username or password. </Text>
+        <Text> We'll send you a recovery code to reset your username or password. </Text>
         <TextInput
           style={[styles.loginTextBar, isFocused && styles.loginTextBarHover, {marginTop: 15, marginBottom: 15}]}
           value={email}
@@ -64,18 +63,18 @@ export default function RegistrationPage({navigation}) {
         />
 
   
-        <TouchableOpacity style = {styles.submitRegistrationButton}
-          onPress={() => {
-            if (!email || !isValidEmail(email)) {
-              Alert.alert('Invalid Email', 'Please enter a valid recovery email.');
-            } else {
-              // IN PROGRESS: The body should be a function as well. 
-              sendRecoveryEmail("Recover Your KnightBites Account", "Here is your recovery code: ", email);
-            }
-          }}
-        >
-          <Text>Send Email</Text>
-        </TouchableOpacity>
+    <TouchableOpacity
+      onPress={() => {
+        if (!email || !isValidEmail(email)) {
+          Alert.alert('Invalid Email', 'Please enter a valid recovery email.');
+        } else {
+          // IN PROGRESS: The body should be a function as well. 
+          sendRecoveryEmail("Recover Your KnightBites Account", "Here is your recovery code: ", email);
+        }
+      }}
+    >
+      <Text style={styles.submitRegistrationButton}>Send Email</Text>
+</TouchableOpacity>
 
         <TouchableOpacity onPress={() => navigation.navigate("login")}><Text style = {{marginTop: 15, color: "blue"}}>Remember your credentials? Login here.</Text></TouchableOpacity>
 

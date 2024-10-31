@@ -148,7 +148,7 @@ const styles = StyleSheet.create({
       width: 250,
       alignItems: "center",
       padding: 10,
-      shadowColor: 'grey',
+      shadowColor: Colors.light.background,
       shadowOpacity: 0.25,
       elevation: 5,
       marginVertical: 10,
@@ -165,14 +165,41 @@ const styles = StyleSheet.create({
       width: 100,
       height: 40, 
       textAlign: "center",
-      alignContent: "center",
       fontSize: 15,
+      alignItems: 'center',
+      justifyContent: 'center'
     },
     toggleText: {
       color: 'black',
       fontSize: 14,
       marginTop: 8,
       alignItems: "center"
+    },
+
+
+    // This is for the registration buttons page to select vegan
+
+    dietaryRestrictionContainer: {
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      padding: 20
+    },
+
+    dietaryRestrictionButton: {
+      flex: 1,
+      marginHorizontal: 5,
+      height: 50,
+      width: 150,
+      justifyContent: 'center',
+      alignItems: 'center',
+      backgroundColor: Colors.light.background, 
+      borderRadius: 25,
+      borderColor: "black",
+      borderWidth: 2,
+    },
+
+    dietaryRestrictionButtonSelection: {
+      backgroundColor: 'gold',
     },
 
   });
