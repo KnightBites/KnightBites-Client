@@ -15,6 +15,7 @@ import FoodPage from "@/components/FoodPage";
 import LoginPage from "@/components/LoginPage";
 import RegisterPage from "@/components/RegistrationPage";
 import RecoverPage from "@/components/RecoverAccountPage";
+import ProfilePage from "@/components/ProfilePage";
 ////////
 
 const Stack = createNativeStackNavigator();
@@ -23,14 +24,14 @@ export default function EntryPoint() {
   return (
     <Stack.Navigator
       initialRouteName="login"
-      screenOptions={{
+      screenOptions={({navigation}) => ({
         headerTitle: props => <Header />,
         headerStyle: {
           backgroundColor: "#880015",
           height: 70,
         },
-        headerRight: props => <HeaderRight />,
-      }}
+        headerRight: props => <HeaderRight navigation={navigation}/>,
+      })}
     >
       <Stack.Screen name="home" component={HomePage}
         options={{headerLeft: props => {}}} // to get rid of button going back to login page
@@ -43,6 +44,7 @@ export default function EntryPoint() {
       <Stack.Screen name="login" component={LoginPage} />
       <Stack.Screen name="registration" component={RegisterPage} />
       <Stack.Screen name="recovery" component={RecoverPage} />
+      <Stack.Screen name="profile" component={ProfilePage} />
 
     </Stack.Navigator>
   )
