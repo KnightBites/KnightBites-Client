@@ -1,219 +1,132 @@
-import { StyleSheet, Text, View, Image, TextInput, TouchableOpacity } from "react-native";
-import { useState, useEffect } from "react";
-import { Colors } from "@/constants/Colors";
+import React, { useState } from 'react';
+import { View, Text, Button, StyleSheet, Image, TouchableOpacity } from 'react-native';
 
-function storeProfile(username, profile) {
-    // store the profile data in the database
+const ProfilePage = () => {
+  const [profile, setProfile] = useState({
+    restrictions: {
+      vegan: false,
+      vegetarian: false,
+      halal: false,
+    },
+  });
 
-}
+  const editProfile = (restriction: string, value: boolean) => {
+    setProfile((prevProfile) => ({
+      ...prevProfile,
+      restrictions: {
+        ...prevProfile.restrictions,
+        [restriction]: value,
+      },
+    }));
+  };
 
-function getProfile(username) {
-    // get the profile data from the database
+  return (
+    <View style={styles.container}>
+      <View style={styles.header}>
+        <Text style={styles.greeting}>Hi, Kenny!</Text>
+      </View>
 
-    // (just a sample profile, format can be changed later)
-    return {
-        username: "TheRealSoldierTF2",
-        pref_name: "Jane Doe",
-        email: "ifyaknowwhatsgoodforyouyouwillrun@mann.co",
-        password: "iffightingissuretoresultinvictorythenyoumustfight!",
-        restrictions: {
-            vegan: false,
-            vegitarian: true, // (not character accurate, IK, just for testing)
-            halal: false
-        },
-        allergies: {
-            dairy: false,
-            gluten: false,
-            nuts: true, // (probably not character accurate, IK, just for testing)
-        },
-        // just for example; could easily be omitted.
-        settings: {
-            notifications: true
-        }
-    }
-}
+      <View style={styles.optionsContainer}>
+        <Text style={styles.option}>Preferred Name</Text>
+        <Text style={styles.option}>Change Password</Text>
+        <Text style={styles.option}>Change Email Address</Text>
+        <Text style={styles.option}>Settings</Text>
 
-export default function ProfilePage({navigation}) {
-
-    const [ profile, setProfile] = useState();
-    const [ loading, setLoading ] = useState(true);
-
-    // sorry this is so ugly. Turns out, updating one value in a useState dictionary isn't a very clean process. 
-    function editProfile(setting, value) {
-        // edit the profile setting
-    
-        if(setting === "pref_name") {
-            setProfile(profile => ({
-                ...profile,
-                pref_name: value
-            }));
-        }
-
-        else if (setting === "vegan") {
-            if (value) {
-                setProfile(profile => ({
-                    ...profile,
-                    restrictions: {
-                        ...profile.restrictions,
-                        vegan: true,
-                        vegitarian: true
-                    }
-                }));
-            } else {
-                setProfile(profile => ({
-                    ...profile,
-                    restrictions: {
-                        ...profile.restrictions,
-                        vegan: false,
-                    }
-                }));
-            }
-        }
-
-        else if (setting === "vegitarian") {
-            if (value) {
-                setProfile(profile => ({
-                    ...profile,
-                    restrictions: {
-                        ...profile.restrictions,
-                        vegitarian: true
-                    }
-                }));
-            } else {
-                setProfile(profile => ({
-                    ...profile,
-                    restrictions: {
-                        ...profile.restrictions,
-                        vegitarian: false,
-                        vegan: false
-                    }
-                }));
-            }
-        }
-
-        else if (setting === "halal") {
-            setProfile(profile => ({
-                ...profile,
-                restrictions: {
-                    ...profile.restrictions,
-                    halal: value,
-                }
-            }));
-        }
-    
-        // save changes to DB (might want to add a save button instead, but this is good for now)
-        storeProfile(profile.username, profile);
-    }
-
-    useEffect(() => {
-        setProfile(getProfile("example"));
-        setLoading(false);
-    }, []);
-
-    return (
-        loading ? <Text>Loading...</Text> : (
-        <View style={styles.container}>
-            <View style={styles.welcome}>
-                <Text style={styles.welcome}>Hello, {profile.pref_name}</Text>
-            </View>
-
-            {/*Not options, just some info*/}
-            <View style={styles.optionContainer}>
-                <Text style={styles.optionLabel}>Username: {profile.username}</Text>
-                <Text style={styles.optionLabel}>Email: {profile.email}</Text>
-            </View>
-
-            <View style={styles.optionContainer}>
-                <Text style={styles.optionLabel}>Preferred Name:</Text>
-                <TextInput style={styles.optionInput} value={profile.pref_name} onChangeText={(text) => editProfile("pref_name", text)} />
-                <TouchableOpacity style={styles.optionButton}>
-                    <Text style={styles.buttonText}>Change Password</Text>
-                </TouchableOpacity>
-            </View>
-
-            <View style={styles.optionContainer}>
-                <Text style={styles.optionLabel}>Dietary restrictions:</Text>
-                <View style={{flexDirection: 'row'}}>
-                    <TouchableOpacity style={(profile.restrictions.vegan) ? styles.toggleableButtonOn : styles.toggleableButtonOff} onPress={() => editProfile("vegan", !profile.restrictions.vegan)}><Text style={styles.buttonText}>Vegan</Text></TouchableOpacity>
-                    <TouchableOpacity style={(profile.restrictions.vegitarian) ? styles.toggleableButtonOn : styles.toggleableButtonOff} onPress={() => editProfile("vegitarian", !profile.restrictions.vegitarian)}><Text style={styles.buttonText}>Vegitarian</Text></TouchableOpacity>
-                    <TouchableOpacity style={(profile.restrictions.halal) ? styles.toggleableButtonOn : styles.toggleableButtonOff} onPress={() => editProfile("halal", !profile.restrictions.halal)}><Text style={styles.buttonText}>Halal</Text></TouchableOpacity>
-                </View>
-            </View>
+        {/* Dietary Restrictions Section */}
+        <View style={styles.optionContainer}>
+          <Text style={styles.optionLabel}>Dietary Restriction:</Text>
+          <View style={{ flexDirection: 'row' }}>
+            <TouchableOpacity
+              style={profile.restrictions.vegan ? styles.toggleableButtonOn : styles.toggleableButtonOff}
+              onPress={() => editProfile('vegan', !profile.restrictions.vegan)}
+            >
+              <Text style={styles.buttonText}>Vegan</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={profile.restrictions.vegetarian ? styles.toggleableButtonOn : styles.toggleableButtonOff}
+              onPress={() => editProfile('vegetarian', !profile.restrictions.vegetarian)}
+            >
+              <Text style={styles.buttonText}>Vegetarian</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={profile.restrictions.halal ? styles.toggleableButtonOn : styles.toggleableButtonOff}
+              onPress={() => editProfile('halal', !profile.restrictions.halal)}
+            >
+              <Text style={styles.buttonText}>Halal</Text>
+            </TouchableOpacity>
+          </View>
         </View>
-    ))
-}
+      </View>
+
+      <TouchableOpacity style={styles.logoutButton}>
+        <Text style={styles.logoutText}>Log Out</Text>
+      </TouchableOpacity>
+    </View>
+  );
+};
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: Colors.light.background,
-    alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor: '#fff',
+    padding: 20,
   },
-  welcome: {
-    fontSize: 48,
+  header: {
+    alignItems: 'flex-start',
+    marginBottom: 10,
+  },
+  greeting: {
+    fontSize: 24,
     fontWeight: 'bold',
-    textAlign: 'center',
-    justifyContent: 'center',
-    width: '100%',
+    marginTop: 20,
+    alignSelf: 'flex-start',
+  },
+  optionsContainer: {
     flex: 1,
-    margin: 10,
+    marginTop: 20,
+  },
+  option: {
+    fontSize: 18,
+    marginVertical: 20,
+    fontWeight: 'bold',
+
   },
   optionContainer: {
-    flex: 1,
-    flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'center',
-    width: '100%',
-    margin: 10,
+    marginVertical: 20,
   },
   optionLabel: {
-    fontSize: 20,
-    textAlign: 'center',
-    width: '100%',
-  },
-  optionInput: {
-    fontSize: 28,
-    backgroundColor: "#ddd",
-    textAlign: 'center',
-    width: '40%',
-    minWidth: 300,
-    borderWidth: 4,
-    padding: 5,
-  },
-  optionButton: {
-    width: '80%',
-    borderColor: Colors.light.text,
-    borderRadius: 20,
-    borderWidth: 4,
-    padding: 5,
-    margin: 5,
-    backgroundColor: "#ffbbbb"
-  },
-  buttonText: {
-    fontSize: 20,
-    textAlign: 'center',
-  },
-  toggleableButtonOff: {
-    backgroundColor: "#888",
-    fontSize: 24,
-    textAlign: 'center',
-    justifyContent: 'center',
-    borderRadius: 20,
-    borderWidth: 4,
-    padding: 8,
-    margin: 5,
-    flex: 1,
+    fontSize: 18,
+    marginBottom: 10,
+    fontWeight: 'bold',
   },
   toggleableButtonOn: {
-    backgroundColor: "gold",
-    fontSize: 24,
-    textAlign: 'center',
-    justifyContent: 'center',
-    borderRadius: 20,
-    borderWidth: 4,
-    padding: 8,
-    margin: 5,
-    flex: 1,
+    backgroundColor: '#891B2F',
+    padding: 10,
+    borderRadius: 5,
+    marginRight: 10,
+  },
+  toggleableButtonOff: {
+    backgroundColor: '#ddd',
+    padding: 10,
+    borderRadius: 5,
+    marginRight: 10,
+  },
+  buttonText: {
+    color: '#fff',
+    fontWeight: 'bold',
+  },
+  logoutButton: {
+    backgroundColor: '#891B2F',
+    borderRadius: 10,
+    padding: 15,
+    alignItems: 'center',
+    marginTop: 20,
+  },
+  logoutText: {
+    color: '#fff',
+    fontSize: 18,
+    fontWeight: 'bold',
   },
 });
+
+export default ProfilePage;
