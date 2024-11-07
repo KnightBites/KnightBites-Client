@@ -5,23 +5,6 @@ import StarRating from "@/components/StarRating";
 import RankableStars from "@/components/RankableStars";
 import { Colors } from "@/constants/Colors";
 
-function translateCafeteria(value: number) {
-  switch(value) {
-    case(-1):
-      return "Everywhere";
-    case(0):
-      return "Commons";
-    case(1):
-      return "Knollcreset";
-    case(2):
-      return "Johnny's";
-    case(3):
-      return "Peet's";
-    case(4):
-      return "Upper Crust";
-  }
-}
-
 function recordComment(comment: String) {
   // this will talk to the database in the future
 }
@@ -37,12 +20,12 @@ export default function FoodPage({route, navigation}) {
         <View style={styles.headerInfo}>
           <Image style={styles.image} source={{uri: dish.img}} />
           <View style={styles.nameAndRating}>
-            <Text style={styles.name}>{dish.name}</Text>
+            <Text style={styles.name}>{dish.foodname}</Text>
             <StarRating foodRating={dish.rating}></StarRating>
           </View>
         </View>
-        <Text style={styles.description}>{dish.desc}</Text>
-        <Text style={styles.locations}>Locations: {translateCafeteria(dish.respectiveCafeteria)}</Text>
+        <Text style={styles.description}>{dish.description}</Text>
+        <Text style={styles.locations}>Location: {dish.dininghall}</Text>
       </View>
       <View style={styles.yourRating}>
         <Text>Your Rating: </Text>
