@@ -1,20 +1,21 @@
-import { StyleSheet } from "react-native";
+import { StyleSheet, Dimensions } from "react-native";
 import { Colors } from "@/constants/Colors";
+import { ColorSpace } from "react-native-reanimated";
 
 const styles = StyleSheet.create({
     headerBar: {
       width: "100%",
-      position: "sticky",
-      padding: 15,
-      alignItems: "center",
+      position: "relative",
+      alignItems: "flex-start",
       flexDirection: "row",
-      flex: 1,
-      marginTop: 20,
-      marginBottom: 20,
+      flex: 1,      
+      marginTop: 5,
+      marginBottom: 20
     },
     headerUser: {
       marginLeft: "auto",
       fontSize: 20,
+      color: "white"
     },
     headerAppTitle: {
       fontSize: 40,
@@ -28,7 +29,7 @@ const styles = StyleSheet.create({
       marginRight: 15,
     },
     container: {
-      flexDirection: "column",
+      flexDirection: "row",
       height: "100%",
       width: "100%",
       backgroundColor: Colors.light.background,
@@ -53,13 +54,19 @@ const styles = StyleSheet.create({
       marginHorizontal: 10,
       width: '100%',
       height: '100%',
+      marginTop: 10,
+      marginBottom: 10,
     },
+
+    // This starts the Dropdown option styles
     dropdownContainer: {
       flex: 1,
       marginHorizontal: 10,
       width: '100%',
       minWidth: 100,
       height: '100%',
+      marginTop: 10,
+      marginBottom: 10,
     },
     dropdown: {
       zIndex: 1000, // Ensure the dropdown input is above other content
@@ -77,6 +84,9 @@ const styles = StyleSheet.create({
     dropdownListItem: {
       fontSize: 15,
     },
+
+    //////////////
+
     searchBar: {
       height: '100%',
       borderColor: 'black',
@@ -131,17 +141,18 @@ const styles = StyleSheet.create({
 
     // The following styles are for the login page. 
     //loginTextBar is the style of entering in the passwords and usernames. 
-
     loginTextBar: {
       borderRadius: 15,
       borderColor: 'black',
       borderWidth: 2,
       width: 250,
+      alignItems: "center",
       padding: 10,
-      shadowColor: 'grey',
+      shadowColor: Colors.light.background,
       shadowOpacity: 0.25,
       elevation: 5,
-      marginVertical: 10
+      marginVertical: 10,
+      position: "sticky",
     },
     loginTextBarHover: {
       borderColor: 'blue' //Testing this, just to see what it looks like later?? 
@@ -149,12 +160,48 @@ const styles = StyleSheet.create({
 
     submitRegistrationButton: {
       borderRadius: 25,
-      borderColor: "pink", 
-      borderWidth: 5, 
+      borderColor: "black", 
+      borderWidth: 2, 
       width: 100,
-      textAlign: "center"
-    }
+      height: 40, 
+      textAlign: "center",
+      fontSize: 15,
+      alignItems: 'center',
+      justifyContent: 'center'
+    },
+    toggleText: {
+      color: 'black',
+      fontSize: 14,
+      marginTop: 8,
+      alignItems: "center"
+    },
+
+
+    // This is for the registration buttons page to select vegan
+
+    dietaryRestrictionContainer: {
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      padding: 20
+    },
+
+    dietaryRestrictionButton: {
+      flex: 1,
+      marginHorizontal: 5,
+      height: 50,
+      width: 150,
+      justifyContent: 'center',
+      alignItems: 'center',
+      backgroundColor: Colors.light.background, 
+      borderRadius: 25,
+      borderColor: "black",
+      borderWidth: 2,
+    },
+
+    dietaryRestrictionButtonSelection: {
+      backgroundColor: 'gold',
+    },
 
   });
 
-  export default styles;
+export default styles;

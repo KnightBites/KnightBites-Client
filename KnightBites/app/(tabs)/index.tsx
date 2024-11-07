@@ -14,6 +14,7 @@ import Dish from "@/interfaces/Dish";
 import FoodPage from "@/components/FoodPage";
 import LoginPage from "@/components/LoginPage";
 import RegisterPage from "@/components/RegistrationPage";
+import RecoverPage from "@/components/RecoverAccountPage";
 ////////
 
 const Stack = createNativeStackNavigator();
@@ -36,15 +37,16 @@ export default function EntryPoint() {
       />
       <Stack.Screen name="foodPage" component={FoodPage} 
         initialParams={
-          {dish: {name: "Yummy", desc:"cool", rating: 3, respectiveCafeteria: -1, img: 'https://placehold.co/400'}}
+          { dish: { name: "Yummy", desc: "cool", rating: 3, respectiveCafeteria: -1, img: 'https://placehold.co/400' } }
         }
       />
       <Stack.Screen name="login" component={LoginPage} />
       <Stack.Screen name="registration" component={RegisterPage} />
+      <Stack.Screen name="recovery" component={RecoverPage} />
 
     </Stack.Navigator>
   )
- }
+}
 
 function HomePage({navigation}) {
   const [open, setOpen] = useState(false);
@@ -106,11 +108,11 @@ function HomePage({navigation}) {
         {/* Dropdown Menu */}
         <View style={styles.filterContainer}>
           <View style={styles.searchContainer}>
-            <TextInput 
+            <TextInput
               placeholder="Search for a dish"
               onChangeText={setSearch}
               value={search}
-              style={styles.searchBar}
+              style={[styles.searchBar, { color: 'black' }]}
             />
           </View>
           <View style={styles.dropdownContainer}>
