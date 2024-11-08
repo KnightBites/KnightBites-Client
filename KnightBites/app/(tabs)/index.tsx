@@ -66,7 +66,7 @@ function HomePage({navigation}) {
   const getDishData = async () => {
     try {
       const resp = await fetch(
-        "https://knightbitesapp-cda7eve7fce3dkgy.eastus2-01.azurewebsites.net/diningfood"
+        "https://knightbitesapp-cda7eve7fce3dkgy.eastus2-01.azurewebsites.net/dish"
       );
       const json = await resp.json();
       setDishData(json.map(dish => ({rating: Math.round(Math.random() * 10) / 2, ...dish}))); // add rating to dish
