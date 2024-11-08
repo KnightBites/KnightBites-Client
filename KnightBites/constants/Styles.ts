@@ -176,32 +176,6 @@ const styles = StyleSheet.create({
       alignItems: "center"
     },
 
-
-    // This is for the registration buttons page to select vegan
-
-    dietaryRestrictionContainer: {
-      flexDirection: 'row',
-      justifyContent: 'space-between',
-      padding: 20
-    },
-
-    dietaryRestrictionButton: {
-      flex: 1,
-      marginHorizontal: 5,
-      height: 50,
-      width: 150,
-      justifyContent: 'center',
-      alignItems: 'center',
-      backgroundColor: Colors.light.background, 
-      borderRadius: 25,
-      borderColor: "black",
-      borderWidth: 2,
-    },
-
-    dietaryRestrictionButtonSelection: {
-      backgroundColor: 'gold',
-    },
-
   });
 
 export default styles;
