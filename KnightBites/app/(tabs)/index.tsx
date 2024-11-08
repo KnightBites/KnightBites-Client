@@ -58,7 +58,7 @@ function HomePage({navigation}) {
     { label: 'Everywhere', value: -1 },
     { label: 'Commons Dining Hall', value: "Commons" },
     { label: 'Knollcrest Dining Hall', value: "Knollcrest" },
-    { label: 'Johnny\'s Cafe', value: "Johnnys" },
+    { label: 'Johnny\'s', value: "Johnny\'s" },
     { label: 'Peet\'s Coffee', value: "Peets" },
     { label: 'UpperCrust', value: "UpperCrust" },
   ]);
@@ -68,10 +68,14 @@ function HomePage({navigation}) {
   const getDishData = async () => {
     try {
       const resp = await fetch(
-        "https://knightbitesapp-cda7eve7fce3dkgy.eastus2-01.azurewebsites.net/diningfood"
+        "https://knightbitesapp-cda7eve7fce3dkgy.eastus2-01.azurewebsites.net/dish"
       );
       const json = await resp.json();
-      setDishData(json.map(dish => ({rating: Math.round(Math.random() * 10) / 2, ...dish}))); // add rating to dish
+      setDishData(json.map(dish => ({
+        ...dish,
+        rating: dish.overallrating || Math.round(Math.random() * 10) / 2,
+        img: "https://placehold.co/200",
+      }))); // add rating to dish
     } catch (err) {
       console.error(err);
     } finally {
@@ -88,7 +92,7 @@ function HomePage({navigation}) {
     description: 'Try a different search',
     rating: 0,
     dininghall: "",
-    img: 'https://via.placeholder.com/200',
+    img: 'https://placehold.co/200',
   }]
 
   const getFilteredDishData = (): Dish[] => {
