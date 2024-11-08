@@ -1,8 +1,16 @@
 import React, { useState } from 'react';
-import { View, Text, Button, StyleSheet, Image, TouchableOpacity } from 'react-native';
+import Icon from 'react-native-vector-icons/FontAwesome';
+import { Modal, View, Text, TextInput, Button, StyleSheet, Image, TouchableOpacity } from 'react-native';
+import { validatePathConfig } from '@react-navigation/native';
 
 const ProfilePage = () => {
+  const [editingName, setEditingName] = useState(false);
+  const [changingPassword, setChangingPassword] = useState(false);
+  const [changingEmail, setChangingEmail] = useState(false);
+  const [changingSettings, setChangingSettings] = useState(false);
+
   const [profile, setProfile] = useState({
+    name: "Kenny",
     restrictions: {
       vegan: false,
       vegetarian: false,
@@ -10,7 +18,14 @@ const ProfilePage = () => {
     },
   });
 
-  const editProfile = (restriction: string, value: boolean) => {
+  const editProfile = (key: string, value: any) => {
+    setProfile((prevProfile) => ({
+      ...prevProfile,
+      [key]: value
+    }));
+  };
+
+  const editProfileRestriction = (restriction: string, value: boolean) => {
     setProfile((prevProfile) => ({
       ...prevProfile,
       restrictions: {
@@ -23,14 +38,47 @@ const ProfilePage = () => {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <Text style={styles.greeting}>Hi, Kenny!</Text>
+        <Text style={styles.greeting}>Hi, {profile.name}!</Text>
       </View>
 
       <View style={styles.optionsContainer}>
-        <Text style={styles.option}>Preferred Name</Text>
-        <Text style={styles.option}>Change Password</Text>
-        <Text style={styles.option}>Change Email Address</Text>
-        <Text style={styles.option}>Settings</Text>
+        <View style={styles.option}>
+            <Text style={styles.optionLabel}>Preferred Name</Text>
+            <View>
+                {(editingName) ?
+                    <TextInput
+                        style={styles.optionInput}
+                        value={profile.name}
+                        onChangeText={(val) => editProfile("name", val)}
+                        onSubmitEditing={() => setEditingName(false)}
+                    /> :
+                    <View style={{flexDirection: "row"}}>
+                        <Text style={styles.optionValue}>{profile.name}</Text>
+                        <TouchableOpacity onPress={() => setEditingName(true)}>
+                            <Icon name="pencil" style={styles.editButton}/>
+                        </TouchableOpacity>
+                    </View>
+                }
+            </View>
+        </View>
+
+        <View style={styles.option}>
+            <TouchableOpacity style={styles.optionButton} onPress={() => setChangingPassword(true)}>
+                <Text style={styles.optionLabel}>Change Password</Text>
+            </TouchableOpacity>
+        </View>
+
+        <View style={styles.option}>
+            <TouchableOpacity style={styles.optionButton} onPress={() => setChangingEmail(true)}>
+                <Text style={styles.optionLabel}>Change Email Address</Text>
+            </TouchableOpacity>
+        </View>
+        
+        <View style={styles.option}>
+            <TouchableOpacity style={styles.optionButton} onPress={() => setChangingSettings(true)}>
+                <Text style={styles.optionLabel}>Settings</Text>
+            </TouchableOpacity>
+        </View>
 
         {/* Dietary Restrictions Section */}
         <View style={styles.optionContainer}>
@@ -38,19 +86,19 @@ const ProfilePage = () => {
           <View style={{ flexDirection: 'row' }}>
             <TouchableOpacity
               style={profile.restrictions.vegan ? styles.toggleableButtonOn : styles.toggleableButtonOff}
-              onPress={() => editProfile('vegan', !profile.restrictions.vegan)}
+              onPress={() => editProfileRestriction('vegan', !profile.restrictions.vegan)}
             >
               <Text style={styles.buttonText}>Vegan</Text>
             </TouchableOpacity>
             <TouchableOpacity
               style={profile.restrictions.vegetarian ? styles.toggleableButtonOn : styles.toggleableButtonOff}
-              onPress={() => editProfile('vegetarian', !profile.restrictions.vegetarian)}
+              onPress={() => editProfileRestriction('vegetarian', !profile.restrictions.vegetarian)}
             >
               <Text style={styles.buttonText}>Vegetarian</Text>
             </TouchableOpacity>
             <TouchableOpacity
               style={profile.restrictions.halal ? styles.toggleableButtonOn : styles.toggleableButtonOff}
-              onPress={() => editProfile('halal', !profile.restrictions.halal)}
+              onPress={() => editProfileRestriction('halal', !profile.restrictions.halal)}
             >
               <Text style={styles.buttonText}>Halal</Text>
             </TouchableOpacity>
@@ -61,6 +109,88 @@ const ProfilePage = () => {
       <TouchableOpacity style={styles.logoutButton}>
         <Text style={styles.logoutText}>Log Out</Text>
       </TouchableOpacity>
+
+      {/* Pop-up boxes */}
+
+      {/* change password */}
+      <Modal 
+        animationType={"fade"}
+        visible={changingPassword}
+        onRequestClose={() => {
+          setChangingPassword(false);
+        }}
+        transparent={true}
+      >
+        <View style={styles.popup}>
+          <Text style={styles.optionLabel}>Change Password:</Text>
+
+          <TextInput style={styles.popupInput} placeholder="Old Password" />
+          <TextInput style={styles.popupInput} placeholder="New Password" />
+          <TextInput style={styles.popupInput} placeholder="Confirm New Password" />
+
+          <View style={{flexDirection: "row"}}>
+            <TouchableOpacity style={styles.popupConfirmButton} onPress={() => setChangingPassword(false)}>
+                <Text style={styles.popupButtonText}>Confirm</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.popupCloseButton} onPress={() => setChangingPassword(false)}>
+                <Text style={styles.popupButtonText}>Close</Text>
+            </TouchableOpacity>
+          </View>
+
+        </View>
+      </Modal>
+
+      {/* change email */}
+      <Modal
+        animationType={"fade"}
+        visible={changingEmail}
+        onRequestClose={() => {
+          setChangingEmail(false);
+        }}
+        transparent={true}
+      >
+        <View style={styles.popup}>
+          <Text style={styles.optionLabel}>Change Email:</Text>
+          {/* spacer */}
+          <View style={{height:5}} />
+
+          <TouchableOpacity style={styles.optionButton}>
+            <Text style={styles.optionLabel}>Send Verification Code</Text>
+          </TouchableOpacity>
+
+          <TextInput style={styles.popupInput} placeholder="Verification Code" />
+          <TextInput style={styles.popupInput} placeholder="New Email" />
+
+          <View style={{flexDirection: "row"}}>
+            <TouchableOpacity style={styles.popupConfirmButton} onPress={() => setChangingEmail(false)}>
+                <Text style={styles.popupButtonText}>Confirm</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.popupCloseButton} onPress={() => setChangingEmail(false)}>
+                <Text style={styles.popupButtonText}>Close</Text>
+            </TouchableOpacity>
+          </View>
+
+        </View>
+      </Modal>
+
+
+      {/* settings */}
+      <Modal
+        animationType={"fade"}
+        visible={changingSettings}
+        onRequestClose={() => {
+          setChangingSettings(false);
+        }}
+        transparent={true}
+      >
+        <View style={styles.popup}>
+          <TouchableOpacity style={styles.blue} onPress={() => setChangingSettings(false)}>
+            <Text style={styles.blue}>:)</Text>
+          </TouchableOpacity>
+        </View>
+      </Modal>
+
+
     </View>
   );
 };
@@ -89,15 +219,41 @@ const styles = StyleSheet.create({
     fontSize: 18,
     marginVertical: 20,
     fontWeight: 'bold',
-
+  },
+  optionText: {
+    fontSize: 18,
+    fontWeight: 'bold',
+  },
+  optionInput: {
+    fontSize: 18,
+    marginBottom: 10,
+    borderWidth: 1,
+    borderColor: '#888',
+    width: 400,
   },
   optionContainer: {
     marginVertical: 20,
   },
   optionLabel: {
     fontSize: 18,
-    marginBottom: 10,
     fontWeight: 'bold',
+  },
+  optionValue: {
+    fontSize: 18,
+    marginBottom: 10,
+  },
+  optionButton: {
+    padding: 5,
+    borderRadius: 10,
+    borderWidth: 2,
+    borderColor: '#000',
+    width: "fit-content",
+  },
+  editButton: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: '#000',
+    margin: 5,
   },
   toggleableButtonOn: {
     backgroundColor: '#891B2F',
@@ -106,7 +262,7 @@ const styles = StyleSheet.create({
     marginRight: 10,
   },
   toggleableButtonOff: {
-    backgroundColor: '#ddd',
+    backgroundColor: '#888',
     padding: 10,
     borderRadius: 5,
     marginRight: 10,
@@ -127,6 +283,52 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: 'bold',
   },
+  popup: {
+    backgroundColor: '#fff',
+    padding: 20,
+    borderRadius: 10,
+    borderWidth: 2,
+    borderColor: '#000',
+    width: 360,
+    height: 320,
+    margin: "auto",
+    alignItems: 'center',
+  },
+  popupConfirmButton: {
+    backgroundColor: 'green',
+    borderRadius: 10,
+    padding: 10,
+    alignItems: 'center',
+    marginTop: 20,
+  },
+  popupCloseButton: {
+    backgroundColor: 'red',
+    borderRadius: 10,
+    padding: 10,
+    alignItems: 'center',
+    marginTop: 20,
+    marginLeft: 20,
+  },
+  popupButtonText: {
+    color: '#000',
+    fontSize: 18,
+    fontWeight: 'bold',
+  },
+  popupInput: {
+    borderRadius: 10,
+    borderColor: '#000',
+    borderWidth: 2,
+    padding: 5,
+    alignItems: 'center',
+    margin: 10,
+    width: 280,
+  },
+  blue: {
+    backgroundColor: 'blue',
+    borderRadius: 10,
+    padding: 10,
+    fontSize: 24,
+  }
 });
 
 export default ProfilePage;
