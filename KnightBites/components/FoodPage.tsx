@@ -12,7 +12,7 @@ function translateCafeteria(value: number) {
     case(0):
       return "Commons";
     case(1):
-      return "Knollcreset";
+      return "Knollcrest";
     case(2):
       return "Johnny's";
     case(3):

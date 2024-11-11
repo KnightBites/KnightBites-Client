@@ -202,6 +202,20 @@ const styles = StyleSheet.create({
       backgroundColor: 'gold',
     },
 
+    // These styles are for the Uppercrust Buttons
+
+    uppercrustViewSandwiches: {
+      borderRadius: 25,
+      borderColor: "black", 
+      borderWidth: 2, 
+      width: 200,
+      height: 80, 
+      textAlign: "center",
+      fontSize: 15,
+      alignItems: 'center',
+      justifyContent: 'center'
+    },
+
   });
 
 export default styles;
