@@ -5,28 +5,33 @@ import { ColorSpace } from "react-native-reanimated";
 const styles = StyleSheet.create({
     headerBar: {
       width: "100%",
+      height: 70,
       position: "relative",
       alignItems: "flex-start",
       flexDirection: "row",
       flex: 1,      
-      marginTop: 5,
-      marginBottom: 20
+      marginTop: 0,
+      marginBottom: 0,
     },
     headerUser: {
       marginLeft: "auto",
       fontSize: 20,
-      color: "white"
+      color: "white",
     },
     headerAppTitle: {
       fontSize: 40,
       color: "gold",
       fontWeight: "bold",
-      marginVertical: 10
+      marginVertical: 0,
+      justifyContent: "center",
+      alignItems: "center",
     },
     headerAppImage: {
-      width: 50,
-      height: 50,
+      width: 70,
+      height: "100%", // Keep the image square, 50x50 is good for a small logo in the header.
+      marginBottom: 0,
       marginRight: 15,
+      justifyContent: "center",
     },
     container: {
       flexDirection: "row",
@@ -110,12 +115,25 @@ const styles = StyleSheet.create({
       zIndex: 1000,
       height: 50,
       marginTop: 8,
-      backgroundColor: 'crimson', // Light red background
+      backgroundColor: 'maroon', // This feature looks weird on web version, but works perfect on mobile. Not sure why. -JT
+      padding: 0,
+      borderRadius: 5,
+      borderWidth: 1,
+      borderColor: 'black', 
+      justifyContent: 'center',
+      alignContent: 'center',
+    },
+    sortFoodButton: { 
+      zIndex: 1000,
+      height: 50,
+      marginTop: 8,
+      backgroundColor: 'maroon', // This feature looks weird on web version, but works perfect on mobile. Not sure why. -JT
       padding: 0,
       borderRadius: 5,
       borderWidth: 1,
       borderColor: 'black',
-      color: 'white', // White text
+      justifyContent: 'center',
+      alignContent: 'center',
     },
     buttonContainer: {
       marginTop: 20,

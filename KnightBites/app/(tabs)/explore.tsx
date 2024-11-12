@@ -7,7 +7,7 @@ import styles from '@/constants/Styles';
 
 export default function DetailsPage() {
   return (
-    <View style={styles.container}>
+    <View style={styles.aboutPageContainer}>
       <View style={{ height: 16 }} />
       <View style={{ backgroundColor: 'maroon', padding: 10, position: 'absolute', top: 0, left: 0, right: 0, height: 60, justifyContent: 'center' }}>
       </View>
@@ -17,7 +17,7 @@ export default function DetailsPage() {
       </View>
       {/* 'sticky' position sets the banner for the rest of the page. Needs both 'absolute' and 'sticky' to look nice. */}
 
-      <View style={styles.mainContainer}>
+      <View style={styles.aboutPageSection}>
         <Text style={{ textAlign: 'center' }}> {/* All text on the page is centered. */}
           <Text style={{ fontWeight: 'bold' }}>
             {'\n'}Welcome to KnightBites!{'\n'}
@@ -39,9 +39,10 @@ export default function DetailsPage() {
           {'\n\n'}
           3. Write a review and rate the dish a rating 1-5 stars.
           {'\n\n'}
-          Enjoy!
-
+          Enjoy! (This text can be updated as needed.)
         </Text>
+
+
       </View>
       <View style={{ backgroundColor: 'maroon', padding: 10 }}>
         <Text style={{ color: 'white', textAlign: 'center' }}>
@@ -53,8 +54,6 @@ export default function DetailsPage() {
           David Barry, Lujia Li
         </Text>
       </View>
-
     </View> //End of container
-
   );
 }

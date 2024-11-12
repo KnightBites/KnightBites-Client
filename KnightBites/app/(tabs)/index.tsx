@@ -1,4 +1,4 @@
-import { Image, StyleSheet, View, Text, FlatList, TouchableOpacity, Button, TextInput, Pressable, ActivityIndicator} from 'react-native';
+import { Image, StyleSheet, View, Text, FlatList, TouchableOpacity, Button, TextInput, Pressable, ActivityIndicator, Alert } from 'react-native';
 import FoodPanel from '@/components/FoodPanel';
 import DropDownPicker from 'react-native-dropdown-picker';
 import { Header, HeaderRight } from '@/components/Header';
@@ -25,37 +25,36 @@ export default function EntryPoint() {
   return (
     <Stack.Navigator
       initialRouteName="login"
-      screenOptions={({navigation}) => ({
+      screenOptions={({ navigation }) => ({
         headerTitle: props => <Header />,
         headerStyle: {
-          backgroundColor: "#880015",
-          height: 70,
+          backgroundColor: "maroon",
         },
-        headerRight: props => <HeaderRight navigation={navigation}/>,
+        headerRight: props => <HeaderRight navigation={navigation} />,
       })}
     >
       <Stack.Screen name="home" component={HomePage}
-        options={{headerLeft: props => {}}} // to get rid of button going back to login page
+        options={{ headerLeft: props => { } }} // to get rid of button going back to login page
       />
-      <Stack.Screen name="foodPage" component={FoodPage} 
+      <Stack.Screen name="foodPage" component={FoodPage}
         initialParams={
           { dish: { name: "Yummy", desc: "cool", rating: 3, respectiveCafeteria: -1, img: 'https://placehold.co/400' } }
         }
       />
-      <Stack.Screen name="login" component={LoginPage} 
-      options={{headerLeft: props => {}}}/>
-      <Stack.Screen name="registration" component={RegisterPage} 
-      options={{headerLeft: props => {}}}/>
-      <Stack.Screen name="recovery" component={RecoverPage} 
-      options={{headerLeft: props => {}}}/>
+      <Stack.Screen name="login" component={LoginPage}
+        options={{ headerLeft: props => { } }} />
+      <Stack.Screen name="registration" component={RegisterPage}
+        options={{ headerLeft: props => { } }} />
+      <Stack.Screen name="recovery" component={RecoverPage}
+        options={{ headerLeft: props => { } }} />
       <Stack.Screen name="buildSandwichHomePage" component={buildSandwichHomePage}
-      options={{headerLeft: props => {}}}/>
+        options={{ headerLeft: props => { } }} />
       <Stack.Screen name="buildSandwich" component={buildSandwich} />
     </Stack.Navigator>
   )
 }
 
-function HomePage({navigation}) {
+function HomePage({ navigation }) {
   const [open, setOpen] = useState(false);
   const [search, setSearch] = useState('');
   const [restaurant, setRestaurant] = useState(-1);
@@ -69,7 +68,7 @@ function HomePage({navigation}) {
   ]);
   const [dishData, setDishData] = useState([]);
   const [loading, setLoading] = useState(true);
-  
+
   const getDishData = async () => {
     try {
       const resp = await fetch(
@@ -79,7 +78,7 @@ function HomePage({navigation}) {
       setDishData(json.map(dish => ({
         ...dish,
         rating: dish.overallrating || Math.round(Math.random() * 10) / 2,
-        img: "https://placehold.co/200",
+        img: "https://placehold.co/200", // TODO: find a way to fetch images from the database... force them to the right size.
       }))); // add rating to dish
     } catch (err) {
       console.error(err);
@@ -89,7 +88,7 @@ function HomePage({navigation}) {
   };
 
   useEffect(() => {
-      getDishData();
+    getDishData();
   }, []);
 
   const defaultDishData: Dish[] = [{
@@ -117,7 +116,7 @@ function HomePage({navigation}) {
       <View style={styles.mainContainer}>
         {/* Dropdown Menu */}
         <View style={styles.filterContainer}>
-            <View style={styles.searchContainer}>
+          <View style={styles.searchContainer}>
             <TextInput
               placeholder="Search for a dish"
               onChangeText={setSearch}
@@ -125,14 +124,48 @@ function HomePage({navigation}) {
               style={[styles.searchBar, { color: 'black' }]}
               placeholderTextColor="black"
             />
-            </View>
-          <View style={styles.clearTextButton}> 
+          </View>
+          <View style={styles.clearTextButton}>
             <Button
               title="Clear"
               color="white"
               onPress={() => setSearch('')} // Clear the search bar
             />
           </View>
+          <View style={styles.sortFoodButton}>
+            <Button
+              title="Sort"
+              color="white"
+              onPress={() => {
+                // Open a pop-up menu with sorting options
+                Alert.alert( // TODO: Alert is a pop-up menu, does not seem to work on web version. Works as expected on mobile. -JT
+                  "Sort Options",
+                  "Choose a sorting method", // TODO: I want to add a sort method that shows the foods with the most comments first. -JT
+                  [
+                    { text: "Alphabetical (A-Z)", onPress: () => {
+                      const sortedData = [...dishData].sort((a, b) => a.foodname.localeCompare(b.foodname));
+                      setDishData(sortedData);
+                    }},
+                    { text: "Alphabetical (Z-A)", onPress: () => {
+                      const sortedData = [...dishData].sort((a, b) => b.foodname.localeCompare(a.foodname));
+                      setDishData(sortedData);
+                    }},
+                    { text: "Rating: best to worst", onPress: () => {
+                      const sortedData = [...dishData].sort((a, b) => b.rating - a.rating);
+                      setDishData(sortedData);
+                    }},
+                    { text: "Rating: worst to best", onPress: () => {
+                      const sortedData = [...dishData].sort((a, b) => a.rating - b.rating);
+                      setDishData(sortedData);
+                    }},
+                    { text: "Cancel", style: "cancel" }
+                  ],
+                  { cancelable: true }
+                );
+              }}
+            />
+          </View>
+
           <View style={styles.dropdownContainer}>
             <DropDownPicker
               open={open}
@@ -158,7 +191,7 @@ function HomePage({navigation}) {
               data={getFilteredDishData()}
               style={styles.feed}
               renderItem={({ item }) => (
-                <Pressable onPress={() => navigation.navigate("foodPage", {dish: item, review: 0})}>
+                <Pressable onPress={() => navigation.navigate("foodPage", { dish: item, review: 0 })}>
                   <FoodPanel
                     navigation={navigation}
                     dish={item}
