@@ -5,28 +5,33 @@ import { ColorSpace } from "react-native-reanimated";
 const styles = StyleSheet.create({
     headerBar: {
       width: "100%",
+      height: 70,
       position: "relative",
       alignItems: "flex-start",
       flexDirection: "row",
       flex: 1,      
-      marginTop: 5,
-      marginBottom: 20
+      marginTop: 0,
+      marginBottom: 0,
     },
     headerUser: {
       marginLeft: "auto",
       fontSize: 20,
-      color: "white"
+      color: "white",
     },
     headerAppTitle: {
       fontSize: 40,
       color: "gold",
       fontWeight: "bold",
-      marginVertical: 10
+      marginVertical: 0,
+      justifyContent: "center",
+      alignItems: "center",
     },
     headerAppImage: {
-      width: 50,
-      height: 50,
+      width: 70,
+      height: "100%", // Keep the image square, 50x50 is good for a small logo in the header.
+      marginBottom: 0,
       marginRight: 15,
+      justifyContent: "center",
     },
     container: {
       flexDirection: "row",
@@ -53,20 +58,23 @@ const styles = StyleSheet.create({
       flex: 3,
       marginHorizontal: 10,
       width: '100%',
-      height: '100%',
-      marginTop: 10,
+      height: 50,
+      marginTop: 5,
       marginBottom: 10,
     },
 
-    // This starts the Dropdown option styles
+    // This starts the Dropdown option styles ////////////
     dropdownContainer: {
-      flex: 1,
+      flex: .9, // This controls how much space the dropdown takes up horizontally. Adding more space will make the dropdown wider.
       marginHorizontal: 10,
+      marginTop: 4,
       width: '100%',
       minWidth: 100,
-      height: '100%',
-      marginTop: 10,
-      marginBottom: 10,
+      height: 40,
+      marginTop: 12, // Adds space above the dropdown, between it and the header
+      marginBottom: 10, // Adds space below the dropdown, between it and the feed
+      justifyContent: 'center', // Center the text vertically
+      alignItems: 'center', // Center the text horizontally
     },
     dropdown: {
       zIndex: 1000, // Ensure the dropdown input is above other content
@@ -80,15 +88,19 @@ const styles = StyleSheet.create({
       position: 'absolute', // Overlay dropdown list
       top: 60, // Position the dropdown list below the dropdown input
       minHeight: 250,
+      padding: 0,
     },
     dropdownListItem: {
       fontSize: 15,
+      justifyContent: 'center',
+      marginTop: 0,
+      padding: 0,
     },
-
-    //////////////
+    // End of Dropdown option styles ////////////
 
     searchBar: {
-      height: '100%',
+      height: 50,
+      marginTop: 4,
       borderColor: 'black',
       borderRadius: 10,
       backgroundColor: Colors.light.background,
@@ -97,17 +109,41 @@ const styles = StyleSheet.create({
       width: '100%',
       flex: 1,
       fontSize: 30,
-      fontColor: Colors.light.text,
+      color: Colors.light.text,
+    },
+    clearTextButton: { 
+      zIndex: 1000,
+      height: 50,
+      marginTop: 8,
+      backgroundColor: 'maroon', // This feature looks weird on web version, but works perfect on mobile. Not sure why. -JT
+      padding: 0,
+      borderRadius: 5,
+      borderWidth: 1,
+      borderColor: 'black', 
+      justifyContent: 'center',
+      alignContent: 'center',
+    },
+    sortFoodButton: { 
+      zIndex: 1000,
+      height: 50,
+      marginTop: 8,
+      backgroundColor: 'maroon', // This feature looks weird on web version, but works perfect on mobile. Not sure why. -JT
+      padding: 0,
+      borderRadius: 5,
+      borderWidth: 1,
+      borderColor: 'black',
+      justifyContent: 'center',
+      alignContent: 'center',
     },
     buttonContainer: {
       marginTop: 20,
-      fontColor: 'black',
+      color: 'black',
       zIndex: 999, // Lower zIndex for the button, so it's not overlayed by the dropdown
     },
-    feedContainer: {
+    feedContainer: { // This is the container for the feed that displays all food items
       alignItems: "center",
       width: '100%',
-      flex: 5,
+      flex: '25%', // This controls the gap between the feed and the search bar & dropdown
       overflow: 'hidden',
       padding: 10,
       height: "100%",
@@ -138,6 +174,24 @@ const styles = StyleSheet.create({
       fontSize: 30,
       alignSelf: "flex-start",
     },
+
+        // This is for the about page
+        aboutPageContainer: {
+          flexDirection: 'column',
+          width: '100%',
+          flex: 1,
+        },
+        aboutPageSection: {
+          width: '100%',
+          flex: 1, // I think this is a boolean value that flags if the section will be flexible height. Leave both at 1.
+          padding: 10,
+          backgroundColor: Colors.light.background,
+          borderColor: 'black',
+          marginTop: 0,
+          marginBottom: 0,
+          borderWidth: 0,
+          borderRadius: 0,
+        },
 
     // The following styles are for the login page. 
     //loginTextBar is the style of entering in the passwords and usernames. 
