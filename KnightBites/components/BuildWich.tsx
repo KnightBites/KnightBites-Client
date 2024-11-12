@@ -23,9 +23,13 @@ export default function buildSandwich({navigation}) {
 
         <Text>Build your personal UpperCrust order and share with creation with everyone!</Text>
 
-        <Text> Steps: Pick your bread, pick your proteins, pick your cheese, pick your veggies, pick your condiments.</Text>
+        <Text>Step 1: Pick your bread</Text>
+        <Text>Step 2: Pick your protein</Text>
+        <Text>Step 3: Pick your cheese</Text>
+        <Text>Step 4: Pick your veggies</Text>
+        <Text>Step 5: Pick your condiments</Text>
 
-        
+        <TouchableOpacity >Submit My Creation</TouchableOpacity>
 
       </View>
     );

@@ -30,8 +30,7 @@ export default function buildSandwichHomePage({navigation}) {
 
       </View>
 
-      <TouchableOpacity onPress={() => navigation.navigate("foodPage")}><Text style = {{marginTop: 15, color: "blue"}}>Return to main page</Text></TouchableOpacity>
-
+      <TouchableOpacity onPress={() => navigation.navigate("home")}><Text style = {{marginTop: 15, color: "blue"}}>Return to main page</Text></TouchableOpacity>
 
     </View>
 
