@@ -211,9 +211,7 @@ const styles = StyleSheet.create({
       height: 80, 
       textAlign: "center",
       fontSize: 15,
-      alignItems: 'center',
-      justifyContent: 'center'
-    },
+      alignItems: 'center'
   });
 
 export default styles;

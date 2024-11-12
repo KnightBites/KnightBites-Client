@@ -54,6 +54,9 @@ export default function EntryPoint() {
       
       <Stack.Screen name="buildSandwich" component={buildSandwich} />
 
+      <Stack.Screen name="profile" component = {ProfilePage} />
+
+
     </Stack.Navigator>
   )
 }

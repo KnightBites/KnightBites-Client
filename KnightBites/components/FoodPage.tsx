@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, Image, TextInput } from "react-native";
+import { StyleSheet, Text, View, Image, TextInput, TouchableOpacity } from "react-native";
 import { MainStyles } from "@/constants/Styles";
 import Dish from "@/interfaces/Dish";
 import StarRating from "@/components/StarRating";
@@ -32,6 +32,7 @@ export default function FoodPage({route, navigation}) {
   const {dish, review} = route.params; // extract dish from route params
 
   return (
+    
     <View style={styles.mainView}>
       <View style={styles.infoSection}>
         <View style={styles.headerInfo}>
