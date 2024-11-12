@@ -176,6 +176,47 @@ const styles = StyleSheet.create({
       alignItems: "center"
     },
 
+
+    // This is for the registration buttons page to select vegan
+
+    dietaryRestrictionContainer: {
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      padding: 20
+    },
+
+    dietaryRestrictionButton: {
+      flex: 1,
+      marginHorizontal: 5,
+      height: 50,
+      width: 150,
+      justifyContent: 'center',
+      alignItems: 'center',
+      backgroundColor: Colors.light.background, 
+      borderRadius: 25,
+      borderColor: "black",
+      borderWidth: 2,
+    },
+
+    dietaryRestrictionButtonSelection: {
+      backgroundColor: 'gold',
+    },
+
+    // These styles are for the Uppercrust Buttons
+
+    uppercrustViewSandwiches: {
+      borderRadius: 25,
+      borderColor: "black", 
+      borderWidth: 2, 
+      width: 200,
+      height: 80, 
+      textAlign: "center",
+      fontSize: 15,
+      alignItems: 'center',
+      justifyContent: 'center', 
+      marginTop: 20
+    },
+
   });
 
 export default styles;

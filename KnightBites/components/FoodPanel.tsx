@@ -1,5 +1,5 @@
 import {useState} from "react";
-import { View, Text, Image, StyleSheet } from "react-native";
+import { View, Text, Image, StyleSheet, TouchableOpacity } from "react-native";
 import StarRating from "@/components/StarRating";
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import FoodPage from "@/components/FoodPage";
@@ -55,9 +55,10 @@ export default function FoodPanel({navigation, dish}) {
       <View style={usingstyles.leave_review}>
         <Text style={usingstyles.leave_review_text}>Leave Your Review - </Text>
         <RankableStars size={starSize} keeps={false} onPress={(val) => navigation.navigate("foodPage", {dish, review: val})}></RankableStars>
-      </View>
-      
+      </View>      
     </View>
+
+    
   )
 }
 

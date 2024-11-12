@@ -1,9 +1,26 @@
-import { StyleSheet, Text, View, Image, TextInput } from "react-native";
+import { StyleSheet, Text, View, Image, TextInput, TouchableOpacity } from "react-native";
 import { MainStyles } from "@/constants/Styles";
 import Dish from "@/interfaces/Dish";
 import StarRating from "@/components/StarRating";
 import RankableStars from "@/components/RankableStars";
 import { Colors } from "@/constants/Colors";
+
+function translateCafeteria(value: number) {
+  switch(value) {
+    case(-1):
+      return "Everywhere";
+    case(0):
+      return "Commons";
+    case(1):
+      return "Knollcrest";
+    case(2):
+      return "Johnny's";
+    case(3):
+      return "Peet's";
+    case(4):
+      return "Upper Crust";
+  }
+}
 
 function recordComment(comment: String) {
   // this will talk to the database in the future
@@ -15,6 +32,7 @@ export default function FoodPage({route, navigation}) {
   const {dish, review} = route.params; // extract dish from route params
 
   return (
+    
     <View style={styles.mainView}>
       <View style={styles.infoSection}>
         <View style={styles.headerInfo}>
