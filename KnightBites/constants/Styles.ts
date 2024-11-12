@@ -157,6 +157,24 @@ const styles = StyleSheet.create({
       alignSelf: "flex-start",
     },
 
+        // This is for the about page
+        aboutPageContainer: {
+          flexDirection: 'column',
+          width: '100%',
+          flex: 1,
+        },
+        aboutPageSection: {
+          width: '100%',
+          flex: 1, // I think this is a boolean value that flags if the section will be flexible height. Leave both at 1.
+          padding: 10,
+          backgroundColor: Colors.light.background,
+          borderColor: 'black',
+          marginTop: 0,
+          marginBottom: 0,
+          borderWidth: 0,
+          borderRadius: 0,
+        },
+
     // The following styles are for the login page. 
     //loginTextBar is the style of entering in the passwords and usernames. 
     loginTextBar: {
