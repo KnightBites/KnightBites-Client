@@ -15,8 +15,9 @@ import FoodPage from "@/components/FoodPage";
 import LoginPage from "@/components/LoginPage";
 import RegisterPage from "@/components/RegistrationPage";
 import RecoverPage from "@/components/RecoverAccountPage";
+import buildSandwich from "@/components/BuildWich";
+import buildSandwichHomePage from "@/components/BuildWichHome";
 import ProfilePage from "@/components/ProfilePage";
-////////
 
 const Stack = createNativeStackNavigator();
 
@@ -41,10 +42,17 @@ export default function EntryPoint() {
           { dish: { name: "Yummy", desc: "cool", rating: 3, respectiveCafeteria: -1, img: 'https://placehold.co/400' } }
         }
       />
-      <Stack.Screen name="login" component={LoginPage} />
-      <Stack.Screen name="registration" component={RegisterPage} />
-      <Stack.Screen name="recovery" component={RecoverPage} />
-      <Stack.Screen name="profile" component={ProfilePage} />
+      <Stack.Screen name="login" component={LoginPage} 
+      options={{headerLeft: props => {}}}/>
+      <Stack.Screen name="registration" component={RegisterPage} 
+      options={{headerLeft: props => {}}}/>
+      <Stack.Screen name="recovery" component={RecoverPage} 
+      options={{headerLeft: props => {}}}/>
+
+      <Stack.Screen name="buildSandwichHomePage" component={buildSandwichHomePage}
+      options={{headerLeft: props => {}}}/>
+      
+      <Stack.Screen name="buildSandwich" component={buildSandwich} />
 
     </Stack.Navigator>
   )
