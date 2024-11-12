@@ -30,7 +30,6 @@ export default function buildSandwich({navigation}) {
         <Text>Step 5: Pick your condiments</Text>
 
         <TouchableOpacity >Submit My Creation</TouchableOpacity>
-        
 
       </View>
     );

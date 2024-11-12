@@ -15,10 +15,9 @@ import FoodPage from "@/components/FoodPage";
 import LoginPage from "@/components/LoginPage";
 import RegisterPage from "@/components/RegistrationPage";
 import RecoverPage from "@/components/RecoverAccountPage";
-import ProfilePage from "@/components/ProfilePage";
 import buildSandwich from "@/components/BuildWich";
 import buildSandwichHomePage from "@/components/BuildWichHome";
-////////
+import ProfilePage from "@/components/ProfilePage";
 
 const Stack = createNativeStackNavigator();
 
@@ -54,7 +53,9 @@ export default function EntryPoint() {
       options={{headerLeft: props => {}}}/>
       
       <Stack.Screen name="buildSandwich" component={buildSandwich} />
+
       <Stack.Screen name="profile" component = {ProfilePage} />
+
 
     </Stack.Navigator>
   )
