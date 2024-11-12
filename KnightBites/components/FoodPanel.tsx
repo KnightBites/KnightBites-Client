@@ -10,14 +10,6 @@ import React from "react";
 
 const Stack = createNativeStackNavigator();
 
-const location_translation = {
-  0: "Commons",
-  1: "Knollcrest",
-  2: "Johnny's",
-  3: "Peet's",
-  4: "Upper Crust",
-}
-
 export default function FoodPanel({navigation, dish}) {
 
   /*
@@ -45,24 +37,24 @@ export default function FoodPanel({navigation, dish}) {
       <Image style={usingstyles.picture} source={{uri: dish.img}}></Image>
       
       <View style={usingstyles.information}>
-        <Text style={usingstyles.name}>{dish.name}</Text>
+        <Text style={usingstyles.name}>{dish.foodname}</Text>
         <View style={usingstyles.rating}>
           <StarRating foodRating={dish.rating} size={starSize}></StarRating>
           <Text style={usingstyles.ratingNum}>{dish.rating.toFixed(1)}</Text>
         </View>
-        <Text style={usingstyles.description}>{dish.desc}</Text>
+        <Text style={usingstyles.description}>{dish.description}</Text>
         {/* Spacer for mobile */}
         <View style={usingstyles.spacer}><Text></Text></View>
       </View>
       
       <View style={usingstyles.location}>
-        <Text style={usingstyles.locationText}>{location_translation[dish.respectiveCafeteria]}</Text>
+        <Text style={usingstyles.locationText}>{dish.dininghall}</Text>
         <Icon name={"map-marker"} style={usingstyles.location_pin} />
       </View>
 
       <View style={usingstyles.leave_review}>
         <Text style={usingstyles.leave_review_text}>Leave Your Review - </Text>
-        <RankableStars size={starSize} keeps={false} onPress={(val) => navigation.navigate("foodPage", {dish: dish, review: val})}></RankableStars>
+        <RankableStars size={starSize} keeps={false} onPress={(val) => navigation.navigate("foodPage", {dish, review: val})}></RankableStars>
       </View>
       
     </View>

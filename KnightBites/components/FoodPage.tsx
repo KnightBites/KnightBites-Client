@@ -37,12 +37,12 @@ export default function FoodPage({route, navigation}) {
         <View style={styles.headerInfo}>
           <Image style={styles.image} source={{uri: dish.img}} />
           <View style={styles.nameAndRating}>
-            <Text style={styles.name}>{dish.name}</Text>
+            <Text style={styles.name}>{dish.foodname}</Text>
             <StarRating foodRating={dish.rating}></StarRating>
           </View>
         </View>
-        <Text style={styles.description}>{dish.desc}</Text>
-        <Text style={styles.locations}>Locations: {translateCafeteria(dish.respectiveCafeteria)}</Text>
+        <Text style={styles.description}>{dish.description}</Text>
+        <Text style={styles.locations}>Location: {dish.dininghall}</Text>
       </View>
       <View style={styles.yourRating}>
         <Text>Your Rating: </Text>

@@ -1,7 +1,12 @@
 export interface Dish {
-  name: string;
-  desc: string;
-  rating: number;
-  respectiveCafeteria: number;
-  img?: string;
+  foodname: string;
+  dininghall: string;
+  breakfast: boolean;
+  lunch: boolean;
+  dinner: boolean;
+  mealtime: string;
+  vegan: boolean;
+  vegetarian: boolean;
+  halal: boolean;
+  description: string;
 }

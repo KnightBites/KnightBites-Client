@@ -176,7 +176,6 @@ const styles = StyleSheet.create({
       alignItems: "center"
     },
 
-
     // This is for the registration buttons page to select vegan
 
     dietaryRestrictionContainer: {
@@ -215,7 +214,6 @@ const styles = StyleSheet.create({
       alignItems: 'center',
       justifyContent: 'center'
     },
-
   });
 
 export default styles;
