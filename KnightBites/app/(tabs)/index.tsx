@@ -54,6 +54,7 @@ export default function EntryPoint() {
       options={{headerLeft: props => {}}}/>
       
       <Stack.Screen name="buildSandwich" component={buildSandwich} />
+      <Stack.Screen name="profile" component = {ProfilePage} />
 
     </Stack.Navigator>
   )

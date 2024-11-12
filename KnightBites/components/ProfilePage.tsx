@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { Modal, View, Text, TextInput, Button, StyleSheet, Image, TouchableOpacity } from 'react-native';
 import { validatePathConfig } from '@react-navigation/native';
+import { Colors } from "@/constants/Colors";
+
 
 const ProfilePage = () => {
   const [editingName, setEditingName] = useState(false);
@@ -9,6 +11,13 @@ const ProfilePage = () => {
   const [changingEmail, setChangingEmail] = useState(false);
   const [changingSettings, setChangingSettings] = useState(false);
 
+  //These should talk to the service at some point because halal/vegetarian/vegan should be in the state during registration
+
+  /*
+  Specs: 
+  1. Name from registration
+  2. Dietary restrictions should also be pulling from service
+  */
   const [profile, setProfile] = useState({
     name: "Kenny",
     restrictions: {
@@ -235,8 +244,7 @@ const styles = StyleSheet.create({
     marginVertical: 20,
   },
   optionLabel: {
-    fontSize: 18,
-    fontWeight: 'bold',
+    fontSize: 18
   },
   optionValue: {
     fontSize: 18,
@@ -256,20 +264,20 @@ const styles = StyleSheet.create({
     margin: 5,
   },
   toggleableButtonOn: {
-    backgroundColor: '#891B2F',
+    borderColor: 'black',
+    backgroundColor: 'gold',
     padding: 10,
     borderRadius: 5,
     marginRight: 10,
   },
   toggleableButtonOff: {
-    backgroundColor: '#888',
+    borderColor: 'black',
     padding: 10,
     borderRadius: 5,
     marginRight: 10,
   },
   buttonText: {
-    color: '#fff',
-    fontWeight: 'bold',
+    color: 'black'
   },
   logoutButton: {
     backgroundColor: '#891B2F',
@@ -277,11 +285,11 @@ const styles = StyleSheet.create({
     padding: 15,
     alignItems: 'center',
     marginTop: 20,
+    maxWidth: 100
   },
   logoutText: {
     color: '#fff',
-    fontSize: 18,
-    fontWeight: 'bold',
+    fontSize: 18
   },
   popup: {
     backgroundColor: '#fff',
@@ -295,14 +303,14 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   popupConfirmButton: {
-    backgroundColor: 'green',
+    backgroundColor: 'gold',
     borderRadius: 10,
     padding: 10,
     alignItems: 'center',
     marginTop: 20,
   },
   popupCloseButton: {
-    backgroundColor: 'red',
+    backgroundColor: 'gold',
     borderRadius: 10,
     padding: 10,
     alignItems: 'center',
@@ -328,7 +336,20 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     padding: 10,
     fontSize: 24,
-  }
+  },
+
+  dietaryRestrictionButton: {
+    flex: 1,
+    marginHorizontal: 5,
+    height: 50,
+    width: 150,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: Colors.light.background, 
+    borderRadius: 25,
+    borderColor: "black",
+    borderWidth: 2,
+  },
 });
 
 export default ProfilePage;
