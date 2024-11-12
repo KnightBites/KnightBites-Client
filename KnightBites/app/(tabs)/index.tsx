@@ -48,12 +48,9 @@ export default function EntryPoint() {
       options={{headerLeft: props => {}}}/>
       <Stack.Screen name="recovery" component={RecoverPage} 
       options={{headerLeft: props => {}}}/>
-
       <Stack.Screen name="buildSandwichHomePage" component={buildSandwichHomePage}
       options={{headerLeft: props => {}}}/>
-      
       <Stack.Screen name="buildSandwich" component={buildSandwich} />
-
     </Stack.Navigator>
   )
 }
@@ -63,7 +60,7 @@ function HomePage({navigation}) {
   const [search, setSearch] = useState('');
   const [restaurant, setRestaurant] = useState(-1);
   const [items, setItems] = useState([
-    { label: 'Everywhere', value: -1 },
+    { label: 'All Dining Halls', value: -1 },
     { label: 'Commons Dining Hall', value: "Commons" },
     { label: 'Knollcrest Dining Hall', value: "Knollcrest" },
     { label: 'Johnny\'s', value: "Johnny\'s" },
@@ -116,17 +113,24 @@ function HomePage({navigation}) {
   return (
     <View style={styles.container}>
       {/* Header handled by stack navigator*/}
-
       {/* Main content */}
       <View style={styles.mainContainer}>
         {/* Dropdown Menu */}
         <View style={styles.filterContainer}>
-          <View style={styles.searchContainer}>
+            <View style={styles.searchContainer}>
             <TextInput
               placeholder="Search for a dish"
               onChangeText={setSearch}
               value={search}
               style={[styles.searchBar, { color: 'black' }]}
+              placeholderTextColor="black"
+            />
+            </View>
+          <View style={styles.clearTextButton}> 
+            <Button
+              title="Clear"
+              color="white"
+              onPress={() => setSearch('')} // Clear the search bar
             />
           </View>
           <View style={styles.dropdownContainer}>
@@ -137,7 +141,7 @@ function HomePage({navigation}) {
               setOpen={setOpen}
               setValue={setRestaurant}
               setItems={setItems}
-              placeholder="Everywhere"
+              placeholder="All Dining Halls"
               textStyle={styles.dropdown} // Apply styles to the dropdown text
               containerStyle={styles.dropdown} // Apply styles to the dropdown
               style={styles.dropdown} // Apply styles to the dropdown
