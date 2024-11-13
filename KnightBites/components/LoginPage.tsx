@@ -2,23 +2,46 @@ import { useState } from 'react';
 import { 
     Image, StyleSheet, View, Text, FlatList, 
     TouchableOpacity, Button, TextInput, 
-    Linking, Animated
+    Linking, Animated, ActivityIndicator
 } from 'react-native';
 import styles from '@/constants/Styles';
 import { Colors } from '@/constants/Colors';
+const mp5 = require("md5");
 
-function validateAccount(username: string, password: string): boolean {
-    // hit db here
-
-    return true;
-}
 
 export default function LoginPage({navigation}) {
 
   const [ username, setUsername ] = useState("");
   const [ pass, setPass ] = useState("");
-  const [isFocused, setIsFocused] = useState(false);
-  const [isPasswordVisible, allowPasswordVisible] = useState(false);
+  const [ isFocused, setIsFocused ] = useState(false);
+  const [ isPasswordVisible, allowPasswordVisible ] = useState(false);
+  const [ loading, setLoading ] = useState(false);
+
+  // Function hits database and checks if the user exists
+  // password is hashed and checked against hashed password in db
+  async function validateAccount(username: string, password: string): Promise<bool> {
+    const hashedPassword = mp5(password);
+    let valid = false;
+
+    try {
+      const resp = await fetch(
+        "https://knightbitesapp-cda7eve7fce3dkgy.eastus2-01.azurewebsites.net/user/validate",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({username,hashedPassword,}),
+        }
+      );
+      if (!resp.ok) throw `Bad response for log in: ${resp.status}`;
+
+      const json = await resp.json();
+      valid = json.valid;
+    } catch (err) {
+      console.error(err);
+    }
+  }
 
   return (
     <View style = {{alignItems: "center", flex: 1, backgroundColor: Colors.light.background}}>
@@ -43,24 +66,32 @@ export default function LoginPage({navigation}) {
 
       <TouchableOpacity onPress={() => allowPasswordVisible(!isPasswordVisible)}>
         <Text style={[styles.toggleText, {alignItems: "center", textAlign: "center", marginBottom: 10, textDecorationLine: 'underline' }]}>
-          {isPasswordVisible ? 'Hide Password' : 'Show Password'} 
+          {isPasswordVisible ? 'Hide Password' : 'Show Password'}
         </Text>
       </TouchableOpacity>
 
       </View>  
         <TouchableOpacity style = {styles.submitRegistrationButton}
           onPress={() => {
-            if (validateAccount(username, pass)) {
-              navigation.navigate("home");
-            } else {
-              alert('Your username or password is incorrect. Try again.'); //I think this is automatically freaking out since we have no db, so it will always say no
-            }
+            setLoading(true);
+            validateAccount(username, pass)
+              .then(valid => {
+                if (valid)
+                  navigation.navigate("home");
+                else
+                  alert('Your username or password is incorrect. Try again.');
+              })
+              .catch(err => console.error(err))
+              .finally(() => {
+                setLoading(false);
+              });
           }}
         >
         <Text>Submit</Text>
         </TouchableOpacity>
       <TouchableOpacity onPress={() => navigation.navigate("registration")}><Text style = {{marginTop: 15, color: "blue"}}>Don't have an account? Register here.</Text></TouchableOpacity>
       <TouchableOpacity onPress={() => navigation.navigate("recovery")}><Text style = {{marginTop: 15, color: "blue"}}>Forgot your password? Recover account here. </Text></TouchableOpacity>
+      { loading && <ActivityIndicator /> }
     </View>
   );
 };
