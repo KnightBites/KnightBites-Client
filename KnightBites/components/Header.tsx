@@ -14,8 +14,8 @@ const Header = () => {
 const HeaderRight = ({navigation}) => {
   return (
     <View style={{marginRight: 10}}>
-      <TouchableOpacity style={styles.headerUser} onPress={() => navigation.navigate("profile")}>
-        <Text>Kenny</Text>
+      <TouchableOpacity onPress={() => navigation.navigate("profile")}>
+        <Text style={styles.headerUser}>Kenny</Text>
       </TouchableOpacity>
     </View>
   )
