@@ -52,7 +52,7 @@ export default function RegistrationPage({navigation}) {
 
     return (
       <View style = {{alignItems: "center", flex: 1, backgroundColor: Colors.light.background}}>
-        <Text style = {{fontSize: 25, marginBottom: 10, marginTop: 20 }}>Recover Your Account </Text>
+        <Text style = {{fontSize: 25, marginBottom: 10, marginTop: 20, fontWeight:'bold' }}>Recover Your Account </Text>
         <Text style = {{marginLeft: 25, marginRight: 25, textAlign: 'center'}}> We'll send you a recovery code to reset your username or password. </Text>
         <TextInput
           style={[styles.loginTextBar, isFocused && styles.loginTextBarHover, {marginTop: 15, marginBottom: 15}]}
@@ -74,7 +74,7 @@ export default function RegistrationPage({navigation}) {
             }
           }}
         >
-          <Text>Send Email</Text>
+          <Text style = {styles.submitText}>Send Code</Text>
         </TouchableOpacity>
 
         <TouchableOpacity onPress={() => navigation.navigate("login")}><Text style = {{marginTop: 15, color: "blue"}}>Remember your credentials? Login here.</Text></TouchableOpacity>

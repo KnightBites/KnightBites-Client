@@ -340,7 +340,6 @@ const styles = StyleSheet.create({
     margin: 5,
   },
   dietaryButtonOn: {
-    borderColor: 'black',
     backgroundColor: '#EECC0A', // Calvin gold color for selected button
     padding: 10,
     paddingVertical: 12, // Increased for height
@@ -438,10 +437,10 @@ const styles = StyleSheet.create({
     backgroundColor: '#891B2F',
     borderRadius: 10,
     padding: 15,
+    width: 200,
+    height: 50,
     alignItems: 'center',
     alignSelf: 'center', // Center the button horizontally
-    paddingVertical: 15, // Increased for height
-    paddingHorizontal: 50, // Increased for width
     marginTop: 20,
   },
 
