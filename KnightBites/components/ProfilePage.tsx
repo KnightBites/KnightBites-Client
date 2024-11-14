@@ -1,32 +1,58 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { Modal, View, Text, TextInput, Button, StyleSheet, Image, TouchableOpacity } from 'react-native';
 import { validatePathConfig } from '@react-navigation/native';
 import { Colors } from "@/constants/Colors";
+import { ProfileContext } from "@/components/ProfileProvider";
+import SecureTextInput from "@/components/SecureTextInput";
+import { warmUpAsync } from 'expo-web-browser';
 
 
 const ProfilePage = () => {
+  const {profile, setProfile} = useContext(ProfileContext);
+  const [savedPrefName, setSavedPrefName] = useState(profile.pref_name);
   const [editingName, setEditingName] = useState(false);
   const [changingPassword, setChangingPassword] = useState(false);
   const [changingEmail, setChangingEmail] = useState(false);
   const [changingSettings, setChangingSettings] = useState(false);
+  const [warning, setWarning] = useState("");
 
-  //These should talk to the service at some point because halal/vegetarian/vegan should be in the state during registration
+  // for password popup
+  const [oldPassword, setOldPassword] = useState("");
+  const [newPassword, setNewPassword] = useState("");
+  const [confNewPassword, setConfNewPassword] = useState("");
+  const initPasswordPopop = () => {
+    setOldPassword("");
+    setNewPassword("");
+    setConfNewPassword("");
+    setWarning("");
+    setChangingPassword(true);
+  }
+  const checkPassword = (password: string) => {
+    return true;
+  }
+  const updatePwassword = (password: string) => {
 
-  /*
-  Specs: 
-  1. Name from registration
-  2. Dietary restrictions should also be pulling from service
-  */
-  const [profile, setProfile] = useState({
-    name: "Kenny",
-    restrictions: {
-      vegan: false,
-      vegetarian: false,
-      halal: false,
-    },
-  });
+  }
 
+  // for email popup
+  const [newEmail, setNewEmail] = useState("");
+  const [verificationCode, setVerificationCode] = useState(""); //not the real code, just the user's entry
+  const initEmailPopop = () => {
+    setNewEmail("");
+    setChangingEmail(true);
+    setWarning("");
+  }
+  const sendEmail = () => {
+    // send email (and generate code server side - if its stored locally, it can probably be hacked)
+  }
+  const checkVerificationCode = (code: string) => {
+    // send 'code' to the server so it can check against the code it generated
+    // (maybe also needs to be encrypted? idk - doubt we'll be docked points for it if not tho lol)
+    return true;
+  }
+
+  // TODO: probably make these sync changes with service at some point
   const editProfile = (key: string, value: any) => {
     setProfile((prevProfile) => ({
       ...prevProfile,
@@ -44,10 +70,11 @@ const ProfilePage = () => {
     }));
   };
 
+
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <Text style={styles.greeting}>Hi, {profile.name}!</Text>
+        <Text style={styles.greeting}>Hi, {profile.pref_name}!</Text>
       </View>
 
       <View style={styles.optionsContainer}>
@@ -57,13 +84,18 @@ const ProfilePage = () => {
                 {(editingName) ?
                     <TextInput
                         style={styles.optionInput}
-                        value={profile.name}
-                        onChangeText={(val) => editProfile("name", val)}
-                        onSubmitEditing={() => setEditingName(false)}
+                        value={profile.pref_name}
+                        onChangeText={(val) => editProfile("pref_name", val.substring(0,20))} // Limit to 20 characters
+                        onSubmitEditing={() => {
+                          if (profile.pref_name.replace(/\W/g, "").length == 0) {
+                            editProfile("pref_name", savedPrefName)
+                          }
+                          setEditingName(false)
+                        }}
                     /> :
                     <View style={{flexDirection: "row"}}>
-                        <Text style={styles.optionValue}>{profile.name}</Text>
-                        <TouchableOpacity onPress={() => setEditingName(true)}>
+                        <Text style={styles.optionValue}>{profile.pref_name}</Text>
+                        <TouchableOpacity onPress={() => {setSavedPrefName(profile.pref_name); setEditingName(true)}}>
                             <Icon name="pencil" style={styles.editButton}/>
                         </TouchableOpacity>
                     </View>
@@ -72,13 +104,13 @@ const ProfilePage = () => {
         </View>
 
         <View style={[styles.option, styles.sectionSpacing]}>
-            <TouchableOpacity style={styles.optionButton} onPress={() => setChangingPassword(true)}>
+            <TouchableOpacity style={styles.optionButton} onPress={initPasswordPopop}>
                 <Text style={styles.optionLabel}>Change Password</Text>
             </TouchableOpacity>
         </View>
 
         <View style={[styles.option, styles.sectionSpacing]}>
-            <TouchableOpacity style={styles.optionButton} onPress={() => setChangingEmail(true)}>
+            <TouchableOpacity style={styles.optionButton} onPress={initEmailPopop}>
                 <Text style={styles.optionLabel}>Change Email Address</Text>
             </TouchableOpacity>
         </View>
@@ -142,15 +174,35 @@ const ProfilePage = () => {
         <View style={styles.popup}>
           <Text style={styles.option}>Change Password:</Text>
 
-          <TextInput style={styles.popupInput} placeholder="Old Password" />
-          <TextInput style={styles.popupInput} placeholder="New Password" />
-          <TextInput style={styles.popupInput} placeholder="Confirm New Password" />
+          <SecureTextInput value={oldPassword} onChangeText={(val) => setOldPassword(val)} placeholder="Old Password" />
+          <SecureTextInput value={newPassword} onChangeText={(val) => setNewPassword(val)} placeholder="New Password" />
+          <SecureTextInput value={confNewPassword} onChangeText={(val) => setConfNewPassword(val)} placeholder="Confirm New Password" />
+
+          {warning.length == 0 ? null :
+          <Text style={styles.warning}>{warning}</Text>}
 
           <View style={{flexDirection: "row"}}>
             <TouchableOpacity style={styles.popupCloseButton} onPress={() => setChangingPassword(false)}>
               <Text style={styles.popupButtonText}>Close</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.popupConfirmButton} onPress={() => setChangingPassword(false)}>
+            <TouchableOpacity style={styles.popupConfirmButton} onPress={() => {
+              if (!checkPassword(oldPassword)) {
+                setWarning("Old password is incorrect");
+                return;
+              }
+              if (newPassword != confNewPassword) {
+                setWarning("New passwords do not match");
+                return;
+              }
+              if (newPassword.length < 8) {
+                setWarning("New password must be at least 8 characters");
+                return;
+              }
+              setWarning("");
+              updatePwassword(newPassword);
+              setChangingPassword(false);
+              alert("Password changed successfully");
+            }}>
                 <Text style={styles.popupButtonText}>Confirm</Text>
             </TouchableOpacity>
           </View>
@@ -168,8 +220,8 @@ const ProfilePage = () => {
       >
         <View style={styles.popup}>
           <Text style={styles.option}>Change Email:</Text>
-          <TextInput style={styles.popupInput} placeholder="New Email" />
-          <TextInput style={styles.popupInput} placeholder="Verification Code" />
+          <TextInput value={newEmail} onChangeText={(val) => setNewEmail(val)} placeholder="New Email" style={styles.popupInput}/>
+          <SecureTextInput value={verificationCode} onChangeText={(val) => setVerificationCode(val)} placeholder="Verification Code" />
 
           {/* spacer after button "send verification code" */}
           <View style={{height:10}} />
@@ -179,11 +231,23 @@ const ProfilePage = () => {
           </TouchableOpacity>
           <View style={{height:5}} />
 
+          {warning.length == 0 ? null :
+          <Text style={styles.warning}>{warning}</Text>}
+
           <View style={{flexDirection: "row"}}>
             <TouchableOpacity style={styles.popupCloseButton} onPress={() => setChangingEmail(false)}>
               <Text style={styles.popupButtonText}>Close</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.popupConfirmButton} onPress={() => setChangingEmail(false)}>
+            <TouchableOpacity style={styles.popupConfirmButton} onPress={() => {
+              if (!checkVerificationCode(verificationCode)) {
+                setWarning("Verification code is incorrect");
+                return;
+              }
+              setWarning("");
+              editProfile("email", newEmail);
+              setChangingEmail(false);
+              alert("Email changed successfully");
+            }}>
               <Text style={styles.popupButtonText}>Confirm</Text>
             </TouchableOpacity>
           </View>
@@ -202,8 +266,8 @@ const ProfilePage = () => {
         transparent={true}
       >
         <View style={styles.popup}>
-          <TouchableOpacity style={styles.blue} onPress={() => setChangingSettings(false)}>
-            <Text style={styles.blue}>:)</Text>
+          <TouchableOpacity style={styles.optionButton} onPress={() => setChangingSettings(false)}>
+            <Text>No Settings Yet!<br/>(click to close)</Text>
           </TouchableOpacity>
         </View>
       </Modal>
@@ -302,7 +366,7 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     borderColor: '#000',
     width: 360,
-    height: 320,
+    height: 360,
     margin: "auto",
     alignItems: 'center',
     justifyContent: 'center', // Center the content vertically
@@ -346,11 +410,12 @@ const styles = StyleSheet.create({
     margin: 10,
     width: 280,
   },
-  blue: {
-    backgroundColor: 'blue',
+  warning:{
+    color: 'red',
+    fontSize: 18,
+    padding: 5,
+    backgroundColor: '#ffccbb',
     borderRadius: 10,
-    padding: 10,
-    fontSize: 24,
   },
 
   sectionSpacing: {
