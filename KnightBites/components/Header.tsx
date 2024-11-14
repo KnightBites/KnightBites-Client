@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useContext} from "react";
 import { Image, Text, View, TouchableOpacity } from "react-native";
 import styles from "@/constants/Styles";
+import { ProfileContext } from "@/components/ProfileProvider";
 
 const Header = () => {
   return (
@@ -12,10 +13,12 @@ const Header = () => {
 };
 
 const HeaderRight = ({navigation}) => {
+  const { profile, setProfile } = useContext(ProfileContext);
+
   return (
     <View style={{marginRight: 10}}>
-      <TouchableOpacity style={styles.headerUser} onPress={() => navigation.navigate("profile")}>
-        <Text>Kenny</Text>
+      <TouchableOpacity onPress={() => navigation.navigate("profile")}>
+        <Text style={styles.headerUser}>{profile.pref_name}</Text>
       </TouchableOpacity>
     </View>
   )

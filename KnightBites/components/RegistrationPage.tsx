@@ -84,7 +84,7 @@ export default function RegistrationPage({navigation}) {
 
     return (
       <View style = {{alignItems: "center", flex: 1, backgroundColor: Colors.light.background}}>
-        <Text style = {{fontSize: 25, marginBottom: 10, marginTop: 20 }}>Register Your Account </Text>
+        <Text style = {{fontSize: 25, marginBottom: 10, marginTop: 20, fontWeight:'bold' }}>Register Your Account </Text>
         <TextInput
           style={[styles.loginTextBar, isFocused && styles.loginTextBarHover]}
           value={email}
@@ -123,14 +123,14 @@ export default function RegistrationPage({navigation}) {
           />
 
           <TouchableOpacity onPress={() => allowPasswordVisible(!isPasswordVisible)}>
-            <Text style={[styles.toggleText, {alignItems: "center", textAlign: "center", marginBottom: 10, textDecorationLine: 'underline' }]}>
-              {isPasswordVisible ? 'Hide Passwords' : 'Show Passwords'} 
+            <Text style={[styles.toggleText, {alignItems: "center", textAlign: "center", marginTop: 3, marginBottom: 20, textDecorationLine: 'underline' }]}>
+              {isPasswordVisible ? 'Hide Password' : 'Show Password'} 
             </Text>
           </TouchableOpacity>
 
         </View>
 
-        <Text> Please select your dietary restrictions.</Text>
+        <Text> Please select your dietary restrictions:</Text>
 
         <View style = {styles.dietaryRestrictionContainer}>
           <TouchableOpacity
@@ -166,7 +166,7 @@ export default function RegistrationPage({navigation}) {
             }
           }}
         >
-          <Text>Submit</Text>
+          <Text style = {styles.submitText}>Register</Text>
         </TouchableOpacity>
         <ul style={registrationStyles.errorMessageContainer}>
             { formErrors.map((msg, idx) => <li key={idx} style={registrationStyles.errorMessage}>{ msg }</li>) }

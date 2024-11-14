@@ -45,7 +45,7 @@ export default function LoginPage({navigation}) {
 
   return (
     <View style = {{alignItems: "center", flex: 1, backgroundColor: Colors.light.background}}>
-      <Text style = {{fontSize: 25, marginBottom: 10, marginTop: 40 }}>Log In </Text>
+      <Text style = {{fontSize: 25, marginBottom: 10, marginTop: 40, fontWeight:'bold' }}>Log In </Text>
       <TextInput
         style={[styles.loginTextBar, isFocused && styles.loginTextBarHover] }
         value={username}
@@ -65,8 +65,8 @@ export default function LoginPage({navigation}) {
         />
 
       <TouchableOpacity onPress={() => allowPasswordVisible(!isPasswordVisible)}>
-        <Text style={[styles.toggleText, {alignItems: "center", textAlign: "center", marginBottom: 10, textDecorationLine: 'underline' }]}>
-          {isPasswordVisible ? 'Hide Password' : 'Show Password'}
+        <Text style={[styles.toggleText, {alignItems: "center", textAlign: "center", marginTop: 3, marginBottom: 20, textDecorationLine: 'underline' }]}>
+          {isPasswordVisible ? 'Hide Password' : 'Show Password'} 
         </Text>
       </TouchableOpacity>
 
@@ -87,7 +87,7 @@ export default function LoginPage({navigation}) {
               });
           }}
         >
-        <Text>Submit</Text>
+        <Text style = {styles.submitText}>Submit</Text>
         </TouchableOpacity>
       <TouchableOpacity onPress={() => navigation.navigate("registration")}><Text style = {{marginTop: 15, color: "blue"}}>Don't have an account? Register here.</Text></TouchableOpacity>
       <TouchableOpacity onPress={() => navigation.navigate("recovery")}><Text style = {{marginTop: 15, color: "blue"}}>Forgot your password? Recover account here. </Text></TouchableOpacity>
