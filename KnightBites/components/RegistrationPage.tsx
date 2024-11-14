@@ -7,21 +7,6 @@ import {
 import styles from '@/constants/Styles';
 import { Colors } from '@/constants/Colors';
 
-
-// NOT IN WORKING STATE
-async function sendEmail(subject: string, body: string, to: string): Promise<void> {
-    const linkingURL = `mailto:${to}?` + new URLSearchParams({
-        subject,
-        body,
-        from: "knightbites@example.com"
-    });
-
-    const canOpen = await Linking.canOpenURL(linkingURL);
-    if (!canOpen)
-        throw new Error("Cannot open provided URL for email sending");
-    return Linking.openURL(linkingURL);
-}
-
 function validatePassword(ps1: string, ps2: string): boolean {
     return (
         ps1 === ps2 // passwords must match
@@ -33,36 +18,56 @@ function registerDietaryRestrictions(vegan: boolean, vegetarian: boolean, halal:
   // hit db here
 }
 
-
-function registerAccount(username: string, password: string) {
-    // hit db here
-}
-
 export default function RegistrationPage({navigation}) {
 
     const [ username, setUsername ] = useState("");
+    const [ email, setEmail ] = useState("");
     const [ ps1, setPs1 ] = useState("");
     const [ ps2, setPs2 ] = useState("");
     const [isFocused, setIsFocused] = useState(false);
     const [isPasswordVisible, allowPasswordVisible] = useState(false);
     const [vegan, setVegan] = useState(false)
     const [vegetarian, setVegetarian] = useState(false);
+    const [halal, setHalal] = useState(false);
     const [selected, setSelected] = useState({ vegan: false, vegetarian: false, halal: false });
 
     const handleSelect = (type) => {
-      setSelected((prevSelected) => ({
-        ...prevSelected,
-        [type]: !prevSelected[type], // Toggle selection for the chosen type
-      }));
+        setSelected((prevSelected) => ({
+          ...prevSelected,
+          [type]: !prevSelected[type], // Toggle selection for the chosen type
+        }));
     };
+
+    async function registerAccount() {
+        // hit db here
+        try {
+          const resp = await fetch(
+            "https://knightbitesapp-cda7eve7fce3dkgy.eastus2-01.azurewebsites.net/user",
+            {
+              method: "POST",
+              body: JSON.stringify({
+                email,
+                username,
+                password: ps1,
+                vegan,
+                vegetarian,
+                halal,
+              })
+            }
+          );
+          const json = await resp.json();
+        } catch (err) {
+          console.error(err);
+        }
+    }
 
     return (
       <View style = {{alignItems: "center", flex: 1, backgroundColor: Colors.light.background}}>
         <Text style = {{fontSize: 25, marginBottom: 10, marginTop: 20, fontWeight:'bold' }}>Register Your Account </Text>
         <TextInput
           style={[styles.loginTextBar, isFocused && styles.loginTextBarHover]}
-          value={username}
-          onChangeText={setUsername} // When the user types, it sets the username
+          value={email}
+          onChangeText={setEmail} // When the user types, it sets the username
           onFocus={() => setIsFocused(true)}
           onBlur={() => setIsFocused(false)}
           placeholder="Enter your email"
@@ -71,6 +76,10 @@ export default function RegistrationPage({navigation}) {
         <View>
           <TextInput
             style={styles.loginTextBar}
+            value={username}
+            onChangeText={setUsername}
+            onFocus={() => setIsFocused(true)}
+            onBlur={() => setIsFocused(false)}
             placeholder="Enter a username">
           </TextInput>
         </View>
@@ -105,20 +114,20 @@ export default function RegistrationPage({navigation}) {
         <View style = {styles.dietaryRestrictionContainer}>
           <TouchableOpacity
             style={[styles.dietaryRestrictionButton, selected.vegan && styles.dietaryRestrictionButtonSelection]}
-            onPress={() => handleSelect('vegan')}
+            onPress={() => { handleSelect('vegan'); setVegan(!vegan); }}
           >
             <Text>Vegan</Text>
           </TouchableOpacity>
           <TouchableOpacity
             style={[styles.dietaryRestrictionButton, selected.vegetarian && styles.dietaryRestrictionButtonSelection]}
-            onPress={() => handleSelect('vegetarian')}
+            onPress={() => { handleSelect('vegetarian'); setVegetarian(!vegetarian); }}
           >
             <Text>Vegetarian</Text>
           </TouchableOpacity>
 
           <TouchableOpacity
             style={[styles.dietaryRestrictionButton, selected.halal && styles.dietaryRestrictionButtonSelection]}
-            onPress={() => handleSelect('halal')}
+            onPress={() => { handleSelect('halal'); setHalal(!halal); }}
           >
             <Text>Halal</Text>
           </TouchableOpacity>
@@ -128,7 +137,7 @@ export default function RegistrationPage({navigation}) {
         <TouchableOpacity style = {styles.submitRegistrationButton}
           onPress={() => {
             if (validatePassword(ps1, ps2)) {
-              registerAccount(username, ps1);
+              registerAccount();
               navigation.navigate("login");
             } else {
               alert('Your passwords do not match'); //I think this is automatically freaking out since we have no db, so it will always say no
