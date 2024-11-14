@@ -2,21 +2,11 @@ import { useState } from 'react';
 import { 
     Image, StyleSheet, View, Text, FlatList, 
     TouchableOpacity, Button, TextInput, 
-    Linking,
+    Linking, ActivityIndicator,
 } from 'react-native';
 import styles from '@/constants/Styles';
 import { Colors } from '@/constants/Colors';
-
-function validatePassword(ps1: string, ps2: string): boolean {
-    return (
-        ps1 === ps2 // passwords must match
-        && ps1.length >= 8 // password must be >= 8 characters
-    )
-}
-
-function registerDietaryRestrictions(vegan: boolean, vegetarian: boolean, halal: boolean){
-  // hit db here
-}
+const md5 = require("md5");
 
 export default function RegistrationPage({navigation}) {
 
@@ -24,12 +14,14 @@ export default function RegistrationPage({navigation}) {
     const [ email, setEmail ] = useState("");
     const [ ps1, setPs1 ] = useState("");
     const [ ps2, setPs2 ] = useState("");
-    const [isFocused, setIsFocused] = useState(false);
-    const [isPasswordVisible, allowPasswordVisible] = useState(false);
-    const [vegan, setVegan] = useState(false)
-    const [vegetarian, setVegetarian] = useState(false);
-    const [halal, setHalal] = useState(false);
-    const [selected, setSelected] = useState({ vegan: false, vegetarian: false, halal: false });
+    const [ isFocused, setIsFocused ] = useState(false);
+    const [ isPasswordVisible, allowPasswordVisible ] = useState(false);
+    const [ vegan, setVegan ] = useState(false)
+    const [ vegetarian, setVegetarian ] = useState(false);
+    const [ halal, setHalal ] = useState(false);
+    const [ selected, setSelected ] = useState({ vegan: false, vegetarian: false, halal: false });
+    const [ loading, setLoading ] = useState(false);
+    const [ formErrors, setFormErrors ] = useState([]);
 
     const handleSelect = (type) => {
         setSelected((prevSelected) => ({
@@ -38,26 +30,51 @@ export default function RegistrationPage({navigation}) {
         }));
     };
 
-    async function registerAccount() {
-        // hit db here
+    function validateForm(): boolean {
+        let errors = []; // accumulate errors here
+
+        if (!(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(email)))
+            errors.push("Invalid email address")
+        
+        if (ps1 !== ps2)
+            errors.push("Passwords must match")
+
+        if (ps1.length < 8)
+            errors.push("Password must be at least 8 characters")
+
+        setFormErrors(errors);
+        return errors.length === 0
+    }
+
+    async function registerAccount(passed: Function, failed: Function, final: Function): Promise<void> {
         try {
           const resp = await fetch(
             "https://knightbitesapp-cda7eve7fce3dkgy.eastus2-01.azurewebsites.net/user",
             {
               method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
               body: JSON.stringify({
                 email,
                 username,
-                password: ps1,
+                password: md5(ps1),
                 vegan,
                 vegetarian,
                 halal,
               })
             }
           );
+          if (!resp.ok) throw `Bad response: Error ${resp.status}`;
+
           const json = await resp.json();
+          console.log("new id:", json.id);
+          passed(json);
         } catch (err) {
           console.error(err);
+          failed(err);
+        } finally {
+          final();
         }
     }
 
@@ -136,19 +153,32 @@ export default function RegistrationPage({navigation}) {
   
         <TouchableOpacity style = {styles.submitRegistrationButton}
           onPress={() => {
-            if (validatePassword(ps1, ps2)) {
-              registerAccount();
-              navigation.navigate("login");
-            } else {
-              alert('Your passwords do not match'); //I think this is automatically freaking out since we have no db, so it will always say no
+            if (validateForm(ps1, ps2)) {
+              setLoading(true);
+              registerAccount(
+                passed = (data) => navigation.navigate("login"),
+                failed = (err) => alert("Error creating account!\n" +  err),
+                final = () => setLoading(false))
             }
           }}
         >
           <Text style = {styles.submitText}>Register</Text>
         </TouchableOpacity>
+        <ul style={registrationStyles.errorMessageContainer}>
+            { formErrors.map((msg, idx) => <li key={idx} style={registrationStyles.errorMessage}>{ msg }</li>) }
+        </ul>
 
-        <TouchableOpacity onPress={() => navigation.navigate("login")}><Text style = {{marginTop: 15, color: "blue"}}>Already have an account? Login here.</Text></TouchableOpacity>
-
+        <TouchableOpacity onPress={() => navigation.navigate("login")}><Text style = {{marginTop: 15, marginBottom: 15, color: "blue"}}>Already have an account? Login here.</Text></TouchableOpacity>
+        { loading && <ActivityIndicator /> }
       </View>
     );
   };
+
+const registrationStyles = StyleSheet.create({
+    errorMessage: {
+        color: "red",
+    },
+    errorMessageContainer: {
+        marginTop: 15,
+    },
+});

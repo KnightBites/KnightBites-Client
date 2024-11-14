@@ -41,6 +41,8 @@ export default function LoginPage({navigation}) {
     } catch (err) {
       console.error(err);
     }
+
+    return valid;
   }
 
   return (
@@ -63,34 +65,34 @@ export default function LoginPage({navigation}) {
           secureTextEntry={!isPasswordVisible} 
           placeholder="Enter your password"
         />
-
-
-        <Text style={[styles.toggleText, {alignItems: "center", textAlign: "center", marginTop: 3, marginBottom: 20, textDecorationLine: 'underline' }]}>
-          {isPasswordVisible ? 'Hide Password' : 'Show Password'} 
-        </Text>
-      </TouchableOpacity>
-
-      </View>  
-        <TouchableOpacity style = {styles.submitRegistrationButton}
-          onPress={() => {
-            setLoading(true);
-            validateAccount(username, pass)
-              .then(valid => {
-                if (valid)
-                  navigation.navigate("home");
-                else
-                  alert('Your username or password is incorrect. Try again.');
-              })
-              .catch(err => console.error(err))
-              .finally(() => {
-                setLoading(false);
-              });
-          }}
-        >
-        <Text style = {styles.submitText}>Submit</Text>
+        <TouchableOpacity onPress={() => allowPasswordVisible(!isPasswordVisible)}>
+          <Text style={[styles.toggleText, {alignItems: "center", textAlign: "center", marginTop: 3, marginBottom: 20, textDecorationLine: 'underline' }]}>
+            {isPasswordVisible ? 'Hide Password' : 'Show Password'} 
+          </Text>
         </TouchableOpacity>
+      </View>
+
+      <TouchableOpacity style = {styles.submitRegistrationButton}
+        onPress={() => {
+          setLoading(true);
+          validateAccount(username, pass)
+            .then(valid => {
+              console.log("valid", valid);
+              if (valid)
+                navigation.navigate("home");
+              else
+                alert('Your username or password is incorrect. Try again.');
+            })
+            .catch(err => console.error(err))
+            .finally(() => {
+              setLoading(false);
+            });
+        }}
+      >
+        <Text style = {styles.submitText}>Submit</Text>
+      </TouchableOpacity>
       <TouchableOpacity onPress={() => navigation.navigate("registration")}><Text style = {{marginTop: 15, color: "blue"}}>Don't have an account? Register here.</Text></TouchableOpacity>
-      <TouchableOpacity onPress={() => navigation.navigate("recovery")}><Text style = {{marginTop: 15, color: "blue"}}>Forgot your password? Recover account here. </Text></TouchableOpacity>
+      <TouchableOpacity onPress={() => navigation.navigate("recovery")}><Text style = {{marginTop: 15, color: "blue"}}>Forgot your password? Recover account here.</Text></TouchableOpacity>
       <TouchableOpacity onPress={() => navigation.navigate("buildSandwichHomePage")}><Text style = {{marginTop: 15, color: "blue"}}>View Uppercrust.</Text></TouchableOpacity>
       { loading && <ActivityIndicator /> }
     </View>
