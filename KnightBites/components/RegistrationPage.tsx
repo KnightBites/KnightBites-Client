@@ -8,11 +8,6 @@ import styles from '@/constants/Styles';
 import { Colors } from '@/constants/Colors';
 const md5 = require("md5");
 
-// TODO: do we still need this function?
-function registerDietaryRestrictions(vegan: boolean, vegetarian: boolean, halal: boolean){
-  // hit db here
-}
-
 export default function RegistrationPage({navigation}) {
 
     const [ username, setUsername ] = useState("");
@@ -73,6 +68,7 @@ export default function RegistrationPage({navigation}) {
           if (!resp.ok) throw `Bad response: Error ${resp.status}`;
 
           const json = await resp.json();
+          console.log("new id:", json.id);
           passed(json);
         } catch (err) {
           console.error(err);
