@@ -7,6 +7,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import styles from '@/constants/Styles';
 import Dish from "@/interfaces/Dish";
+import { ProfileProvider } from "@/components/ProfileProvider";
 
 ////////
 // Pages
@@ -23,38 +24,40 @@ const Stack = createNativeStackNavigator();
 
 export default function EntryPoint() {
   return (
-    <Stack.Navigator
-      initialRouteName="login"
-      screenOptions={({ navigation }) => ({
-        headerTitle: props => <Header />,
-        headerStyle: {
-          backgroundColor: "maroon",
-        },
-        headerRight: props => <HeaderRight navigation={navigation} />,
-      })}
-    >
-      <Stack.Screen name="home" component={HomePage}
-        options={{ headerLeft: props => { } }} // to get rid of button going back to login page
-      />
-      <Stack.Screen name="foodPage" component={FoodPage}
-        initialParams={
-          { dish: { name: "Yummy", desc: "cool", rating: 3, respectiveCafeteria: -1, img: 'https://placehold.co/400' } }
-        }
-      />
-      <Stack.Screen name="login" component={LoginPage}
-        options={{ headerLeft: props => { } }} />
-      <Stack.Screen name="registration" component={RegisterPage}
-        options={{ headerLeft: props => { } }} />
-      <Stack.Screen name="recovery" component={RecoverPage}
-        options={{ headerLeft: props => { } }} />
-      <Stack.Screen name="buildSandwichHomePage" component={buildSandwichHomePage}
-        options={{ headerLeft: props => { } }} />
-      <Stack.Screen name="buildSandwich" component={buildSandwich} />
+    <ProfileProvider>
+      <Stack.Navigator
+        initialRouteName="login"
+        screenOptions={({ navigation }) => ({
+          headerTitle: props => <Header />,
+          headerStyle: {
+            backgroundColor: "maroon",
+          },
+          headerRight: props => <HeaderRight navigation={navigation} />,
+        })}
+      >
+        <Stack.Screen name="home" component={HomePage}
+          options={{ headerLeft: props => { } }} // to get rid of button going back to login page
+        />
+        <Stack.Screen name="foodPage" component={FoodPage}
+          initialParams={
+            { dish: { name: "Yummy", desc: "cool", rating: 3, respectiveCafeteria: -1, img: 'https://placehold.co/400' } }
+          }
+        />
+        <Stack.Screen name="login" component={LoginPage}
+          options={{ headerLeft: props => { } }} />
+        <Stack.Screen name="registration" component={RegisterPage}
+          options={{ headerLeft: props => { } }} />
+        <Stack.Screen name="recovery" component={RecoverPage}
+          options={{ headerLeft: props => { } }} />
+        <Stack.Screen name="buildSandwichHomePage" component={buildSandwichHomePage}
+          options={{ headerLeft: props => { } }} />
+        <Stack.Screen name="buildSandwich" component={buildSandwich} />
 
-      <Stack.Screen name="profile" component = {ProfilePage} />
+        <Stack.Screen name="profile" component = {ProfilePage} />
 
 
-    </Stack.Navigator>
+      </Stack.Navigator>
+    </ProfileProvider>
   )
 }
 

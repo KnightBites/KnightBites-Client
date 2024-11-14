@@ -196,33 +196,39 @@ const styles = StyleSheet.create({
     // The following styles are for the login page. 
     //loginTextBar is the style of entering in the passwords and usernames. 
     loginTextBar: {
-      borderRadius: 15,
+      borderRadius: 10,
       borderColor: 'black',
       borderWidth: 2,
-      width: 250,
+      width: 280,
       alignItems: "center",
       padding: 10,
       shadowColor: Colors.light.background,
       shadowOpacity: 0.25,
       elevation: 5,
       marginVertical: 10,
-      position: "sticky",
+      // position: "sticky", 
     },
     loginTextBarHover: {
       borderColor: 'blue' //Testing this, just to see what it looks like later?? 
     },
 
+    // This is for the submit button on the login page, register button on the registration page, and the send code button on the recovery page.
     submitRegistrationButton: {
-      borderRadius: 25,
-      borderColor: "black", 
-      borderWidth: 2, 
-      width: 100,
-      height: 40, 
-      textAlign: "center",
-      fontSize: 15,
+      backgroundColor: '#891B2F',
+      borderRadius: 10,
+      padding: 15,
+      width: 200,
+      height: 50,
       alignItems: 'center',
-      justifyContent: 'center'
+      alignSelf: 'center', // Center the button horizontally     
     },
+
+    submitText: {
+      color: '#fff',
+      fontSize: 18,
+      fontWeight: 'bold',
+      },
+
     toggleText: {
       color: 'black',
       fontSize: 14,
@@ -238,21 +244,23 @@ const styles = StyleSheet.create({
       padding: 20
     },
 
-    dietaryRestrictionButton: {
-      flex: 1,
-      marginHorizontal: 5,
-      height: 50,
-      width: 150,
-      justifyContent: 'center',
-      alignItems: 'center',
-      backgroundColor: Colors.light.background, 
-      borderRadius: 25,
-      borderColor: "black",
-      borderWidth: 2,
+    dietaryRestrictionButton: { // button off
+      backgroundColor: '#D3D3D3', // Light gray for unselected button
+      borderColor: 'black',
+      padding: 10,
+      paddingVertical: 12, // Increased for height
+      paddingHorizontal: 25, // Increased for width
+      borderRadius: 10,
+      marginRight: 10, // space between buttons
     },
 
     dietaryRestrictionButtonSelection: {
-      backgroundColor: 'gold',
+      backgroundColor: '#EECC0A', // Calvin gold color for selected button
+      padding: 10,
+      paddingVertical: 12, // Increased for height
+      paddingHorizontal: 25, // Increased for width
+      borderRadius: 10,
+      marginRight: 10, // space between buttons
     },
 
     // These styles are for the Uppercrust Buttons
