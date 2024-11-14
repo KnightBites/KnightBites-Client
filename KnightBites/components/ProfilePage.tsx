@@ -267,7 +267,9 @@ const ProfilePage = () => {
       >
         <View style={styles.popup}>
           <TouchableOpacity style={styles.optionButton} onPress={() => setChangingSettings(false)}>
-            <Text>No Settings Yet!<br/>(click to close)</Text>
+            <Text>No Settings Yet!</Text>
+            <View style={{ height: 10 }} />
+            <Text>(click to close)</Text>
           </TouchableOpacity>
         </View>
       </Modal>
