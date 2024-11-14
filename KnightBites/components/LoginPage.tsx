@@ -63,7 +63,6 @@ export default function LoginPage({navigation}) {
           secureTextEntry={!isPasswordVisible} 
           placeholder="Enter your password"
         />
-
       <TouchableOpacity onPress={() => allowPasswordVisible(!isPasswordVisible)}>
         <Text style={[styles.toggleText, {alignItems: "center", textAlign: "center", marginTop: 3, marginBottom: 20, textDecorationLine: 'underline' }]}>
           {isPasswordVisible ? 'Hide Password' : 'Show Password'} 
