@@ -1,5 +1,5 @@
 import React from "react";
-import { Image, Text, View } from "react-native";
+import { Image, Text, View, TouchableOpacity } from "react-native";
 import styles from "@/constants/Styles";
 
 const Header = () => {
@@ -11,10 +11,12 @@ const Header = () => {
   );
 };
 
-const HeaderRight = () => {
+const HeaderRight = ({navigation}) => {
   return (
     <View style={{marginRight: 10}}>
-      <Text style={styles.headerUser}>Kenny</Text>
+      <TouchableOpacity style={styles.headerUser} onPress={() => navigation.navigate("profile")}>
+        <Text>Kenny</Text>
+      </TouchableOpacity>
     </View>
   )
 }
