@@ -1,4 +1,4 @@
-import React, { createContext, useState, ReactNode } from 'react';
+import React, { createContext, useState, ReactNode, useEffect } from 'react';
 import { Profile } from '@/interfaces/Profile';
 
 interface ProfileContextProps {
@@ -6,9 +6,9 @@ interface ProfileContextProps {
   setProfile: React.Dispatch<React.SetStateAction<Profile>>;
 }
 
-const defaultProfile: Profile = {
+export const defaultProfile: Profile = {
   username: '',
-  pref_name: 'user',
+  pref_name: '',
   email: '',
   restrictions: {
     halal: false,

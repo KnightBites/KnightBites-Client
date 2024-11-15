@@ -1,14 +1,14 @@
 import React, { useState, useContext } from 'react';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import { Modal, View, Text, TextInput, Button, StyleSheet, Image, TouchableOpacity } from 'react-native';
+import { Modal, View, Text, TextInput, Button, StyleSheet, Image, TouchableOpacity} from 'react-native';
 import { validatePathConfig } from '@react-navigation/native';
 import { Colors } from "@/constants/Colors";
-import { ProfileContext } from "@/components/ProfileProvider";
+import { ProfileContext, defaultProfile } from "@/components/ProfileProvider";
 import SecureTextInput from "@/components/SecureTextInput";
 import { warmUpAsync } from 'expo-web-browser';
 
 
-const ProfilePage = () => {
+const ProfilePage = ({navigation})=> {
   const {profile, setProfile} = useContext(ProfileContext);
   const [savedPrefName, setSavedPrefName] = useState(profile.pref_name);
   const [editingName, setEditingName] = useState(false);
@@ -68,6 +68,16 @@ const ProfilePage = () => {
         [restriction]: value,
       },
     }));
+  };
+
+  // For logout button
+  const handleLogout = () => {
+    setProfile(defaultProfile);
+    // Reset the navigation stack to the login screen
+    navigation.reset({
+        index: 0,
+        routes: [{ name: 'login' }],
+    });
   };
 
 
@@ -156,7 +166,7 @@ const ProfilePage = () => {
       </View>
 
       {/* Log Out Button */}
-      <TouchableOpacity style={styles.logoutButton}>
+      <TouchableOpacity onPress={handleLogout} style={styles.logoutButton}>
         <Text style={styles.logoutText}>Log Out</Text>
       </TouchableOpacity>
 
