@@ -6,7 +6,7 @@ interface ProfileContextProps {
   setProfile: React.Dispatch<React.SetStateAction<Profile>>;
 }
 
-const defaultProfile: Profile = {
+export const defaultProfile: Profile = {
   username: '',
   pref_name: '',
   email: '',
