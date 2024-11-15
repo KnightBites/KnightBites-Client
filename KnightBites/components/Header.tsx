@@ -6,7 +6,6 @@ import { ProfileContext } from "@/components/ProfileProvider";
 const Header = () => {
   return (
     <View style={styles.headerBar}>
-      <Image style={styles.headerAppImage} source={require("@/assets/images/dining-hall.jpg")}></Image>
       <Text style={styles.headerAppTitle}>KnightBites</Text>
     </View>
   );
