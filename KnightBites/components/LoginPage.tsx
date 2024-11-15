@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import { 
     Image, StyleSheet, View, Text, FlatList, 
     TouchableOpacity, Button, TextInput, 
@@ -6,6 +6,8 @@ import {
 } from 'react-native';
 import styles from '@/constants/Styles';
 import { Colors } from '@/constants/Colors';
+import { ProfileContext } from "@/components/ProfileProvider";
+import { Profile } from '@/interfaces/Profile';
 const mp5 = require("md5");
 
 
@@ -17,11 +19,12 @@ export default function LoginPage({navigation}) {
   const [ isPasswordVisible, allowPasswordVisible ] = useState(false);
   const [ loading, setLoading ] = useState(false);
 
+  const { profile, setProfile } = useContext(ProfileContext);
+
   // Function hits database and checks if the user exists
   // password is hashed and checked against hashed password in db
-  async function validateAccount(username: string, password: string): Promise<bool> {
+  async function validateAccount(username: string, password: string): Promise<Object> {
     const hashedPassword = mp5(password);
-    let valid = false;
 
     try {
       const resp = await fetch(
@@ -37,12 +40,10 @@ export default function LoginPage({navigation}) {
       if (!resp.ok) throw `Bad response for log in: ${resp.status}`;
 
       const json = await resp.json();
-      valid = json.valid;
+      return json;
     } catch (err) {
       console.error(err);
     }
-
-    return valid;
   }
 
   return (
@@ -76,14 +77,24 @@ export default function LoginPage({navigation}) {
         onPress={() => {
           setLoading(true);
           validateAccount(username, pass)
-            .then(valid => {
-              console.log("valid", valid);
-              if (valid)
+            .then(data => {
+              if (data.valid) {
+                const user: Profile = {
+                  username: data.userData.username,
+                  pref_name: data.userData.username,
+                  email: data.userData.email,
+                  restrictions: {
+                    halal: data.userData.halalrestriction,
+                    vegan: data.userData.veganrestriction,
+                    vegetarian: data.userData.vegetarianrestriction,
+                  },
+                };
+                setProfile(user);
                 navigation.navigate("home");
-              else
+              } else {
                 alert('Your username or password is incorrect. Try again.');
+              }
             })
-            .catch(err => console.error(err))
             .finally(() => {
               setLoading(false);
             });
