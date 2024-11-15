@@ -164,9 +164,9 @@ export default function RegistrationPage({navigation}) {
         >
           <Text style = {styles.submitText}>Register</Text>
         </TouchableOpacity>
-        <ul style={registrationStyles.errorMessageContainer}>
-            { formErrors.map((msg, idx) => <li key={idx} style={registrationStyles.errorMessage}>{ msg }</li>) }
-        </ul>
+        <View style={registrationStyles.errorMessageContainer}>
+            { formErrors.map((msg, idx) => <Text key={idx} style={registrationStyles.errorMessage}>{ msg }</Text>) }
+        </View>
 
         <TouchableOpacity onPress={() => navigation.navigate("login")}><Text style = {{marginTop: 15, marginBottom: 15, color: "blue"}}>Already have an account? Login here.</Text></TouchableOpacity>
         { loading && <ActivityIndicator /> }
