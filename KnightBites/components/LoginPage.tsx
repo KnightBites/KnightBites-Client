@@ -55,7 +55,8 @@ export default function LoginPage({navigation}) {
         onFocus={() => setIsFocused(true)}
         onBlur={() => setIsFocused(false)}
         placeholder="Enter your username"
-      />
+        placeholderTextColor="black"
+            />
 
       <View>
         <TextInput
@@ -64,6 +65,7 @@ export default function LoginPage({navigation}) {
           onChangeText={setPass}
           secureTextEntry={!isPasswordVisible} 
           placeholder="Enter your password"
+          placeholderTextColor="black"
         />
         <TouchableOpacity onPress={() => allowPasswordVisible(!isPasswordVisible)}>
           <Text style={[styles.toggleText, {alignItems: "center", textAlign: "center", marginTop: 3, marginBottom: 20, textDecorationLine: 'underline' }]}>
