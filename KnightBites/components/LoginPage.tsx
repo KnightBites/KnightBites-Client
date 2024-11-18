@@ -90,6 +90,7 @@ export default function LoginPage({navigation}) {
                     vegan: data.userData.veganrestriction,
                     vegetarian: data.userData.vegetarianrestriction,
                   },
+                  loggedIn: true,
                 };
                 setProfile(user);
                 navigation.navigate("home");
