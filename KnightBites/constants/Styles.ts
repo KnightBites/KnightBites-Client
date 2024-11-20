@@ -55,12 +55,20 @@ const styles = StyleSheet.create({
       flex: 1,
     },
     searchContainer: {
+      flexDirection: 'row',
       flex: 3,
       marginHorizontal: 10,
       width: '100%',
-      height: 50,
-      marginTop: 5,
+      height: 40,
+      marginTop: 10,
       marginBottom: 10,
+      alignContent: "center",
+      alignItems: "center"
+    },
+
+    filterIcon: {
+      marginLeft: 10,
+      marginRight: 10
     },
 
     // This starts the Dropdown option styles ////////////
@@ -143,20 +151,19 @@ const styles = StyleSheet.create({
     feedContainer: { // This is the container for the feed that displays all food items
       alignItems: "center",
       width: '100%',
-      flex: '25%', // This controls the gap between the feed and the search bar & dropdown
       overflow: 'hidden',
       padding: 10,
       height: "100%",
     },
     feed: {
-      borderColor: 'black',
-      backgroundColor: 'darkred',
+      marginTop: 45,
+      backgroundColor: '#FFF8DC',
       borderRadius: 10,
-      borderWidth: 5,
       width: '100%',
       paddingHorizontal: 10,
       flexDirection: 'column',
       flex: 1,
+      boxShadow: "left",
     },
     footerBar: {
       width: "100%",

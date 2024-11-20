@@ -8,6 +8,8 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import styles from '@/constants/Styles';
 import Dish from "@/interfaces/Dish";
 import { ProfileProvider } from "@/components/ProfileProvider";
+import Icon from 'react-native-vector-icons/Ionicons'; 
+
 
 ////////
 // Pages
@@ -52,9 +54,7 @@ export default function EntryPoint() {
         <Stack.Screen name="buildSandwichHomePage" component={buildSandwichHomePage}
           options={{ headerLeft: props => { } }} />
         <Stack.Screen name="buildSandwich" component={buildSandwich} />
-
         <Stack.Screen name="profile" component = {ProfilePage} />
-
 
       </Stack.Navigator>
     </ProfileProvider>
@@ -128,66 +128,14 @@ function HomePage({ navigation }) {
               placeholder="Search for a dish"
               onChangeText={setSearch}
               value={search}
-              style={[styles.searchBar, { color: 'black' }]}
+              style={[styles.searchBar, { color: 'black', fontStyle: 'italic', fontSize: 14 }]}
               placeholderTextColor="black"
             />
-          </View>
-          <View style={styles.clearTextButton}>
-            <Button
-              title="Clear"
-              color="white"
-              onPress={() => setSearch('')} // Clear the search bar
-            />
-          </View>
-          <View style={styles.sortFoodButton}>
-            <Button
-              title="Sort"
-              color="white"
-              onPress={() => {
-                // Open a pop-up menu with sorting options
-                Alert.alert( // TODO: Alert is a pop-up menu, does not seem to work on web version. Works as expected on mobile. -JT
-                  "Sort Options",
-                  "Choose a sorting method", // TODO: I want to add a sort method that shows the foods with the most comments first. -JT
-                  [
-                    { text: "Alphabetical (A-Z)", onPress: () => {
-                      const sortedData = [...dishData].sort((a, b) => a.foodname.localeCompare(b.foodname));
-                      setDishData(sortedData);
-                    }},
-                    { text: "Alphabetical (Z-A)", onPress: () => {
-                      const sortedData = [...dishData].sort((a, b) => b.foodname.localeCompare(a.foodname));
-                      setDishData(sortedData);
-                    }},
-                    { text: "Rating: best to worst", onPress: () => {
-                      const sortedData = [...dishData].sort((a, b) => b.rating - a.rating);
-                      setDishData(sortedData);
-                    }},
-                    { text: "Rating: worst to best", onPress: () => {
-                      const sortedData = [...dishData].sort((a, b) => a.rating - b.rating);
-                      setDishData(sortedData);
-                    }},
-                    { text: "Cancel", style: "cancel" }
-                  ],
-                  { cancelable: true }
-                );
-              }}
-            />
-          </View>
-
-          <View style={styles.dropdownContainer}>
-            <DropDownPicker
-              open={open}
-              value={restaurant}
-              items={items}
-              setOpen={setOpen}
-              setValue={setRestaurant}
-              setItems={setItems}
-              placeholder="All Dining Halls"
-              textStyle={styles.dropdown} // Apply styles to the dropdown text
-              containerStyle={styles.dropdown} // Apply styles to the dropdown
-              style={styles.dropdown} // Apply styles to the dropdown
-              dropDownContainerStyle={styles.dropdownList} // Styles for the dropdown list
-              listItemContainerStyle={styles.dropdownListItem} // Styles for the dropdown list
-              listItemLabelStyle={styles.dropdownListItem} // Styles for the dropdown list
+            <Icon
+              name="filter-outline" // Icon name from Ionicons
+              size={24} // Icon size
+              color="black" // Icon color
+              style = {styles.filterIcon}
             />
           </View>
         </View>

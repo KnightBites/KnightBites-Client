@@ -33,69 +33,86 @@ export default function FoodPanel({navigation, dish}) {
 
   return (
     <View style={usingstyles.panel} onLayout={chooseStyle}>
-
-      <Image style={usingstyles.picture} source={{uri: dish.img}}></Image>
-      
-      <View style={usingstyles.information}>
-        <Text style={usingstyles.name}>{dish.foodname}</Text>
-        <View style={usingstyles.rating}>
-          <StarRating foodRating={dish.rating} size={starSize}></StarRating>
-          <Text style={usingstyles.ratingNum}>{dish.rating.toFixed(1)}</Text>
-        </View>
-        <Text style={usingstyles.description}>{dish.description}</Text>
-        {/* Spacer for mobile */}
-        <View style={usingstyles.spacer}><Text></Text></View>
+      <View style={styles_web.individualFoodContainer}>
+      <Image style={usingstyles.foodPicture} source={{uri: dish.img}}></Image>
+      <View style={styles_web.text_container}>
+      <Text style={usingstyles.name}>{dish.foodname}</Text>
+      <View style={styles_web.location_container}>
+      <Icon name={"map-marker"} style={usingstyles.location_pin} />
+      <Text style={usingstyles.locationText}> {dish.dininghall}</Text>
       </View>
-      
-      <View style={usingstyles.location}>
-        <Text style={usingstyles.locationText}>{dish.dininghall}</Text>
-        <Icon name={"map-marker"} style={usingstyles.location_pin} />
+      <RankableStars style={{color: "black"}} size={starSize} keeps={false} onPress={(val) => navigation.navigate("foodPage", {dish, review: val})}></RankableStars>
       </View>
-
-      <View style={usingstyles.leave_review}>
-        <Text style={usingstyles.leave_review_text}>Leave Your Review - </Text>
-        <RankableStars size={starSize} keeps={false} onPress={(val) => navigation.navigate("foodPage", {dish, review: val})}></RankableStars>
-      </View>      
+  </View>
+      
     </View>
-
     
   )
 }
 
+/*
+        <View style={usingstyles.rating}>
+          <StarRating foodRating={dish.rating} size={starSize}></StarRating>
+          <Text style={usingstyles.ratingNum}>{dish.rating.toFixed(1)}</Text>
+      </View>
+*/
+
 const styles_web = StyleSheet.create({
-  picture: {
-    width: 200,
-    aspectRatio: 1,
-    height: 200,
+
+  individualFoodContainer: {
+    flexDirection: 'row', // Align content horizontally
+    backgroundColor: 'white', // White card background
+    marginRight: 10, // Space between cards
     borderRadius: 10,
-    margin: 5,
+    padding: 10,
+    width: '100%', // Card width
+    height: 100,
+    shadowColor: 'black',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.2,
+    shadowRadius: 4,
+    elevation: 3,
+    marginTop: 10,
+    marginBottom: 5
   },
-  name: {
-    fontSize: 32,
-    fontWeight: "bold",
+
+  foodPicture: {
+    width: 60,
+    height: 60,
+    borderRadius: 30, // Circular image
+    marginRight: 10, // Space between image and details
+  },
+
+  text_container: {
     flex: 1,
+    marginTop: 5,
+    marginBottom: 5,
+    marginLeft: 20,
+    justifyContent: 'space-evenly',
   },
-  description: {
-    flex: 2,
-    fontSize: 20,
-    width: "60%",
+
+  location_container: {
+    flexDirection: 'row',
+    marginBottom: 7,
+    alignContent: 'center'
+  },
+
+  name: {
+    fontSize: 40,
+    marginTop: 10,
+    marginBottom: 5,
+    flex: 1,
+    flexWrap: 'wrap'
   },
   panel: {
-    backgroundColor: "#777",
     flexDirection: "row",
     alignItems: "center",
     flexWrap: "wrap",
-    borderColor: "black",
-    borderWidth: 4,
     marginVertical: 4,
     width: "100%",
+
   },
-  information: {
-    height: "90%",
-    margin: 10,
-    position: "absolute",
-    left: 210,
-  },
+
   rating: {
     flexDirection: "row",
     alignItems: "center",
@@ -103,20 +120,16 @@ const styles_web = StyleSheet.create({
   ratingNum: {
     fontSize: 30,
     marginLeft: 10,
-    color: "gold",
+    color: "black",
     fontWeight: "bold",
   },
   location: {
-    position: "absolute",
-    flexDirection: "row",
-    justifyContent: "center",
     margin: 10,
     right: 10,
     top: 0,
   },
   locationText: {
     fontSize: 32,
-    fontWeight: "bold",
   },
   location_pin: {
     fontSize: 40,
@@ -149,25 +162,21 @@ const styles_mobile = StyleSheet.create({
     margin: 5,
     flex: 1,
   },
+  foodPicture: {
+    width: 60,
+    height: 60,
+    borderRadius: 30, // Circular image
+    marginRight: 10, // Space between image and details
+  },
   name: {
-    fontSize: 16,
-    fontWeight: "bold",
+    fontSize: 20,
     flex: 1,
   },
   description: {
     flex: 2,
     fontSize: 10,
   },
-  panel: {
-    backgroundColor: "#777",
-    flexDirection: "row",
-    alignItems: "center",
-    flexWrap: "wrap",
-    borderColor: "black",
-    borderWidth: 4,
-    marginVertical: 4,
-    width: "100%",
-  },
+
   information: {
     flexDirection: "column",
     height: "90%",
@@ -181,8 +190,7 @@ const styles_mobile = StyleSheet.create({
   ratingNum: {
     fontSize: 14,
     marginLeft: 10,
-    color: "gold",
-    fontWeight: "bold",
+    color: "black",
   },
   location: {
     position: "absolute",
@@ -194,7 +202,6 @@ const styles_mobile = StyleSheet.create({
   },
   locationText: {
     fontSize: 16,
-    fontWeight: "bold",
   },
   location_pin: {
     fontSize: 20,
