@@ -54,13 +54,53 @@ const styles = StyleSheet.create({
       alignContent: 'center',
       flex: 1,
     },
+
+    // More filter stuff
+
+    /*
+    modalContainer: {
+      justifyContent: 'flex-end',
+      margin: 0,
+    },
+
+    filterContent: {
+      backgroundColor: '#fff',
+      padding: 20,
+      borderTopLeftRadius: 15,
+      borderTopRightRadius: 15,
+      alignItems: 'center',
+    },
+
+    handle: {
+      width: 50,
+      height: 5,
+      backgroundColor: '#ccc',
+      borderRadius: 2.5,
+      marginBottom: 10,
+    },
+    filterText: {
+      fontSize: 18,
+      fontWeight: 'bold',
+      marginBottom: 20,
+    },
+    filterButton: {
+      backgroundColor: '#4CAF50',
+      padding: 10,
+      borderRadius: 5,
+    },
+    filterButtonText: {
+      color: '#fff',
+      fontSize: 16,
+    },
+    */
+
     searchContainer: {
       flexDirection: 'row',
       flex: 3,
       marginHorizontal: 10,
       width: '100%',
       height: 40,
-      marginTop: 10,
+      marginTop: 15,
       marginBottom: 10,
       alignContent: "center",
       alignItems: "center"
@@ -75,7 +115,6 @@ const styles = StyleSheet.create({
     dropdownContainer: {
       flex: .9, // This controls how much space the dropdown takes up horizontally. Adding more space will make the dropdown wider.
       marginHorizontal: 10,
-      marginTop: 4,
       width: '100%',
       minWidth: 100,
       height: 40,
@@ -157,7 +196,7 @@ const styles = StyleSheet.create({
     },
     feed: {
       marginTop: 45,
-      backgroundColor: '#FFF8DC',
+      backgroundColor: '#FFF2C1',
       borderRadius: 10,
       width: '100%',
       paddingHorizontal: 10,
@@ -273,14 +312,35 @@ const styles = StyleSheet.create({
     // These styles are for the Uppercrust Buttons
 
     uppercrustViewSandwiches: {
-      borderRadius: 25,
-      borderColor: "black", 
-      borderWidth: 2, 
+      backgroundColor: '#910909',
       width: 200,
       height: 80, 
-      textAlign: "center",
-      fontSize: 15,
-      alignItems: 'center'
+      marginBottom: 15,
+      marginTop: 15,
+      alignItems: 'center',
+      alignContent: 'center',
+      display: "flex",
+      justifyContent: 'center',
+      boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.2)", // Shadow
+      textAlign: 'center',
+      flexWrap: 'wrap'
+    },
+
+    uppercrustViewText: {
+      color: "white",
+      alignItems: 'center',
+      alignContent: 'center',
+      textAlign: 'center',
+      flexWrap: 'wrap',
+      marginRight: 10,
+      marginLeft: 10,
+      fontSize: 19,
+    },
+
+    uppercrustRuleText: {
+      fontSize: 19, 
+      marginTop: 10,
+      marginBottom: 10
     }
   })
 

@@ -41,7 +41,7 @@ export default function FoodPanel({navigation, dish}) {
       <Icon name={"map-marker"} style={usingstyles.location_pin} />
       <Text style={usingstyles.locationText}> {dish.dininghall}</Text>
       </View>
-      <RankableStars style={{color: "black"}} size={starSize} keeps={false} onPress={(val) => navigation.navigate("foodPage", {dish, review: val})}></RankableStars>
+      <StarRating foodRating={dish.rating} size={starSize}></StarRating>
       </View>
   </View>
       
@@ -94,7 +94,6 @@ const styles_web = StyleSheet.create({
   location_container: {
     flexDirection: 'row',
     marginBottom: 7,
-    alignContent: 'center'
   },
 
   name: {
@@ -185,7 +184,6 @@ const styles_mobile = StyleSheet.create({
   },
   rating: {
     flexDirection: "row",
-    alignItems: "center",
   },
   ratingNum: {
     fontSize: 14,
@@ -193,7 +191,6 @@ const styles_mobile = StyleSheet.create({
     color: "black",
   },
   location: {
-    position: "absolute",
     flexDirection: "row",
     justifyContent: "center",
     margin: 10,
@@ -221,5 +218,9 @@ const styles_mobile = StyleSheet.create({
   spacer: {
     height: 30,
     backgroundColor: "transparent",
+  },
+
+  starStyle: {
+    backgroundColor: "black",
   }
 });
