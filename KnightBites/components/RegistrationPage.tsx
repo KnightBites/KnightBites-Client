@@ -88,17 +88,20 @@ export default function RegistrationPage({navigation}) {
           onFocus={() => setIsFocused(true)}
           onBlur={() => setIsFocused(false)}
           placeholder="Enter your email"
+          placeholderTextColor="black"
+
         />
       
         <View>
-          <TextInput
+            <TextInput
             style={styles.loginTextBar}
             value={username}
             onChangeText={setUsername}
             onFocus={() => setIsFocused(true)}
             onBlur={() => setIsFocused(false)}
-            placeholder="Enter a username">
-          </TextInput>
+            placeholder="Enter a username"
+            placeholderTextColor="black"
+            />
         </View>
   
         <View>
@@ -108,6 +111,8 @@ export default function RegistrationPage({navigation}) {
             onChangeText={setPs1}
             secureTextEntry={!isPasswordVisible} 
             placeholder="Enter a password"
+            placeholderTextColor="black"
+
           />
 
           <TextInput
@@ -115,7 +120,9 @@ export default function RegistrationPage({navigation}) {
             value={ps2}
             onChangeText={setPs2}
             secureTextEntry={!isPasswordVisible}  
-            placeholder="Re-enter the password"
+            placeholder="Confirm password"
+            placeholderTextColor="black"
+
           />
 
           <TouchableOpacity onPress={() => allowPasswordVisible(!isPasswordVisible)}>

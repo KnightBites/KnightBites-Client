@@ -154,6 +154,7 @@ const styles = StyleSheet.create({
       overflow: 'hidden',
       padding: 10,
       height: "100%",
+      marginTop: 34,
     },
     feed: {
       marginTop: 45,

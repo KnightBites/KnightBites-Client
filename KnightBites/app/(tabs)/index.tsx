@@ -1,14 +1,17 @@
-import { Image, StyleSheet, View, Text, FlatList, TouchableOpacity, Button, TextInput, Pressable, ActivityIndicator, Alert } from 'react-native';
+import { Image, StyleSheet, View, Text, FlatList, TouchableOpacity, Button, 
+         TextInput, Pressable, ActivityIndicator, Alert,
+       } from 'react-native';
 import FoodPanel from '@/components/FoodPanel';
 import DropDownPicker from 'react-native-dropdown-picker';
 import { Header, HeaderRight } from '@/components/Header';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import styles from '@/constants/Styles';
 import Dish from "@/interfaces/Dish";
 import { ProfileProvider } from "@/components/ProfileProvider";
 import Icon from 'react-native-vector-icons/Ionicons'; 
+import { ProfileContext } from "@/components/ProfileProvider";
 
 
 ////////
@@ -62,6 +65,15 @@ export default function EntryPoint() {
 }
 
 function HomePage({ navigation }) {
+
+  // first things first, make sure the user is logged in to see this page
+  const { profile } = useContext(ProfileContext);
+  if (!profile.loggedIn) {
+      navigation.navigate("login");
+      // the return makes this final to react, otherwise it will try (and non-gracefully fail) to do all the stuff below
+      return;
+  }
+
   const [open, setOpen] = useState(false);
   const [search, setSearch] = useState('');
   const [restaurant, setRestaurant] = useState(-1);
