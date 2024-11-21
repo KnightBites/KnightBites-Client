@@ -19,6 +19,8 @@ import RecoverPage from "@/components/RecoverAccountPage";
 import buildSandwich from "@/components/BuildWich";
 import buildSandwichHomePage from "@/components/BuildWichHome";
 import ProfilePage from "@/components/ProfilePage";
+import FAQ from '@/components/FAQ'; // This is temporary until the FAQ page is implemented
+
 
 const Stack = createNativeStackNavigator();
 
@@ -54,6 +56,7 @@ export default function EntryPoint() {
         <Stack.Screen name="buildSandwich" component={buildSandwich} />
 
         <Stack.Screen name="profile" component = {ProfilePage} />
+        <Stack.Screen name="FAQ" component={FAQ} />
 
 
       </Stack.Navigator>
