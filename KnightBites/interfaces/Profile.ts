@@ -7,4 +7,5 @@ export interface Profile {
         vegan: boolean;
         vegetarian: boolean;
     }
+    loggedIn: boolean;
 };
