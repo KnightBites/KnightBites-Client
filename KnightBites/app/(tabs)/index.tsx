@@ -21,8 +21,8 @@ import FoodPage from "@/components/FoodPage";
 import LoginPage from "@/components/LoginPage";
 import RegisterPage from "@/components/RegistrationPage";
 import RecoverPage from "@/components/RecoverAccountPage";
-import buildSandwich from "@/components/BuildWich";
-import buildSandwichHomePage from "@/components/BuildWichHome";
+import BuildSandwich from "@/components/BuildWich";
+import BuildSandwichHomePage from "@/components/BuildWichHome";
 import ProfilePage from "@/components/ProfilePage";
 
 const Stack = createNativeStackNavigator();
@@ -54,9 +54,9 @@ export default function EntryPoint() {
           options={{ headerLeft: props => { } }} />
         <Stack.Screen name="recovery" component={RecoverPage}
           options={{ headerLeft: props => { } }} />
-        <Stack.Screen name="buildSandwichHomePage" component={buildSandwichHomePage}
+        <Stack.Screen name="buildSandwichHomePage" component={BuildSandwichHomePage}
           options={{ headerLeft: props => { } }} />
-        <Stack.Screen name="buildSandwich" component={buildSandwich} />
+        <Stack.Screen name="buildSandwich" component={BuildSandwich} />
         <Stack.Screen name="profile" component = {ProfilePage} />
 
       </Stack.Navigator>
@@ -87,6 +87,7 @@ function HomePage({ navigation }) {
   ]);
   const [dishData, setDishData] = useState([]);
   const [loading, setLoading] = useState(true);
+
 
   const getDishData = async () => {
     try {
@@ -151,6 +152,7 @@ function HomePage({ navigation }) {
             />
           </View>
         </View>
+    </View>
 
         <View style={styles.feedContainer}>
           {loading ? (<ActivityIndicator />) : (
@@ -169,7 +171,6 @@ function HomePage({ navigation }) {
           )}
         </View>
       </View>
-    </View>
   );
 }
 

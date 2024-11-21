@@ -13,7 +13,7 @@ export default function StarRating({ foodRating, size = 32 }) {
     },
     star: {
       fontSize: size,
-      color: '#FFD700', // gold color
+      color: 'black', // gold color
       marginHorizontal: 2,
     },
   });

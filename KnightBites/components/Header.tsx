@@ -8,7 +8,7 @@ import { Avatar } from 'react-native-elements';
 const Header = () => {
   return (
     <View style={styles.headerBar}>
-      <Text style={styles.headerAppTitle}>KnightBites</Text>
+      <Text style={styles.headerAppTitle}></Text>
     </View>
   );
 };
