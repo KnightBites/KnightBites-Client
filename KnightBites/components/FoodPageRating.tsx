@@ -20,7 +20,7 @@ export default function FoodPageRating({route, navigation}) {
       <Text style={styles.texts}>My Comment</Text>
       <TextInput style={[styles.commentEntry, FoodPageStyles.boxShadow]} multiline numberOfLines={10} maxLength={150} onChangeText={text => setTextLength(text.length)} />
       <Text>{ textLength }/150</Text>
-      <TouchableOpacity style={FoodPageStyles.rateButton} onPress={() => recordComment()}>Post My Review</TouchableOpacity>
+      <TouchableOpacity style={FoodPageStyles.rateButton} onPress={() => recordComment()}><Text style={FoodPageStyles.rateButtonText}>Post My Review</Text></TouchableOpacity>
     </View>
   );
 }
@@ -38,6 +38,7 @@ const styles = StyleSheet.create({
   },
   commentEntry: {
     width: 300,
+    height: 200,
     backgroundColor: "#efeeee",
   },
 });
