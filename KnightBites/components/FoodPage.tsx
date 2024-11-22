@@ -1,9 +1,11 @@
-import { StyleSheet, Text, View, Image, TextInput, TouchableOpacity } from "react-native";
+import { Text, View, Image, TextInput, TouchableOpacity, FlatList, ScrollView } from "react-native";
 import { MainStyles } from "@/constants/Styles";
 import Dish from "@/interfaces/Dish";
 import StarRating from "@/components/StarRating";
-import RankableStars from "@/components/RankableStars";
+import Comment from "@/components/Comment";
 import { Colors } from "@/constants/Colors";
+import FoodPageStyles from "@/constants/FoodPageStyles";
+import Icon from "react-native-vector-icons/Entypo";
 
 function translateCafeteria(value: number) {
   switch(value) {
@@ -22,82 +24,69 @@ function translateCafeteria(value: number) {
   }
 }
 
-function recordComment(comment: String) {
-  // this will talk to the database in the future
-}
-
 // example usage:
 // <FoodPage dish={{name: "Yummy", desc:"cool", rating: 3, respectiveCafeteria: -1, img: 'https://placehold.co/400'}} />
 export default function FoodPage({route, navigation}) {
   const {dish, review} = route.params; // extract dish from route params
 
   return (
-    
-    <View style={styles.mainView}>
-      <View style={styles.infoSection}>
-        <View style={styles.headerInfo}>
-          <Image style={styles.image} source={{uri: dish.img}} />
-          <View style={styles.nameAndRating}>
-            <Text style={styles.name}>{dish.foodname}</Text>
-            <StarRating foodRating={dish.rating}></StarRating>
+    <View style={FoodPageStyles.foodPageRoot}>
+      <ScrollView>
+        {/* <View style={styles.infoSection}>
+          <View style={styles.headerInfo}>
+            <Image style={styles.image} source={{uri: dish.img}} />
+            <View style={styles.nameAndRating}>
+              <Text style={styles.name}>{dish.foodname}</Text>
+              <StarRating foodRating={dish.rating}></StarRating>
+            </View>
           </View>
+          <Text style={styles.description}>{dish.description}</Text>
+          <Text style={styles.locations}>Location: {dish.dininghall}</Text>
         </View>
-        <Text style={styles.description}>{dish.description}</Text>
-        <Text style={styles.locations}>Location: {dish.dininghall}</Text>
-      </View>
-      <View style={styles.yourRating}>
-        <Text>Your Rating: </Text>
-        <RankableStars foodRating={review}/>
-      </View>
-      <View style={styles.yourComment}>
-        <Text>Your Comment: </Text>
-        <TextInput onChangeText={recordComment} style={styles.commentEntry} />
+        <View style={styles.yourRating}>
+          <Text>Your Rating: </Text>
+          <RankableStars foodRating={review}/>
+        </View>
+        <View style={styles.yourComment}>
+          <Text>Your Comment: </Text>
+          <TextInput onChangeText={recordComment} style={styles.commentEntry} />
+        </View> */}
+
+        <View style={[FoodPageStyles.imageContainer, FoodPageStyles.boxShadow]}>
+          <Image style={FoodPageStyles.foodImage} source={{uri: dish.img}} />
+        </View>
+        <View style={FoodPageStyles.infoContainer}>
+          <View style={FoodPageStyles.infoTitleLocationContainer}>
+            <Text style={FoodPageStyles.infoTitle}>{dish.foodname}</Text>
+            <Text style={FoodPageStyles.infoLocation}>
+              <Icon name="location-pin" size={18}/>
+              {dish.dininghall}
+            </Text>
+          </View>
+          <View style={FoodPageStyles.infoRatingContainer}>
+            <StarRating style={FoodPageStyles.infoStarRating} foodRating={dish.rating} />
+            <Text style={FoodPageStyles.infoNumberRating}>{dish.rating}</Text>
+          </View>
+          <Text style={FoodPageStyles.infoDescription}>{dish.description}</Text>
+        </View>
+        <View style={FoodPageStyles.commentContainer}>
+          <Text style={FoodPageStyles.commentheader}>Comments</Text>
+          <FlatList 
+            style={[FoodPageStyles.commentBox, FoodPageStyles.boxShadow]}
+            data={[{id: 1, username: "little_kendian", commentText: "Wow this changed my life. #CarnivoreDiet"}, {id: 2, username: "LDawg", commentText: "I got food poisoning."}, {id: 3, username: "LDawg", commentText: "I got food poisoning."}, {id: 4, username: "LDawg", commentText: "I got food poisoning."}]}
+            renderItem={({item}) => <Comment commentText={item.commentText} username={item.username} />}
+            keyExtractor={item => item.id}
+          />
+        </View>
+      </ScrollView>
+      <View>
+        <TouchableOpacity style={FoodPageStyles.rateButton}
+                          onPress={() => navigation.navigate("rateDish", {"dishID": dish.id})}
+        >
+          Rate This Dish
+        </TouchableOpacity>
       </View>
     </View>
   )
 }
 
-const styles = StyleSheet.create({
-  mainView: {
-    backgroundColor: "lightgrey",
-  },
-  infoSection: {
-    backgroundColor: "lightgrey",
-    padding: 15,
-  },
-  headerInfo: {
-    flexDirection: "row",
-    marginBottom: 10,
-  },
-  name: {
-    fontSize: 48,
-  },
-  description: {
-    fontSize: 24,
-  },
-  image: {
-    width: 100,
-    height: 100,
-    marginRight: 10,
-  },
-  locations: {
-    fontSize: 24,
-  },
-  yourRating: {
-    flexDirection: "row",
-    alignItems: "center",
-    alignContent: "center",
-  },
-  yourComment: {
-    flexDirection: "row",
-    alignItems: "center",
-    alignContent: "center",
-    borderRadius: 15
-  },
-  commentEntry: {
-    backgroundColor: "white",
-    borderWidth: 2,
-    minWidth: 200,
-    borderRadius: 200
-  },
-});
