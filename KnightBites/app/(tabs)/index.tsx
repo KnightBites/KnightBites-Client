@@ -1,14 +1,17 @@
-import { Image, StyleSheet, View, Text, FlatList, TouchableOpacity, Button, TextInput, Pressable, ActivityIndicator, Alert } from 'react-native';
+import { Image, StyleSheet, View, Text, FlatList, TouchableOpacity, Button, 
+         TextInput, Pressable, ActivityIndicator, Alert,
+       } from 'react-native';
 import FoodPanel from '@/components/FoodPanel';
 import DropDownPicker from 'react-native-dropdown-picker';
 import { Header, HeaderRight } from '@/components/Header';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import styles from '@/constants/Styles';
 import Dish from "@/interfaces/Dish";
 import { ProfileProvider } from "@/components/ProfileProvider";
 import Icon from 'react-native-vector-icons/Ionicons'; 
+import { ProfileContext } from "@/components/ProfileProvider";
 
 
 ////////
@@ -23,6 +26,10 @@ import ViewSandwich from "@/components/ViewWich";
 import ViewOneSandwich from "@/components/ViewOneSandwich";
 import BuildSandwichHomePage from "@/components/BuildWichHome";
 import ProfilePage from "@/components/ProfilePage";
+import ChooseBread from "@/components/ChooseBread";
+import FoodPageRating from "@/components/FoodPageRating";
+import FAQ from '@/components/FAQ'; // This is temporary until the FAQ page is implemented
+
 
 const Stack = createNativeStackNavigator();
 
@@ -59,13 +66,24 @@ export default function EntryPoint() {
         <Stack.Screen name="viewSandwich" component={ViewSandwich} />
         <Stack.Screen name="viewOneSandwich" component={ViewOneSandwich} />
         <Stack.Screen name="profile" component = {ProfilePage} />
-
+        <Stack.Screen name="ChooseBread" component = {ChooseBread} />
+        <Stack.Screen name="rateDish" component = {FoodPageRating} />
+        <Stack.Screen name="FAQ" component={FAQ} />
       </Stack.Navigator>
     </ProfileProvider>
   )
 }
 
 function HomePage({ navigation }) {
+
+  // first things first, make sure the user is logged in to see this page
+  const { profile } = useContext(ProfileContext);
+  if (!profile.loggedIn) {
+      navigation.navigate("login");
+      // the return makes this final to react, otherwise it will try (and non-gracefully fail) to do all the stuff below
+      return;
+  }
+
   const [open, setOpen] = useState(false);
   const [search, setSearch] = useState('');
   const [restaurant, setRestaurant] = useState(-1);
@@ -123,46 +141,39 @@ function HomePage({ navigation }) {
 
   return (
     <View style={styles.container}>
-      {/* Header handled by stack navigator*/}
-      {/* Main content */}
-      <View style={styles.mainContainer}>
-        {/* Dropdown Menu */}
-        <View style={styles.filterContainer}>
-          <View style={styles.searchContainer}>
-            <TextInput
-              placeholder="Search for a dish"
-              onChangeText={setSearch}
-              value={search}
-              style={[styles.searchBar, { color: 'black', fontStyle: 'italic', fontSize: 14 }]}
-              placeholderTextColor="black"
-            />
-            <Icon
-              name="filter-outline" // Icon name from Ionicons
-              size={24} // Icon size
-              color="black" // Icon color
-              style = {styles.filterIcon}
-            />
-          </View>
-        </View>
-    </View>
-
-        <View style={styles.feedContainer}>
-          {loading ? (<ActivityIndicator />) : (
-            <FlatList
-              data={getFilteredDishData()}
-              style={styles.feed}
-              renderItem={({ item }) => (
-                <Pressable onPress={() => navigation.navigate("foodPage", { dish: item, review: 0 })}>
-                  <FoodPanel
-                    navigation={navigation}
-                    dish={item}
-                  />
-                </Pressable>
-              )}
-            />
-          )}
-        </View>
+      <View style={styles.searchContainer}>
+        <TextInput
+          placeholder="Search for a dish"
+          onChangeText={setSearch}
+          value={search}
+          style={[styles.searchBar, { color: 'black', fontStyle: 'italic', fontSize: 14 }]}
+          placeholderTextColor="black"
+        />
+        <Icon
+          name="filter-outline" // Icon name from Ionicons
+          size={27} // Icon size
+          color="black" // Icon color
+          style = {styles.filterIcon}
+        />
       </View>
+
+      <View style={styles.feedContainer}>
+        {loading ? (<ActivityIndicator />) : (
+          <FlatList
+            data={getFilteredDishData()}
+            style={styles.feed}
+            renderItem={({ item }) => (
+              <Pressable onPress={() => navigation.navigate("foodPage", { dish: item, review: 0 })}>
+                <FoodPanel
+                  navigation={navigation}
+                  dish={item}
+                />
+              </Pressable>
+            )}
+          />
+        )}
+      </View>
+    </View>
   );
 }
 

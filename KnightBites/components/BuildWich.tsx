@@ -37,6 +37,7 @@ export default function BuildSandwich({navigation}) {
 
           <TouchableOpacity style={styles.uppercrustViewSandwiches} onPress={() => setPage(1)}>
             <Text style={styles.uppercrustViewText}>Get Started!</Text>
+
           </TouchableOpacity>
 
         </View>
