@@ -1,4 +1,4 @@
-import { Text, View, Image, TextInput, TouchableOpacity, FlatList, ScrollView } from "react-native";
+import { Text, View, Image, TextInput, TouchableOpacity, ScrollView } from "react-native";
 import { MainStyles } from "@/constants/Styles";
 import Dish from "@/interfaces/Dish";
 import StarRating from "@/components/StarRating";
@@ -32,26 +32,6 @@ export default function FoodPage({route, navigation}) {
   return (
     <View style={FoodPageStyles.foodPageRoot}>
       <ScrollView>
-        {/* <View style={styles.infoSection}>
-          <View style={styles.headerInfo}>
-            <Image style={styles.image} source={{uri: dish.img}} />
-            <View style={styles.nameAndRating}>
-              <Text style={styles.name}>{dish.foodname}</Text>
-              <StarRating foodRating={dish.rating}></StarRating>
-            </View>
-          </View>
-          <Text style={styles.description}>{dish.description}</Text>
-          <Text style={styles.locations}>Location: {dish.dininghall}</Text>
-        </View>
-        <View style={styles.yourRating}>
-          <Text>Your Rating: </Text>
-          <RankableStars foodRating={review}/>
-        </View>
-        <View style={styles.yourComment}>
-          <Text>Your Comment: </Text>
-          <TextInput onChangeText={recordComment} style={styles.commentEntry} />
-        </View> */}
-
         <View style={[FoodPageStyles.imageContainer, FoodPageStyles.boxShadow]}>
           <Image style={FoodPageStyles.foodImage} source={{uri: dish.img}} />
         </View>
@@ -71,19 +51,16 @@ export default function FoodPage({route, navigation}) {
         </View>
         <View style={FoodPageStyles.commentContainer}>
           <Text style={FoodPageStyles.commentheader}>Comments</Text>
-          <FlatList 
-            style={[FoodPageStyles.commentBox, FoodPageStyles.boxShadow]}
-            data={[{id: 1, username: "little_kendian", commentText: "Wow this changed my life. #CarnivoreDiet"}, {id: 2, username: "LDawg", commentText: "I got food poisoning."}, {id: 3, username: "LDawg", commentText: "I got food poisoning."}, {id: 4, username: "LDawg", commentText: "I got food poisoning."}]}
-            renderItem={({item}) => <Comment commentText={item.commentText} username={item.username} />}
-            keyExtractor={item => item.id}
-          />
+          <View style={[FoodPageStyles.commentBox, FoodPageStyles.boxShadow]}>
+            { [{id: 1, username: "little_kendian", commentText: "Wow this changed my life. #CarnivoreDiet"}, {id: 2, username: "LDawg", commentText: "I got food poisoning."}, {id: 3, username: "LDawg", commentText: "I got food poisoning."}, {id: 4, username: "LDawg", commentText: "I got food poisoning."}].map(item => <Comment key={item.id} commentText={item.commentText} username={item.username} />)}
+          </View>
         </View>
       </ScrollView>
       <View>
         <TouchableOpacity style={FoodPageStyles.rateButton}
                           onPress={() => navigation.navigate("rateDish", {"dishID": dish.id})}
         >
-          Rate This Dish
+          <Text style={FoodPageStyles.rateButtonText}>Rate This Dish</Text>
         </TouchableOpacity>
       </View>
     </View>

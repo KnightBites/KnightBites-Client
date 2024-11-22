@@ -116,7 +116,7 @@ const ProfilePage = ({ navigation }) => {
         <Text style={styles.sectionTitle}>About</Text>
         <TouchableOpacity
           style={styles.inputContainer}
-          onPress={() => alert("FAQ page is currently empty.")}
+          onPress={() => navigation.navigate("FAQ")}
         >
           <Icon name="question-circle" style={styles.icon} />
           <Text style={styles.inputText}>FAQ</Text>

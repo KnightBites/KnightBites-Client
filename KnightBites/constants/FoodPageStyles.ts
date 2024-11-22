@@ -17,9 +17,6 @@ export default FoodPageStyles = StyleSheet.create({
     backgroundColor: "#ffffff",
     flex: 1,
     // justifyContent: "space-between",
-    fontFamily: "System",
-    fontWeight: "bold",
-    fontSize: 18,
   },
 
   imageContainer: {
@@ -50,6 +47,7 @@ export default FoodPageStyles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
+    flex: 1,
   },
   infoTitle: {
     fontSize: 24,
@@ -93,5 +91,12 @@ export default FoodPageStyles = StyleSheet.create({
     alignSelf: "center",
     marginBottom: 10,
     padding: 10,
+  },
+  rateButtonText: {
+    textAlign: "center",
+    fontFamily: "System",
+    fontWeight: "bold",
+    fontSize: 18,
+    color: "#ffffff",
   },
 });
