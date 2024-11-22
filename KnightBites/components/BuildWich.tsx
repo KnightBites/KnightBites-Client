@@ -29,7 +29,7 @@ export default function BuildSandwich({navigation}) {
         <Text style={styles.uppercrustRuleText}>Step 4: Pick your veggies</Text>
         <Text style={styles.uppercrustRuleText}>Step 5: Pick your condiments</Text>
 
-        <TouchableOpacity style={styles.uppercrustViewSandwiches}>
+        <TouchableOpacity style={styles.uppercrustViewSandwiches} onPress={() => navigation.navigate("ChooseBread")}>
           <Text style={styles.uppercrustViewText}>Get Started!</Text>
           </TouchableOpacity>
 
