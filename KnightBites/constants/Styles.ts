@@ -54,20 +54,67 @@ const styles = StyleSheet.create({
       alignContent: 'center',
       flex: 1,
     },
+
+    // More filter stuff
+
+    /*
+    modalContainer: {
+      justifyContent: 'flex-end',
+      margin: 0,
+    },
+
+    filterContent: {
+      backgroundColor: '#fff',
+      padding: 20,
+      borderTopLeftRadius: 15,
+      borderTopRightRadius: 15,
+      alignItems: 'center',
+    },
+
+    handle: {
+      width: 50,
+      height: 5,
+      backgroundColor: '#ccc',
+      borderRadius: 2.5,
+      marginBottom: 10,
+    },
+    filterText: {
+      fontSize: 18,
+      fontWeight: 'bold',
+      marginBottom: 20,
+    },
+    filterButton: {
+      backgroundColor: '#4CAF50',
+      padding: 10,
+      borderRadius: 5,
+    },
+    filterButtonText: {
+      color: '#fff',
+      fontSize: 16,
+    },
+    */
+
     searchContainer: {
+      flexDirection: 'row',
       flex: 3,
       marginHorizontal: 10,
       width: '100%',
-      height: 50,
-      marginTop: 5,
+      height: 40,
+      marginTop: 15,
       marginBottom: 10,
+      alignContent: "center",
+      alignItems: "center"
+    },
+
+    filterIcon: {
+      marginLeft: 10,
+      marginRight: 10
     },
 
     // This starts the Dropdown option styles ////////////
     dropdownContainer: {
       flex: .9, // This controls how much space the dropdown takes up horizontally. Adding more space will make the dropdown wider.
       marginHorizontal: 10,
-      marginTop: 4,
       width: '100%',
       minWidth: 100,
       height: 40,
@@ -143,21 +190,20 @@ const styles = StyleSheet.create({
     feedContainer: { // This is the container for the feed that displays all food items
       alignItems: "center",
       width: '100%',
-      flex: '25%', // This controls the gap between the feed and the search bar & dropdown
       overflow: 'hidden',
       padding: 10,
       height: "100%",
       marginTop: 34,
     },
     feed: {
-      borderColor: 'black',
-      backgroundColor: 'darkred',
+      marginTop: 45,
+      backgroundColor: '#FFF2C1',
       borderRadius: 10,
-      borderWidth: 5,
       width: '100%',
       paddingHorizontal: 10,
       flexDirection: 'column',
       flex: 1,
+      boxShadow: "left",
     },
     footerBar: {
       width: "100%",
@@ -267,14 +313,35 @@ const styles = StyleSheet.create({
     // These styles are for the Uppercrust Buttons
 
     uppercrustViewSandwiches: {
-      borderRadius: 25,
-      borderColor: "black", 
-      borderWidth: 2, 
+      backgroundColor: '#910909',
       width: 200,
       height: 80, 
-      textAlign: "center",
-      fontSize: 15,
-      alignItems: 'center'
+      marginBottom: 15,
+      marginTop: 15,
+      alignItems: 'center',
+      alignContent: 'center',
+      display: "flex",
+      justifyContent: 'center',
+      boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.2)", // Shadow
+      textAlign: 'center',
+      flexWrap: 'wrap'
+    },
+
+    uppercrustViewText: {
+      color: "white",
+      alignItems: 'center',
+      alignContent: 'center',
+      textAlign: 'center',
+      flexWrap: 'wrap',
+      marginRight: 10,
+      marginLeft: 10,
+      fontSize: 19,
+    },
+
+    uppercrustRuleText: {
+      fontSize: 19, 
+      marginTop: 10,
+      marginBottom: 10
     }
   })
 

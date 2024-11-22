@@ -8,7 +8,7 @@ import styles from '@/constants/Styles';
 import { Colors } from '@/constants/Colors';
 
 
-export default function buildSandwich({navigation}) {
+export default function BuildSandwich({navigation}) {
 
     const [ email, setEmail ] = useState("");
     const [ ps1, setPs1 ] = useState("");
@@ -21,15 +21,17 @@ export default function buildSandwich({navigation}) {
       <View style = {{alignItems: "center", flex: 1, backgroundColor: Colors.light.background}}>
         <Text style = {{fontSize: 25, marginBottom: 10, marginTop: 40 }}>Build-A-Wich</Text>
 
-        <Text>Build your personal UpperCrust order and share with creation with everyone!</Text>
+        <Text style={styles.uppercrustRuleText}>Build your personal UpperCrust order and share your creation with everyone!</Text>
 
-        <Text>Step 1: Pick your bread</Text>
-        <Text>Step 2: Pick your protein</Text>
-        <Text>Step 3: Pick your cheese</Text>
-        <Text>Step 4: Pick your veggies</Text>
-        <Text>Step 5: Pick your condiments</Text>
+        <Text style={styles.uppercrustRuleText}>Step 1: Pick your bread</Text>
+        <Text style={styles.uppercrustRuleText}>Step 2: Pick your protein</Text>
+        <Text style={styles.uppercrustRuleText}>Step 3: Pick your cheese</Text>
+        <Text style={styles.uppercrustRuleText}>Step 4: Pick your veggies</Text>
+        <Text style={styles.uppercrustRuleText}>Step 5: Pick your condiments</Text>
 
-        <TouchableOpacity >Submit My Creation</TouchableOpacity>
+        <TouchableOpacity style={styles.uppercrustViewSandwiches}>
+          <Text style={styles.uppercrustViewText}>Get Started!</Text>
+          </TouchableOpacity>
 
       </View>
     );

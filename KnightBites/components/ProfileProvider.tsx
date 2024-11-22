@@ -15,6 +15,7 @@ export const defaultProfile: Profile = {
     vegan: false,
     vegetarian: false,
   },
+  loggedIn: false,
 };
 
 export const ProfileContext = createContext<ProfileContextProps>({
