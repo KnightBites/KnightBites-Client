@@ -22,7 +22,7 @@ export default function BuildSandwichHomePage({navigation}) {
         </Text>
       </TouchableOpacity>
   
-      <TouchableOpacity onPress={() => navigation.navigate("")} style = {styles.uppercrustViewSandwiches}> 
+      <TouchableOpacity onPress={() => navigation.navigate("viewSandwich")} style = {styles.uppercrustViewSandwiches}> 
         <Text style={styles.uppercrustViewText}>
           View Existing Sandwiches
         </Text>

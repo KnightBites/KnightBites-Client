@@ -19,6 +19,8 @@ import LoginPage from "@/components/LoginPage";
 import RegisterPage from "@/components/RegistrationPage";
 import RecoverPage from "@/components/RecoverAccountPage";
 import BuildSandwich from "@/components/BuildWich";
+import ViewSandwich from "@/components/ViewWich";
+import ViewOneSandwich from "@/components/ViewOneSandwich";
 import BuildSandwichHomePage from "@/components/BuildWichHome";
 import ProfilePage from "@/components/ProfilePage";
 
@@ -54,6 +56,8 @@ export default function EntryPoint() {
         <Stack.Screen name="buildSandwichHomePage" component={BuildSandwichHomePage}
           options={{ headerLeft: props => { } }} />
         <Stack.Screen name="buildSandwich" component={BuildSandwich} />
+        <Stack.Screen name="viewSandwich" component={ViewSandwich} />
+        <Stack.Screen name="viewOneSandwich" component={ViewOneSandwich} />
         <Stack.Screen name="profile" component = {ProfilePage} />
 
       </Stack.Navigator>

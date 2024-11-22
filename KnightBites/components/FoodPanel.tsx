@@ -34,16 +34,16 @@ export default function FoodPanel({navigation, dish}) {
   return (
     <View style={usingstyles.panel} onLayout={chooseStyle}>
       <View style={styles_web.individualFoodContainer}>
-      <Image style={usingstyles.foodPicture} source={{uri: dish.img}}></Image>
-      <View style={styles_web.text_container}>
-      <Text style={usingstyles.name}>{dish.foodname}</Text>
-      <View style={styles_web.location_container}>
-      <Icon name={"map-marker"} style={usingstyles.location_pin} />
-      <Text style={usingstyles.locationText}> {dish.dininghall}</Text>
+        <Image style={usingstyles.foodPicture} source={{uri: dish.img}}></Image>
+        <View style={styles_web.text_container}>
+          <Text style={usingstyles.name}>{dish.foodname}</Text>
+          <View style={styles_web.location_container}>
+            <Icon name={"map-marker"} style={usingstyles.location_pin} />
+            <Text style={usingstyles.locationText}> {dish.dininghall}</Text>
+          </View>
+          <StarRating foodRating={dish.rating} size={starSize}></StarRating>
+        </View>
       </View>
-      <StarRating foodRating={dish.rating} size={starSize}></StarRating>
-      </View>
-  </View>
       
     </View>
     
