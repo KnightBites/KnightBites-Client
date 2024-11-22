@@ -24,8 +24,10 @@ import RecoverPage from "@/components/RecoverAccountPage";
 import BuildSandwich from "@/components/BuildWich";
 import BuildSandwichHomePage from "@/components/BuildWichHome";
 import ProfilePage from "@/components/ProfilePage";
+import ChooseBread from "@/components/ChooseBread";
 import FoodPageRating from "@/components/FoodPageRating";
 import FAQ from '@/components/FAQ'; // This is temporary until the FAQ page is implemented
+
 
 const Stack = createNativeStackNavigator();
 
@@ -60,6 +62,7 @@ export default function EntryPoint() {
           options={{ headerLeft: props => { } }} />
         <Stack.Screen name="buildSandwich" component={BuildSandwich} />
         <Stack.Screen name="profile" component = {ProfilePage} />
+        <Stack.Screen name="ChooseBread" component = {ChooseBread} />
         <Stack.Screen name="rateDish" component = {FoodPageRating} />
         <Stack.Screen name="FAQ" component={FAQ} />
       </Stack.Navigator>
@@ -134,46 +137,39 @@ function HomePage({ navigation }) {
 
   return (
     <View style={styles.container}>
-      {/* Header handled by stack navigator*/}
-      {/* Main content */}
-      <View style={styles.mainContainer}>
-        {/* Dropdown Menu */}
-        <View style={styles.filterContainer}>
-          <View style={styles.searchContainer}>
-            <TextInput
-              placeholder="Search for a dish"
-              onChangeText={setSearch}
-              value={search}
-              style={[styles.searchBar, { color: 'black', fontStyle: 'italic', fontSize: 14 }]}
-              placeholderTextColor="black"
-            />
-            <Icon
-              name="filter-outline" // Icon name from Ionicons
-              size={24} // Icon size
-              color="black" // Icon color
-              style = {styles.filterIcon}
-            />
-          </View>
-        </View>
-    </View>
-
-        <View style={styles.feedContainer}>
-          {loading ? (<ActivityIndicator />) : (
-            <FlatList
-              data={getFilteredDishData()}
-              style={styles.feed}
-              renderItem={({ item }) => (
-                <Pressable onPress={() => navigation.navigate("foodPage", { dish: item, review: 0 })}>
-                  <FoodPanel
-                    navigation={navigation}
-                    dish={item}
-                  />
-                </Pressable>
-              )}
-            />
-          )}
-        </View>
+      <View style={styles.searchContainer}>
+        <TextInput
+          placeholder="Search for a dish"
+          onChangeText={setSearch}
+          value={search}
+          style={[styles.searchBar, { color: 'black', fontStyle: 'italic', fontSize: 14 }]}
+          placeholderTextColor="black"
+        />
+        <Icon
+          name="filter-outline" // Icon name from Ionicons
+          size={27} // Icon size
+          color="black" // Icon color
+          style = {styles.filterIcon}
+        />
       </View>
+
+      <View style={styles.feedContainer}>
+        {loading ? (<ActivityIndicator />) : (
+          <FlatList
+            data={getFilteredDishData()}
+            style={styles.feed}
+            renderItem={({ item }) => (
+              <Pressable onPress={() => navigation.navigate("foodPage", { dish: item, review: 0 })}>
+                <FoodPanel
+                  navigation={navigation}
+                  dish={item}
+                />
+              </Pressable>
+            )}
+          />
+        )}
+      </View>
+    </View>
   );
 }
 

@@ -34,81 +34,27 @@ const styles = StyleSheet.create({
       justifyContent: "center",
     },
     container: {
-      flexDirection: "row",
       height: "100%",
-      width: "100%",
       backgroundColor: Colors.light.background,
     },
-    mainContainer: {
-      flex: 8,
-      flexDirection: 'column',
-      backgroundColor: Colors.light.background,
-    },
-    filterContainer: {
-      marginBottom: 20, // Adds space below the dropdown
-      zIndex: 1000,
-      flexDirection: 'row',
-      width: '100%',
-      height: 80,
-      justifyContent: 'center',
-      alignContent: 'center',
-      flex: 1,
-    },
-
-    // More filter stuff
-
-    /*
-    modalContainer: {
-      justifyContent: 'flex-end',
-      margin: 0,
-    },
-
-    filterContent: {
-      backgroundColor: '#fff',
-      padding: 20,
-      borderTopLeftRadius: 15,
-      borderTopRightRadius: 15,
-      alignItems: 'center',
-    },
-
-    handle: {
-      width: 50,
-      height: 5,
-      backgroundColor: '#ccc',
-      borderRadius: 2.5,
-      marginBottom: 10,
-    },
-    filterText: {
-      fontSize: 18,
-      fontWeight: 'bold',
-      marginBottom: 20,
-    },
-    filterButton: {
-      backgroundColor: '#4CAF50',
-      padding: 10,
-      borderRadius: 5,
-    },
-    filterButtonText: {
-      color: '#fff',
-      fontSize: 16,
-    },
-    */
 
     searchContainer: {
       flexDirection: 'row',
-      flex: 3,
-      marginHorizontal: 10,
-      width: '100%',
-      height: 40,
-      marginTop: 15,
-      marginBottom: 10,
       alignContent: "center",
-      alignItems: "center"
+      marginHorizontal: 10,
+      marginTop: 20,
+      width: "100%",
+      height: 50,
+      padding: 10,
     },
 
     filterIcon: {
-      marginLeft: 10,
-      marginRight: 10
+      marginLeft: 20,
+      marginRight: 20,
+      justifyContent: 'center',
+      alignContent: 'center',
+      alignItems: 'center',
+      marginTop: 10
     },
 
     // This starts the Dropdown option styles ////////////
@@ -191,9 +137,9 @@ const styles = StyleSheet.create({
       alignItems: "center",
       width: '100%',
       overflow: 'hidden',
-      padding: 10,
       height: "100%",
-      marginTop: 34,
+      padding: 10
+
     },
     feed: {
       marginTop: 45,
