@@ -1,17 +1,15 @@
 import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, LayoutAnimation, StyleSheet } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import { Header, HeaderRight } from '@/components/Header';
-
 
 // This is a list of FAQ items. Each item has a question and an answer.
 const faqData = [
   { question: 'How do I rate dining hall food?', answer: 'Tap on a food card to see detailed information, read reviews from other users, and join the conversation by sharing your own comments.' },
   { question: 'How do I browse popular dishes on campus?', answer: 'You can filter and sort the food list by dining hall, name, rating, or popularity to discover dishes that students are talking about the most.' },
-  { question: 'Can I submit feedback about dining service?', answer: 'While feedback about dining hall staff is possible, this app is focused on food reviews. For the best experience, please rate the food itself.' },
-  { question: 'Why do I need an account to use KnightBites?', answer: 'KnightBites uses a user-based system to connect comments to real profiles, ensuring authentic reviews and building a stronger sense of community.' },
-  { question: 'How does KnightBites help reduce food waste?', answer: 'Clear, constructive feedback can guide Calvin Dining Services to focus on popular meals and reduce waste by making smarter decisions.' },
   { question: 'How does my dietary restriction affect my rating?', answer: 'KnightBites values inclusivity, giving everyone a voice. Users with dietary restrictions have extra influence in ratings, ensuring their needs are prioritized.' },
+  { question: 'How does KnightBites help reduce food waste?', answer: 'Clear, constructive feedback can guide Calvin Dining Services to focus on popular meals and reduce waste by making smarter decisions.' },
+  { question: 'Why do I need an account to use KnightBites?', answer: 'KnightBites uses a user-based system to connect comments to real profiles, ensuring authentic reviews and building a stronger sense of community.' },
+  { question: 'Can I submit feedback about dining service?', answer: 'While feedback about dining hall staff is possible, this app is focused on food reviews. For the best experience, please rate the food itself.' },
 ];
 
 // Deo volente, this works.
@@ -31,7 +29,7 @@ const FAQItem = ({ item, isActive, onPress }: { item: { question: string, answer
   </TouchableOpacity>
 );
 
-export default function DetailsPage() {
+export default function DetailsPage({navigation}) {
   const [activeIndex, setActiveIndex] = useState(null);
   const handlePress = (index: number) => {
     LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
@@ -54,7 +52,7 @@ export default function DetailsPage() {
 
       <View style={{ backgroundColor: 'maroon', padding: 10 }}>
         <Text style={{ color: 'white', textAlign: 'center' }}>
-          Developed by the KnightBites Team:{'\n'}
+          The KnightBites Team:{'\n'}
           Kenny Howes, Lily McAboy, Jacob Tocila{'\n'}
           Peter Lund, David Barry, Lujia Li
         </Text>
