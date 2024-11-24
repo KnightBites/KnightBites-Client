@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, LayoutAnimation, StyleSheet } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import { Header, HeaderRight } from '@/components/Header';
 
 
 // This is a list of FAQ items. Each item has a question and an answer.
