@@ -139,7 +139,6 @@ const styles = StyleSheet.create({
       overflow: 'hidden',
       height: "100%",
       padding: 10
-
     },
     feed: {
       marginTop: 45,
