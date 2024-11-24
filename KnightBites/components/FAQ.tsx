@@ -17,6 +17,7 @@ const FAQItem = ({ item, isActive, onPress }: { item: { question: string, answer
   <TouchableOpacity
     style={[styles.faqItem, isActive && styles.activeFaqItem]} // This is a ternary operator that applies the activeFaqItem style if isActive is true.
     onPress={onPress}
+    activeOpacity={1} // This prevents the active items from turning opaque when pressed
   >
     <View style={styles.faqItemContent}>
       <Text style={styles.faqQuestion}>{item.question}</Text>
@@ -29,16 +30,14 @@ const FAQItem = ({ item, isActive, onPress }: { item: { question: string, answer
   </TouchableOpacity>
 );
 
-export default function DetailsPage({navigation}) {
-  const [activeIndex, setActiveIndex] = useState(null);
+export default function FAQPage() {
+  const [activeIndex, setActiveIndex] = useState<number | null>(null);
   const handlePress = (index: number) => {
     LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
     setActiveIndex(index === activeIndex ? null : index); // This is a ternary operator that sets the activeIndex to null if the index is the same as the activeIndex.
   };
   return (
-    <View style={styles.aboutPageContainer}> 
-      
-
+    <View style={styles.aboutPageContainer}>
       <View style={styles.aboutPageSection}>
         {faqData.map((item, index) => (
           <FAQItem // This is a component that displays the FAQ item. It's a map function that goes through the faqData array and displays each item. (It's actually a treasure map!)
@@ -49,7 +48,6 @@ export default function DetailsPage({navigation}) {
           />
         ))}
       </View>
-
       <View style={{ backgroundColor: 'maroon', padding: 10 }}>
         <Text style={{ color: 'white', textAlign: 'center' }}>
           The KnightBites Team:{'\n'}
@@ -77,7 +75,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
   },
   activeFaqItem: {
-    backgroundColor: '#FFF8B1',
+    backgroundColor: '#FFF8B1', // light yellow
   },
   faqItemContent: {
     flexDirection: 'row',
