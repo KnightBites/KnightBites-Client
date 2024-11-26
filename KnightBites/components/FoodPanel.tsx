@@ -34,7 +34,7 @@ export default function FoodPanel({navigation, dish}) {
   return (
     <View style={usingstyles.panel} onLayout={chooseStyle}>
       <View style={styles_web.individualFoodContainer}>
-        <Image style={usingstyles.foodPicture} source={{uri: dish.img}}></Image>
+        <Image style={usingstyles.foodPicture} source={{uri: dish.image}}></Image>
         <View style={styles_web.text_container}>
           <Text style={usingstyles.name}>{dish.foodname}</Text>
           <View style={styles_web.location_container}>
