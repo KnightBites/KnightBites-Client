@@ -108,7 +108,7 @@ function HomePage({ navigation }) {
       setDishData(json.map(dish => ({
         ...dish,
         rating: dish.overallrating || Math.round(Math.random() * 10) / 2,
-        img: "https://placehold.co/200", // TODO: find a way to fetch images from the database... force them to the right size.
+        img: dish.foodimage || "https://placehold.co/200", // TODO: find a way to fetch images from the database... force them to the right size. Database does not have dish URL's, add FoodImage to db and web-service so /dish endpoint will return foodimage URL field.
       }))); // add rating to dish
     } catch (err) {
       console.error(err);
