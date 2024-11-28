@@ -33,7 +33,7 @@ export default function FoodPage({route, navigation}) {
     <View style={FoodPageStyles.foodPageRoot}>
       <ScrollView>
         <View style={[FoodPageStyles.imageContainer, FoodPageStyles.boxShadow]}>
-          <Image style={FoodPageStyles.foodImage} source={{uri: dish.img}} />
+          <Image style={FoodPageStyles.foodImage} source={{uri: dish.image}} />
         </View>
         <View style={FoodPageStyles.infoContainer}>
           <View style={FoodPageStyles.infoTitleLocationContainer}>
