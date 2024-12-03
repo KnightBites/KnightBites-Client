@@ -1,16 +1,20 @@
 import { View, StyleSheet, TextInput, Text, TouchableOpacity } from "react-native";
+import { React } from "react";
 import { useState } from "react";
 import RankableStars from "@/components/RankableStars";
 import FoodPageStyles from "@/constants/FoodPageStyles";
 
 
-export default function FoodPageRating({route, navigation}) {
-  const { dishID } = route.params;
+export default function FoodPageRating(props: {route, navigation}) {
+  const { dishID } = props.route.params;
 
   const [ textLength, setTextLength ] = useState(0);
 
   async function recordComment(): Promise<void> {
     // this will talk to the database in the future
+    await fetch(
+      `https://knightbitesapp-cda7eve7fce3dkgy.eastus2-01.azurewebsites.net/ratings/${dishID}`
+    );
   }
 
   return (

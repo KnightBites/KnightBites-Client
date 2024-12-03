@@ -1,33 +1,21 @@
-import { Text, View, Image, TextInput, TouchableOpacity, ScrollView } from "react-native";
-import { MainStyles } from "@/constants/Styles";
+import { Text, View, Image, TouchableOpacity, ScrollView } from "react-native";
+import { React, useState } from "react";
 import Dish from "@/interfaces/Dish";
 import StarRating from "@/components/StarRating";
 import Comment from "@/components/Comment";
-import { Colors } from "@/constants/Colors";
 import FoodPageStyles from "@/constants/FoodPageStyles";
 import Icon from "react-native-vector-icons/Entypo";
 
-function translateCafeteria(value: number) {
-  switch(value) {
-    case(-1):
-      return "Everywhere";
-    case(0):
-      return "Commons";
-    case(1):
-      return "Knollcrest";
-    case(2):
-      return "Johnny's";
-    case(3):
-      return "Peet's";
-    case(4):
-      return "Upper Crust";
-  }
-}
+export default function FoodPage(props: {route, navigation}) {
+  // eslint-disable-next-line
+  const {dish, review} = props.route.params; // extract dish from route params
 
-// example usage:
-// <FoodPage dish={{name: "Yummy", desc:"cool", rating: 3, respectiveCafeteria: -1, img: 'https://placehold.co/400'}} />
-export default function FoodPage({route, navigation}) {
-  const {dish, review} = route.params; // extract dish from route params
+  // eslint-disable-next-line
+  const [dishData, setDishData] = useState<Dish[]>([{id: 1, username: "little_kendian", commentText: "Wow this changed my life. #CarnivoreDiet"},
+                                                    {id: 2, username: "LDawg", commentText: "I got food poisoning."},
+                                                    {id: 3, username: "LDawg", commentText: "I got food poisoning."},
+                                                    {id: 4, username: "LDawg", commentText: "I got food poisoning."},
+                                                  ]);
 
   return (
     <View style={FoodPageStyles.foodPageRoot}>
@@ -52,13 +40,13 @@ export default function FoodPage({route, navigation}) {
         <View style={FoodPageStyles.commentContainer}>
           <Text style={FoodPageStyles.commentheader}>Comments</Text>
           <View style={[FoodPageStyles.commentBox, FoodPageStyles.boxShadow]}>
-            { [{id: 1, username: "little_kendian", commentText: "Wow this changed my life. #CarnivoreDiet"}, {id: 2, username: "LDawg", commentText: "I got food poisoning."}, {id: 3, username: "LDawg", commentText: "I got food poisoning."}, {id: 4, username: "LDawg", commentText: "I got food poisoning."}].map(item => <Comment key={item.id} commentText={item.commentText} username={item.username} />)}
+            { dishData.map(item => <Comment key={item.id} commentText={item.commentText} username={item.username} />)}
           </View>
         </View>
       </ScrollView>
       <View>
         <TouchableOpacity style={FoodPageStyles.rateButton}
-                          onPress={() => navigation.navigate("rateDish", {"dishID": dish.id})}
+                          onPress={() => props.navigation.navigate("rateDish", {"dishID": dish.id})}
         >
           <Text style={FoodPageStyles.rateButtonText}>Rate This Dish</Text>
         </TouchableOpacity>
