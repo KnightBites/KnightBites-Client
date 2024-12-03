@@ -6,6 +6,6 @@
     "metro": "^0.81.0"
   },
   "scripts": {
-    "lint": "eslint ."
+    "lint": "npx eslint ."
   }
 }
