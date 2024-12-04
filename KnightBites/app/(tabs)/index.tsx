@@ -107,7 +107,7 @@ function HomePage({ navigation }) {
       const json = await resp.json();
       setDishData(json.map(dish => ({
         ...dish,
-        rating: dish.overallrating || Math.round(Math.random() * 10) / 2,
+        rating: dish.avg ?? 0, // if the dish has no rating data yet, it is null. Show zero starts in that case
         img: "https://placehold.co/200", // TODO: find a way to fetch images from the database... force them to the right size.
       }))); // add rating to dish
     } catch (err) {

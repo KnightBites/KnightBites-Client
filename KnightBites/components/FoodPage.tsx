@@ -1,5 +1,5 @@
 import { Text, View, Image, TouchableOpacity, ScrollView } from "react-native";
-import { React, useState } from "react";
+import { React, useState, useEffect } from "react";
 import Dish from "@/interfaces/Dish";
 import StarRating from "@/components/StarRating";
 import Comment from "@/components/Comment";
@@ -8,14 +8,27 @@ import Icon from "react-native-vector-icons/Entypo";
 
 export default function FoodPage(props: {route, navigation}) {
   // eslint-disable-next-line
-  const {dish, review} = props.route.params; // extract dish from route params
+  const {dish}  = props.route.params; // extract dish from route params
 
   // eslint-disable-next-line
-  const [dishData, setDishData] = useState<Dish[]>([{id: 1, username: "little_kendian", commentText: "Wow this changed my life. #CarnivoreDiet"},
-                                                    {id: 2, username: "LDawg", commentText: "I got food poisoning."},
-                                                    {id: 3, username: "LDawg", commentText: "I got food poisoning."},
-                                                    {id: 4, username: "LDawg", commentText: "I got food poisoning."},
-                                                  ]);
+  const [commentData, setCommentData] = useState([]);
+
+  async function getCommentData() {
+    try {
+      const resp = await fetch(`https://knightbitesapp-cda7eve7fce3dkgy.eastus2-01.azurewebsites.net/comments/${dish.id}`);
+      const json = await resp.json();
+      setCommentData(json);
+    } catch (err) {
+      console.error(err);
+    } finally {
+
+    }
+  }
+
+  useEffect(() => {
+    getCommentData();
+  }, [])
+  
 
   return (
     <View style={FoodPageStyles.foodPageRoot}>
@@ -40,7 +53,11 @@ export default function FoodPage(props: {route, navigation}) {
         <View style={FoodPageStyles.commentContainer}>
           <Text style={FoodPageStyles.commentheader}>Comments</Text>
           <View style={[FoodPageStyles.commentBox, FoodPageStyles.boxShadow]}>
-            { dishData.map(item => <Comment key={item.id} commentText={item.commentText} username={item.username} />)}
+            {
+              (commentData.length > 0)
+              ? commentData.map(item => <Comment key={item.id} commentText={item.usercomment} username={item.username} />)
+              : <Text>Be the first to make a comment!</Text>
+            }
           </View>
         </View>
       </ScrollView>
