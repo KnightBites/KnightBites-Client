@@ -28,13 +28,7 @@ export default function Page6({pageHook}) {
                 <Image style={styles.foodPic} source={require('@/assets/images/pizza.jpg')}/>
                 <Text style={styles.selectionText}>Grilled</Text>
             </TouchableOpacity>
-            <TouchableOpacity
-                style={(sandwich.grilled ? styles.selected : styles.unselected)}
-                onPress={toggleGrilled}
-            >
-                <Image style={styles.foodPic} source={require('@/assets/images/pizza.jpg')}/>
-                <Text style={styles.selectionText}>Sliced in half</Text>
-            </TouchableOpacity>
+            
             <Text style={styles.selectionText}>Special Instructions (optional):</Text>
             <TextInput
                 value={sandwich.instructions}
