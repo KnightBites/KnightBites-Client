@@ -28,7 +28,14 @@ export default function Page6({pageHook}) {
                 <Image style={styles.foodPic} source={require('@/assets/images/pizza.jpg')}/>
                 <Text style={styles.selectionText}>Grilled</Text>
             </TouchableOpacity>
-            <Text style={styles.selectionText}>Special Instructions:</Text>
+            <TouchableOpacity
+                style={(sandwich.grilled ? styles.selected : styles.unselected)}
+                onPress={toggleGrilled}
+            >
+                <Image style={styles.foodPic} source={require('@/assets/images/pizza.jpg')}/>
+                <Text style={styles.selectionText}>Sliced in half</Text>
+            </TouchableOpacity>
+            <Text style={styles.selectionText}>Special Instructions (optional):</Text>
             <TextInput
                 value={sandwich.instructions}
                 onChangeText={(val) => {updateInstruction(val);}}
@@ -38,7 +45,7 @@ export default function Page6({pageHook}) {
             {/* will probably look bad on desktop - whatever */}
             <View style={styles.bottom}>
                 <TouchableOpacity style={styles.bottomButton} onPress={() => pageHook(5)}>
-                    <Text style={styles.bottomButtonText}>&lt; 5: Choose Condiments</Text>
+                    <Text style={styles.bottomButtonText}>&lt; 5: Choose condiments</Text>
                 </TouchableOpacity>
                 <View style={styles.bottomSpacer}/>
                 <TouchableOpacity style={styles.bottomButton} onPress={() => pageHook(7)}>

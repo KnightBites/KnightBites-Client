@@ -11,9 +11,9 @@ export default function FoodPage(props: {route, navigation}) {
   const {dish, review} = props.route.params; // extract dish from route params
 
   // eslint-disable-next-line
-  const [dishData, setDishData] = useState<Dish[]>([{id: 1, username: "little_kendian", commentText: "Wow this changed my life. #CarnivoreDiet"},
-                                                    {id: 2, username: "LDawg", commentText: "I got food poisoning."},
-                                                    {id: 3, username: "LDawg", commentText: "I got food poisoning."},
+  const [dishData, setDishData] = useState<Dish[]>([{id: 1, username: "little_kendian", commentText: "Wow, this changed my life. #CarnivoreDiet"},
+                                                    {id: 2, username: "ProfNorman", commentText: "Delicious."},
+                                                    {id: 3, username: "RealPastorMary", commentText: "This dish brought me closer to heaven."},
                                                     {id: 4, username: "LDawg", commentText: "I got food poisoning."},
                                                   ]);
 
