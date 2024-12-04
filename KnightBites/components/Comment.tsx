@@ -1,11 +1,12 @@
 import { View, Text, StyleSheet } from "react-native";
+import { React } from "react";
 
-export default function Comment({commentText, username}) {
+export default function Comment(props: {commentText: string, username: string}) {
   return (
     <View>
-      <Text style={styles.username}>@{username}</Text>
+      <Text style={styles.username}>@{props.username}</Text>
       <View style={styles.commentContainer}>
-        <Text style={styles.commentText}>{commentText}</Text>
+        <Text style={styles.commentText}>{props.commentText}</Text>
       </View>
     </View>
   )
