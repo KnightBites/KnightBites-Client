@@ -8,5 +8,8 @@
     "eslint-plugin-react": "^7.37.2",
     "globals": "^15.13.0",
     "metro": "^0.81.0"
+  },
+  "scripts": {
+    "lint": "npx eslint ."
   }
 }
