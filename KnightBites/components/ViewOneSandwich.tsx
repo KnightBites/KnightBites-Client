@@ -17,8 +17,8 @@ export default function ViewOneSandwich({route, navigation}) {
         <View style={styles.container}>
             <View style={styles.container}>
                 <Text style={styles.title}>{sandwich.name}</Text>
-                <Text style={styles.title}>Creator: {sandwich.creator}</Text>
-                <Text style={styles.selectionText}>Instructions: {sandwich.instructions}</Text>
+                <Text style={styles.instructionText}>Creator: {sandwich.creator}</Text>
+                <Text style={styles.instructionText}>Instructions: {sandwich.instructions}</Text>
                 <FlatList
                     numColumns={2}
                     data={[sandwich.bread+" Bread", ...sandwich.protein, ...sandwich.cheese, ...sandwich.veggies, ...sandwich.condiments]}
@@ -30,7 +30,7 @@ export default function ViewOneSandwich({route, navigation}) {
                     )}
                     keyExtractor={(item) => item}
                 />
-                {(sandwich.grilled ? <Text>Grilled</Text> : null)}
+                {(sandwich.grilled ? <Text style={styles.grilledText}>Grilled</Text> : null)}
             </View>
         </View>
     );

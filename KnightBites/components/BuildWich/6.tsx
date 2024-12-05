@@ -25,10 +25,9 @@ export default function Page6({pageHook}) {
                 style={(sandwich.grilled ? styles.selected : styles.unselected)}
                 onPress={toggleGrilled}
             >
-                <Image style={styles.foodPic} source={require('@/assets/images/pizza.jpg')}/>
-                <Text style={styles.selectionText}>Grilled</Text>
+                <Text style={[styles.selectionText, {textAlign: "center", padding: 20, marginBottom: 20}]}>Grilled</Text>
             </TouchableOpacity>
-            <Text style={styles.selectionText}>Special Instructions:</Text>
+            <Text style={[styles.selectionText, {marginTop: 10, marginBottom: 10}]}>Special Instructions:</Text>
             <TextInput
                 value={sandwich.instructions}
                 onChangeText={(val) => {updateInstruction(val);}}
@@ -42,7 +41,7 @@ export default function Page6({pageHook}) {
                 </TouchableOpacity>
                 <View style={styles.bottomSpacer}/>
                 <TouchableOpacity style={styles.bottomButton} onPress={() => pageHook(7)}>
-                    <Text style={styles.bottomButtonText}>Finish &gt;</Text>
+                    <Text style={styles.bottomButtonText}>Name My Creation &gt;</Text>
                 </TouchableOpacity>
             </View>
         </View>

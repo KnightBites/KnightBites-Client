@@ -21,8 +21,8 @@ export default function Page4({pageHook}) {
 
     return (
         <View style={styles.container}>
-            <Text style={styles.title}>Step 4: Pick your veggies</Text>
-            <FlatList numColumns={3} renderItem={({item}) => (
+            <Text style={styles.title}>Step 4: Pick your veggie(s)</Text>
+            <FlatList numColumns={2} renderItem={({item}) => (
                 <TouchableOpacity
                     style={(sandwich.veggies.includes(item) ? styles.selected : styles.unselected)}
                     onPress={() => updateVeggies(item)}

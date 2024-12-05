@@ -21,8 +21,8 @@ export default function Page3({pageHook}) {
 
     return (
         <View style={styles.container}>
-            <Text style={styles.title}>Step 3: Pick your cheese</Text>
-            <FlatList numColumns={3} renderItem={({item}) => (
+            <Text style={styles.title}>Step 3: Pick your cheese(s)</Text>
+            <FlatList numColumns={2} renderItem={({item}) => (
                 <TouchableOpacity
                     style={(sandwich.cheese.includes(item) ? styles.selected : styles.unselected)}
                     onPress={() => updateCheese(item)}
@@ -36,7 +36,7 @@ export default function Page3({pageHook}) {
             {/* will probably look bad on desktop - whatever */}
             <View style={styles.bottom}>
                 <TouchableOpacity style={styles.bottomButton} onPress={() => pageHook(2)}>
-                    <Text style={styles.bottomButtonText}>&lt; 2: Choose Protien</Text>
+                    <Text style={styles.bottomButtonText}>&lt; 2: Choose Protein</Text>
                 </TouchableOpacity>
                 <View style={styles.bottomSpacer}/>
                 <TouchableOpacity style={styles.bottomButton} onPress={() => pageHook(4)}>

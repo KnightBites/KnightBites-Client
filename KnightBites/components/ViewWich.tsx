@@ -77,6 +77,9 @@ export default function ViewSandwich({navigation}) {
         <View style={styles.container}>
             {loading ? <Text style={{fontSize: 32, margin: 10}}>Loading...</Text> :
                 <View>
+                    <Text style={styles.title}>
+                        Existing Sandwich Creations
+                    </Text>
                     <FlatList
                         data={sandwiches}
                         renderItem={({item}) => (
@@ -95,20 +98,31 @@ export default function ViewSandwich({navigation}) {
     );
   };
 
+
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: Colors.light.background,
+        marginTop: 10,
+        marginBottom: 10
     },
     listItem: {
         margin: 10,
+        height: 75,
         borderWidth: 1,
-        borderRadius: 10,
+        borderRadius: 5,
         padding: 20,
         borderBottomWidth: 1,
         borderBottomColor: Colors.light.text,
     },
     listItemText: {
         fontSize: 18,
+        padding: 5
+    },
+
+    title: {
+        fontSize: 30,
+        padding: 20,
+        alignSelf: "center",
+        textAlign: "center"
     }
 });
