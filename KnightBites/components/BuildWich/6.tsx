@@ -28,6 +28,7 @@ export default function Page6({pageHook}) {
                 <Text style={[styles.selectionText, {textAlign: "center", padding: 20, marginBottom: 20}]}>Grilled</Text>
             </TouchableOpacity>
             <Text style={[styles.selectionText, {marginTop: 10, marginBottom: 10}]}>Special Instructions:</Text>
+
             <TextInput
                 value={sandwich.instructions}
                 onChangeText={(val) => {updateInstruction(val);}}
@@ -37,7 +38,7 @@ export default function Page6({pageHook}) {
             {/* will probably look bad on desktop - whatever */}
             <View style={styles.bottom}>
                 <TouchableOpacity style={styles.bottomButton} onPress={() => pageHook(5)}>
-                    <Text style={styles.bottomButtonText}>&lt; 5: Choose Condiments</Text>
+                    <Text style={styles.bottomButtonText}>&lt; 5: Choose condiments</Text>
                 </TouchableOpacity>
                 <View style={styles.bottomSpacer}/>
                 <TouchableOpacity style={styles.bottomButton} onPress={() => pageHook(7)}>

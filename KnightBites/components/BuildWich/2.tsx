@@ -9,7 +9,7 @@ import styles from '@/constants/BuildWichStyles';
 export default function Page2({pageHook}) {
 
     const {sandwich, setSandwich} = useContext(SandwichContext);
-    const proteins = ["Ham", "Bacon", "Turkey", "Chicken Salad", "Pepperoni", "None"]
+    const proteins = ["Ham", "Bacon", "Turkey", "Chicken salad", "Buffalo chicken", "Pepperoni", "Capicola", "None"]
 
     function updateProtein(protein: string) {
         if (sandwich.protein.includes(protein)) {
@@ -53,7 +53,7 @@ export default function Page2({pageHook}) {
                 </TouchableOpacity>
                 <View style={styles.bottomSpacer}/>
                 <TouchableOpacity style={styles.bottomButton} onPress={() => pageHook(3)}>
-                    <Text style={styles.bottomButtonText}>3: Choose Cheese &gt;</Text>
+                    <Text style={styles.bottomButtonText}>3: Choose cheese &gt;</Text>
                 </TouchableOpacity>
             </View>
         </View>

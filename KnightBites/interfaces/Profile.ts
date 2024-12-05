@@ -1,4 +1,5 @@
 export interface Profile {
+    id: number;
     username: string;
     pref_name?: string;
     email: string;

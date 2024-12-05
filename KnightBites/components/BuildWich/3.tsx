@@ -9,7 +9,7 @@ import styles from '@/constants/BuildWichStyles';
 export default function Page3({pageHook}) {
 
     const {sandwich, setSandwich} = useContext(SandwichContext);
-    const cheeses = ["Cheddar", "Gouda", "Provalone", "Pepperjack", "Colby Jack", "None"]
+    const cheeses = ["Cheddar", "Gouda", "Provalone", "Swiss", "Pepper jack", "Colby jack", "None"]
 
     function updateCheese(cheese: string) {
         if (sandwich.cheese.includes(cheese)) {
@@ -23,6 +23,7 @@ export default function Page3({pageHook}) {
         <View style={styles.container}>
             <Text style={styles.title}>Step 3: Pick your cheese(s)</Text>
             <FlatList numColumns={2} renderItem={({item}) => (
+
                 <TouchableOpacity
                     style={(sandwich.cheese.includes(item) ? styles.selected : styles.unselected)}
                     onPress={() => updateCheese(item)}
@@ -40,7 +41,7 @@ export default function Page3({pageHook}) {
                 </TouchableOpacity>
                 <View style={styles.bottomSpacer}/>
                 <TouchableOpacity style={styles.bottomButton} onPress={() => pageHook(4)}>
-                    <Text style={styles.bottomButtonText}>4: Choose Veggies &gt;</Text>
+                    <Text style={styles.bottomButtonText}>4: Choose veggies &gt;</Text>
                 </TouchableOpacity>
             </View>
         </View>

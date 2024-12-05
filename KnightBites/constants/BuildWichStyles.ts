@@ -7,6 +7,7 @@ const styles = StyleSheet.create({
         flex: 1,
         alignItems: "center",
         backgroundColor: "white",
+        justifyContent: "center",
     },
     foodPic: {
         position: "absolute",

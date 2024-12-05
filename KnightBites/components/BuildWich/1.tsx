@@ -9,7 +9,7 @@ import styles from '@/constants/BuildWichStyles';
 export default function Page1({pageHook}) {
 
     const {sandwich, setSandwich} = useContext(SandwichContext);
-    const breads = ["White", "Wheat", "Multi grain", "Wrap"]
+    const breads = ["White", "Wheat", "Sour dough", "Multi grain", "Tortilla wrap", "Pretzel bun", "Spinach wrap"]
 
     return (
         <View style={styles.container}>
