@@ -10,7 +10,6 @@ This is not a 100% accurate filter, if someone finds a creative way to break the
 
 const fs = require('fs');
 const path = require('path');
-const readline = require('readline');
 
 const inappropriateWordsPath = path.join(__dirname, 'inappropriate.txt');
 const inappropriateWords = fs.readFileSync(inappropriateWordsPath, 'utf-8').split('\n').map(word => word.trim());
@@ -24,6 +23,7 @@ function escapeRegExp(string) {
 }
 
 // Function to censor inappropriate words in a given text
+// eslint-disable-next-line
 function censorText(text) {
     let censoredText = text;
     inappropriateWords.forEach(word => {

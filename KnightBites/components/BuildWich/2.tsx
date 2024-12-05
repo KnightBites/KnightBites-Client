@@ -9,7 +9,7 @@ import styles from '@/constants/BuildWichStyles';
 export default function Page2({pageHook}) {
 
     const {sandwich, setSandwich} = useContext(SandwichContext);
-    const proteins = ["Ham", "Bacon", "Turkey", "Chicken Salad", "Pepperoni", "None"]
+    const proteins = ["Ham", "Bacon", "Turkey", "Chicken salad", "Buffalo chicken", "Pepperoni", "Capicola", "None"]
 
     function updateProtein(protein: string) {
         if (sandwich.protein.includes(protein)) {
@@ -21,12 +21,25 @@ export default function Page2({pageHook}) {
 
     return (
         <View style={styles.container}>
-            <Text style={styles.title}>Step 2: Pick your protein</Text>
-            <FlatList numColumns={3} renderItem={({item}) => (
+            <Text style={styles.title}>Step 2: Pick your protein(s)</Text>
+            <FlatList numColumns={2} renderItem={({item}) => (
                 <TouchableOpacity
-                    style={(sandwich.protein.includes(item) ? styles.selected : styles.unselected)}
-                    onPress={() => updateProtein(item)}
-                >
+                style={(sandwich.protein.includes(item) ? styles.selected : styles.unselected)}
+                onPress={() => {
+                    if (item === "None") {
+                        setSandwich({ ...sandwich, protein: ["None"] });
+                    } else {
+                        setSandwich({
+                            ...sandwich,
+                            protein: sandwich.protein?.includes("None")
+                                ? [item] 
+                                : sandwich.protein?.includes(item)
+                                ? sandwich.protein.filter((protein) => protein !== item) // Deselect the item if already selected
+                                : [...(sandwich.protein || []), item], // Add the item if not selected
+                        })
+                    }
+                }}
+            >
                     <Image style={styles.foodPic} source={require('@/assets/images/pizza.jpg')}/>
                     <Text style={styles.selectionText}>{item}</Text>
                 </TouchableOpacity>
@@ -40,7 +53,7 @@ export default function Page2({pageHook}) {
                 </TouchableOpacity>
                 <View style={styles.bottomSpacer}/>
                 <TouchableOpacity style={styles.bottomButton} onPress={() => pageHook(3)}>
-                    <Text style={styles.bottomButtonText}>3: Choose Cheese &gt;</Text>
+                    <Text style={styles.bottomButtonText}>3: Choose cheese &gt;</Text>
                 </TouchableOpacity>
             </View>
         </View>

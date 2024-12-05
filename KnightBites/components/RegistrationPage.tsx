@@ -87,7 +87,7 @@ export default function RegistrationPage({navigation}) {
           onChangeText={setEmail} // When the user types, it sets the username
           onFocus={() => setIsFocused(true)}
           onBlur={() => setIsFocused(false)}
-          placeholder="Enter your email"
+          placeholder= "Enter your Calvin email"
           placeholderTextColor="black"
 
         />

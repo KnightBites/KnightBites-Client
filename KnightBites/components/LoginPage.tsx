@@ -83,6 +83,7 @@ export default function LoginPage({ navigation }) {
             .then(data => {
               if (data.valid) {
                 const user: Profile = {
+                  id: data.userData.id,
                   username: data.userData.username,
                   pref_name: data.userData.username,
                   email: data.userData.email,

@@ -23,7 +23,7 @@ export default function BuildSandwich({navigation}) {
     return (
       <SandwichProvider>
         { page === 0 ? 
-        <View style = {{alignItems: "center", flex: 1, backgroundColor: Colors.light.background}}>
+        <View style = {{alignItems: "center", flex: 1, backgroundColor: "white"}}>
           <Text style = {{fontSize: 25, marginBottom: 10, marginTop: 40 }}>Build-A-Wich</Text>
 
           <Text style={styles.uppercrustRuleText}>Build your personal UpperCrust order and share your creation with everyone!</Text>

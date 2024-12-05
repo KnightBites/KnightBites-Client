@@ -73,7 +73,7 @@ const ProfilePage = ({ navigation }) => {
     <View style={styles.container}>
       {/* Header */}
       <View style={styles.header}>
-        <Text style={styles.username}>Hi, User{profile.username}!</Text>
+        <Text style={styles.username}>Hi, {profile.username}!</Text>
         <Text style={styles.userEmail}>{profile.email}</Text>
       </View>
 
