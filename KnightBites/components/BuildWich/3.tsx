@@ -22,7 +22,8 @@ export default function Page3({pageHook}) {
     return (
         <View style={styles.container}>
             <Text style={styles.title}>Step 3: Pick your cheese(s)</Text>
-            <FlatList numColumns={3} renderItem={({item}) => (
+            <FlatList numColumns={2} renderItem={({item}) => (
+
                 <TouchableOpacity
                     style={(sandwich.cheese.includes(item) ? styles.selected : styles.unselected)}
                     onPress={() => updateCheese(item)}

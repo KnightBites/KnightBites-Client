@@ -14,7 +14,7 @@ export default function Page1({pageHook}) {
     return (
         <View style={styles.container}>
             <Text style={styles.title}>Step 1: Pick your bread</Text>
-            <FlatList numColumns={3} renderItem={({item}) => (
+            <FlatList numColumns={2} renderItem={({item}) => (
                 <TouchableOpacity
                     style={(sandwich.bread == item ? styles.selected : styles.unselected)}
                     onPress={() => setSandwich({...sandwich, bread: item})}
@@ -25,6 +25,7 @@ export default function Page1({pageHook}) {
             )} data={breads} keyExtractor={(item) =>
                 item
             }/>
+
             {/* will probably look bad on desktop - whatever */}
             <View style={styles.bottom}>
                 <TouchableOpacity style={styles.bottomButton} onPress={() => pageHook(0)}>
@@ -32,7 +33,7 @@ export default function Page1({pageHook}) {
                 </TouchableOpacity>
                 <View style={styles.bottomSpacer}/>
                 <TouchableOpacity style={styles.bottomButton} onPress={() => pageHook(2)}>
-                    <Text style={styles.bottomButtonText}>2: Choose protein &gt;</Text>
+                    <Text style={styles.bottomButtonText}>2: Choose Protein &gt;</Text>
                 </TouchableOpacity>
             </View>
         </View>

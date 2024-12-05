@@ -22,11 +22,24 @@ export default function Page2({pageHook}) {
     return (
         <View style={styles.container}>
             <Text style={styles.title}>Step 2: Pick your protein(s)</Text>
-            <FlatList numColumns={3} renderItem={({item}) => (
+            <FlatList numColumns={2} renderItem={({item}) => (
                 <TouchableOpacity
-                    style={(sandwich.protein.includes(item) ? styles.selected : styles.unselected)}
-                    onPress={() => updateProtein(item)}
-                >
+                style={(sandwich.protein.includes(item) ? styles.selected : styles.unselected)}
+                onPress={() => {
+                    if (item === "None") {
+                        setSandwich({ ...sandwich, protein: ["None"] });
+                    } else {
+                        setSandwich({
+                            ...sandwich,
+                            protein: sandwich.protein?.includes("None")
+                                ? [item] 
+                                : sandwich.protein?.includes(item)
+                                ? sandwich.protein.filter((protein) => protein !== item) // Deselect the item if already selected
+                                : [...(sandwich.protein || []), item], // Add the item if not selected
+                        })
+                    }
+                }}
+            >
                     <Image style={styles.foodPic} source={require('@/assets/images/pizza.jpg')}/>
                     <Text style={styles.selectionText}>{item}</Text>
                 </TouchableOpacity>

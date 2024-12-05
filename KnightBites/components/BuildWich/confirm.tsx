@@ -32,8 +32,9 @@ export default function PageConfirm({navigation, pageHook}) {
 
     return (
         <View style={styles.container}>
+            <Text style={styles.title}>Review Your Creation</Text>
             <TextInput 
-                style={styles.specInstrs}
+                style={[styles.nameBox, {marginBottom: 45}]}
                 placeholder="Name your sandwich"
                 value={sandwich.name}
                 onChangeText={(val) => {updateName(val);}}

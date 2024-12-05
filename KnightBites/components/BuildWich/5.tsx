@@ -9,6 +9,7 @@ import styles from '@/constants/BuildWichStyles';
 export default function Page5({pageHook}) {
 
     const {sandwich, setSandwich} = useContext(SandwichContext);
+
     const sauces = ["Mayo", "Spicy mayo", "Mustard", "Ketchup", "Ranch", "BBQ", "Hot sauce", "Hummus spread", "Avocado spread", "Balsamic vinegar", "Olive oil", "None"]
 
     function updateSauces(sauce: string) {
@@ -21,8 +22,8 @@ export default function Page5({pageHook}) {
 
     return (
         <View style={styles.container}>
-            <Text style={styles.title}>Step 5: Pick your condiments</Text>
-            <FlatList numColumns={3} renderItem={({item}) => (
+            <Text style={styles.title}>Step 5: Pick your condiment(s)</Text>
+            <FlatList numColumns={2} renderItem={({item}) => (
                 <TouchableOpacity
                     style={(sandwich.condiments.includes(item) ? styles.selected : styles.unselected)}
                     onPress={() => updateSauces(item)}
