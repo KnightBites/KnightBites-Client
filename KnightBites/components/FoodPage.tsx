@@ -28,7 +28,6 @@ export default function FoodPage(props: {route, navigation}) {
   useEffect(() => {
     getCommentData();
   }, [])
-  
 
   return (
     <View style={FoodPageStyles.foodPageRoot}>

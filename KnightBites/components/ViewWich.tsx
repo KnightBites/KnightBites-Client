@@ -24,9 +24,9 @@ export default function ViewSandwich({navigation}) {
                 bread: "White",
                 protein: ["Ham"],
                 cheese: ["Cheddar"],
-                veggies: [],
-                condiments: ["mayo"],
-                instructions: "",
+                veggies: ["Lettuce"],
+                condiments: ["Mayo"],
+                instructions: "A simple & classic sandwich",
                 grilled: false,
                 creator: "John Doe",
             },
@@ -35,9 +35,9 @@ export default function ViewSandwich({navigation}) {
                 bread: "White",
                 protein: ["Ham", "Pepperoni", "Bacon"],
                 cheese: ["Peperjack"],
-                veggies: ["Jalapenos"],
+                veggies: ["Jalapeños"],
                 condiments: ["Spicy Mayo"],
-                instructions: "",
+                instructions: "Peter's personal favorite!",
                 grilled: true,
                 creator: "CheetoLord211738"
             },
@@ -48,13 +48,13 @@ export default function ViewSandwich({navigation}) {
                 cheese: ["Swiss"],
                 veggies: ["Lettuce", "Tomato", "Onion", "Pickles"],
                 condiments: ["Mustard"],
-                instructions: "",
+                instructions: "A vegetarian sandwich for vegetarians",
                 grilled: false,
                 creator: "Peta"
             },
             {
                 name: "Sandvich TF2",
-                bread: "white",
+                bread: "White",
                 protein: ["Bologna", "Ham"],
                 cheese: ["Swiss"],
                 veggies: ["Lettuce", "Tomato", "Olive"],
@@ -85,6 +85,7 @@ export default function ViewSandwich({navigation}) {
                                 onPress={() => navigation.navigate('viewOneSandwich', {sandwich: item})}
                             >
                                 <Text style={styles.listItemText}>{item.name}</Text>
+                                <Text style={styles.listItemText}>Creator: {item.creator}</Text>
                             </TouchableOpacity>
                         )}
                         keyExtractor={item => item.name}

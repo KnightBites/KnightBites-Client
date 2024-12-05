@@ -9,7 +9,7 @@ import styles from '@/constants/BuildWichStyles';
 export default function Page5({pageHook}) {
 
     const {sandwich, setSandwich} = useContext(SandwichContext);
-    const sauces = ["Ham", "Bacon", "Turkey", "Chicken Salad", "Pepperoni"]
+    const sauces = ["Mayo", "Spicy mayo", "Mustard", "Ketchup", "Ranch", "BBQ", "Hot sauce", "Hummus spread", "Avocado spread", "Balsamic vinegar", "Olive oil", "None"]
 
     function updateSauces(sauce: string) {
         if (sandwich.condiments.includes(sauce)) {

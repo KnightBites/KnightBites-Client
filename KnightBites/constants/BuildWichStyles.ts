@@ -6,7 +6,8 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         justifyContent: "center",
-        alignItems: "center"
+        alignItems: "center",
+        backgroundColor: Colors.light.background,
     },
     foodPic: {
         position: "absolute",
@@ -71,7 +72,7 @@ const styles = StyleSheet.create({
         width: "100%",
     },
     bottomButton: {
-        backgroundColor: "red",
+        backgroundColor: "gold",
         padding: 10,
         margin: 5,
         borderRadius: 15,
