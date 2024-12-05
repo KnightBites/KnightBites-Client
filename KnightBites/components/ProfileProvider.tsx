@@ -7,6 +7,7 @@ interface ProfileContextProps {
 }
 
 export const defaultProfile: Profile = {
+  id: -1,
   username: '',
   pref_name: '',
   email: '',
