@@ -1,6 +1,4 @@
-import { Image, StyleSheet, View, Text, FlatList, TouchableOpacity, Button, 
-         TextInput, Pressable, ActivityIndicator, Alert,
-       } from 'react-native';
+import { View, Text, FlatList, TouchableOpacity, TextInput, Pressable, ActivityIndicator, Switch, Dimensions } from 'react-native';
 import FoodPanel from '@/components/FoodPanel';
 import DropDownPicker from 'react-native-dropdown-picker';
 import { Header, HeaderRight } from '@/components/Header';
@@ -12,7 +10,7 @@ import Dish from "@/interfaces/Dish";
 import { ProfileProvider } from "@/components/ProfileProvider";
 import Icon from 'react-native-vector-icons/Ionicons'; 
 import { ProfileContext } from "@/components/ProfileProvider";
-
+import { Animated } from 'react-native';
 
 ////////
 // Pages
@@ -65,9 +63,9 @@ export default function EntryPoint() {
         <Stack.Screen name="buildSandwich" component={BuildSandwich} />
         <Stack.Screen name="viewSandwich" component={ViewSandwich} />
         <Stack.Screen name="viewOneSandwich" component={ViewOneSandwich} />
-        <Stack.Screen name="profile" component = {ProfilePage} />
-        <Stack.Screen name="ChooseBread" component = {ChooseBread} />
-        <Stack.Screen name="rateDish" component = {FoodPageRating} />
+        <Stack.Screen name="profile" component={ProfilePage} />
+        <Stack.Screen name="ChooseBread" component={ChooseBread} />
+        <Stack.Screen name="rateDish" component={FoodPageRating} />
         <Stack.Screen name="FAQ" component={FAQ} />
       </Stack.Navigator>
     </ProfileProvider>
@@ -79,16 +77,19 @@ function HomePage({ navigation }) {
   // first things first, make sure the user is logged in to see this page
   const { profile } = useContext(ProfileContext);
   if (!profile.loggedIn) {
-      navigation.navigate("login");
-      // the return makes this final to react, otherwise it will try (and non-gracefully fail) to do all the stuff below
-      return;
+    navigation.navigate("login");
+    // the return makes this final to react, otherwise it will try (and non-gracefully fail) to do all the stuff below
+    return;
   }
 
   const [open, setOpen] = useState(false);
   const [search, setSearch] = useState('');
-  const [restaurant, setRestaurant] = useState(-1);
+  const [restaurant, setRestaurant] = useState<string | number>("-1");
+  const [mealtime, setMealtime] = useState<string | number>("-1");
+  const [dietary, setDietary] = useState<string[]>([]);
+
   const [items, setItems] = useState([
-    { label: 'All Dining Halls', value: -1 },
+    { label: 'All Dining Halls', value: "-1" },
     { label: 'Commons Dining Hall', value: "Commons" },
     { label: 'Knollcrest Dining Hall', value: "Knollcrest" },
     { label: 'Johnny\'s', value: "Johnny\'s" },
@@ -97,7 +98,7 @@ function HomePage({ navigation }) {
   ]);
   const [dishData, setDishData] = useState([]);
   const [loading, setLoading] = useState(true);
-
+  const [filterHeight] = useState(new Animated.Value(0));
 
   const getDishData = async () => {
     try {
@@ -121,19 +122,43 @@ function HomePage({ navigation }) {
     getDishData();
   }, []);
 
+  // TODO: This is a bit too complex and I cannot get this working as I would like. I will need to tweak this over time.
+  // This works perfect on iPad mini 5, but not on iPhone 16. I will need to test on other devices.
+  // This should not be a problem for the final presentation.
+  useEffect(() => {
+    const screenWidth = Dimensions.get('window').width; // This gets the width of whatever screen you're using in pixels.
+    const numColumns = screenWidth > 1500 ? 3 : 2; // If the current screen is wider than 768 pixels, use 3 columns. Otherwise, use 2.
+    // This will let Jacob's iPad use 3 columns, while an iPhone 16 (simulator) uses 2.
+    const numRows = Math.ceil(items.length / numColumns); // This will calculate the number of rows needed to display all the items.
+    const rowHeight = 55; // Adjust this value based on the height of each row
+    const height = open ? numRows * rowHeight + 26: 0; // If the filter is open, set the height to the number of rows times the height of each row. Otherwise, set it to 0.
+
+    Animated.timing(filterHeight, {
+        toValue: height,
+        duration: 300,
+        useNativeDriver: false,
+    }).start();
+}, [open, items.length]);
+
   const defaultDishData: Dish[] = [{
     foodname: 'No Dish Found',
     description: 'Try a different search',
     rating: 0,
     dininghall: "",
     img: 'https://placehold.co/200',
+    vegan: null,
+    vegetarian: null,
+    halal: null,
+    mealtime: null,
   }]
 
   const getFilteredDishData = (): Dish[] => {
     // do any wrangling of the data
     const filtered = dishData.filter(dish => (
       (restaurant == -1 || dish.dininghall == restaurant) &&
-      (dish.foodname.toLowerCase().includes(search.toLowerCase()))
+      (dish.foodname.toLowerCase().includes(search.toLowerCase())) &&
+      (mealtime == -1 || dish.mealtime == mealtime) &&
+      (dietary.length == 0 || dietary.every(restriction => dish[restriction]))
     ));
 
     return (filtered.length == 0 ? defaultDishData : filtered);
@@ -149,13 +174,131 @@ function HomePage({ navigation }) {
           style={[styles.searchBar, { color: 'black', fontStyle: 'italic', fontSize: 14 }]}
           placeholderTextColor="black"
         />
-        <Icon
-          name="filter-outline" // Icon name from Ionicons
-          size={27} // Icon size
-          color="black" // Icon color
-          style = {styles.filterIcon}
-        />
+        <TouchableOpacity onPress={() => setOpen(!open)}>
+          <Icon
+            name="filter-outline"
+            size={27}
+            color="black"
+            style={styles.filterIcon}
+          />
+        </TouchableOpacity>
       </View>
+
+      <Animated.View style={[styles.filterBox, { height: filterHeight }]}> {/* This is a filter box that will appear when the filter icon is clicked.  */}
+        {open && (
+          <>
+            <View style={styles.switchContainer}>
+              <Text>Any Dining Hall</Text>
+              <Switch
+                value={restaurant === -1}
+                onValueChange={() => setRestaurant(restaurant === -1 ? -1 : "-1")}
+                trackColor={{ false: "gray", true: "gold" }}
+              />
+            </View>
+
+            <View style={styles.switchContainer}>
+              <Text>Commons</Text>
+              <Switch
+              value={restaurant === "Commons"}
+              onValueChange={() => setRestaurant(restaurant === "Commons" ? -1 : "Commons")}
+              trackColor={{ false: "gray", true: "gold" }}
+              />
+            </View>
+
+            <View style={styles.switchContainer}>
+              <Text>Knollcrest</Text>
+              <Switch
+                value={restaurant === "Knollcrest"}
+                onValueChange={() => setRestaurant(restaurant === "Knollcrest" ? -1 : "Knollcrest")}
+                trackColor={{ false: "gray", true: "gold" }}
+              />
+            </View>
+
+            <View style={styles.switchContainer}>
+              <Text>Johnny's</Text>
+              <Switch
+                value={restaurant === "Johnny's"}
+                onValueChange={() => setRestaurant(restaurant === "Johnny's" ? -1 : "Johnny's")}
+                trackColor={{ false: "gray", true: "gold" }}
+              />
+            </View>
+
+            <View style={styles.switchContainer}>
+              <Text>Peet's</Text>
+              <Switch
+                value={restaurant === "Peets"}
+                onValueChange={() => setRestaurant(restaurant === "Peets" ? -1 : "Peets")}
+                trackColor={{ false: "gray", true: "gold" }}
+              />
+            </View>
+
+            <View style={styles.switchContainer}>
+              <Text>UpperCrust</Text>
+              <Switch
+                value={restaurant === "UpperCrust"}
+                onValueChange={() => setRestaurant(restaurant === "UpperCrust" ? -1 : "UpperCrust")}
+                trackColor={{ false: "gray", true: "gold" }}
+              />
+            </View>
+
+
+            <View style={styles.switchContainer}>
+              <Text>Breakfast</Text>
+              <Switch
+                value={mealtime === "Breakfast"}
+                onValueChange={() => setMealtime(mealtime === "Breakfast" ? -1 : "Breakfast")}
+                trackColor={{ false: "gray", true: "gold" }}
+              /> 
+            </View>
+
+            <View style={styles.switchContainer}>
+              <Text>Lunch</Text>
+              <Switch
+                value={mealtime === "Lunch"}
+                onValueChange={() => setMealtime(mealtime === "Lunch" ? -1 : "Lunch")}
+                trackColor={{ false: "gray", true: "gold" }}
+              />
+            </View>
+
+            <View style={styles.switchContainer}>
+              <Text>Dinner</Text>
+              <Switch
+                value={mealtime === "Dinner"}
+                onValueChange={() => setMealtime(mealtime === "Dinner" ? -1 : "Dinner")}
+                trackColor={{ false: "gray", true: "gold" }}
+              />
+            </View>
+
+            <View style={styles.switchContainer}>
+              <Text>Vegan</Text>
+              <Switch
+                value={dietary.includes("vegan")}
+                onValueChange={() => setDietary(dietary.includes("vegan") ? dietary.filter(restriction => restriction !== "vegan") : [...dietary, "vegan"])}
+                trackColor={{ false: "gray", true: "gold" }}
+              />
+            </View>
+
+            <View style={styles.switchContainer}>
+              <Text>Vegetarian</Text>
+              <Switch
+                value={dietary.includes("vegetarian")}
+                onValueChange={() => setDietary(dietary.includes("vegetarian") ? dietary.filter(restriction => restriction !== "vegetarian") : [...dietary, "vegetarian"])}
+                trackColor={{ false: "gray", true: "gold" }}
+              />
+            </View>
+
+            <View style={styles.switchContainer}>
+              <Text>Halal</Text>
+              <Switch
+                value={dietary.includes("halal")}
+                onValueChange={() => setDietary(dietary.includes("halal") ? dietary.filter(restriction => restriction !== "halal") : [...dietary, "halal"])}
+                trackColor={{ false: "gray", true: "gold" }}
+              />
+            </View>
+
+          </>
+        )}
+      </Animated.View>
 
       <View style={styles.feedContainer}>
         {loading ? (<ActivityIndicator />) : (

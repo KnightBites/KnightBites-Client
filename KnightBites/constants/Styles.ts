@@ -1,4 +1,4 @@
-import { StyleSheet, Dimensions } from "react-native";
+import { StyleSheet, Dimensions, SwitchComponent } from "react-native";
 import { Colors } from "@/constants/Colors";
 import { ColorSpace } from "react-native-reanimated";
 
@@ -54,7 +54,7 @@ const styles = StyleSheet.create({
       justifyContent: 'center',
       alignContent: 'center',
       alignItems: 'center',
-      marginTop: 10
+      marginTop: 10,
     },
 
     // This starts the Dropdown option styles ////////////
@@ -288,6 +288,26 @@ const styles = StyleSheet.create({
       fontSize: 19, 
       marginTop: 10,
       marginBottom: 10
+    },
+
+    // These filters are for the filter button on the main food page.
+    filterBox: {
+      flexDirection: 'row',
+      flexWrap: 'wrap',
+      justifyContent: 'space-between',
+      marginHorizontal: 0,
+      width: '100%',
+    
+    },
+    switchContainer: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'space-between',
+      width: '28%',
+      marginVertical: 0,
+      paddingTop: 20,
+      marginRight: 16,
+      marginLeft: 16,
     },
   })
 
