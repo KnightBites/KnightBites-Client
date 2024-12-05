@@ -44,12 +44,13 @@ export default function FoodPageRating(props: {route, navigation}) {
   }
 
   return (
-    <View style={styles.root}>
+    <View style={styles.root}> 
       <Text style={styles.texts}>My Rating</Text>
       <RankableStars size={48} onPress={setRating}/>
       <Text style={styles.texts}>My Comment</Text>
-      <TextInput style={[styles.commentEntry, FoodPageStyles.boxShadow]} multiline numberOfLines={10} maxLength={150} onChangeText={ text => { setTextLength(text.length); setComment(text); } } />
-      <Text>{ textLength }/150</Text>
+      <Text style={styles.characterLength}>Note: Your username will be posted with your comment.</Text> 
+     <TextInput style={[styles.commentEntry, FoodPageStyles.boxShadow]} multiline numberOfLines={10} maxLength={150} onChangeText={ text => { setTextLength(text.length); setComment(text); } } />
+      <Text style={styles.characterLength}>{ textLength }/150</Text>
       <TouchableOpacity style={FoodPageStyles.rateButton} onPress={() => recordComment()}><Text style={FoodPageStyles.rateButtonText}>Post My Review</Text></TouchableOpacity>
     </View>
   );
@@ -57,7 +58,9 @@ export default function FoodPageRating(props: {route, navigation}) {
 
 const styles = StyleSheet.create({
   texts: {
-    fontSize: 36,
+    fontSize: 30,
+    marginBottom: 15,
+    marginTop: 15
   },
   root: {
     alignItems: "center",
@@ -67,8 +70,15 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   commentEntry: {
-    width: 300,
-    height: 200,
+    width: 400,
+    height: 175,
     backgroundColor: "#efeeee",
+
   },
+  
+  characterLength: {
+    fontSize: 15,
+    marginTop: 10,
+    marginBottom :10
+  }
 });
