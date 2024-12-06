@@ -1,19 +1,55 @@
-import { useState } from 'react';
-import { 
-    Image, StyleSheet, View, Text, FlatList, 
-    TouchableOpacity, Button, TextInput, 
-    Linking, Alert
-} from 'react-native';
+import React from 'react';
+import { View, Text, FlatList, TouchableOpacity, TextInput, Pressable, ActivityIndicator, Switch, Dimensions } from 'react-native';
+import FoodPanel from '@/components/FoodPanel';
+import DropDownPicker from 'react-native-dropdown-picker';
+import { Header, HeaderRight } from '@/components/Header';
+import { useState, useEffect, useContext } from 'react';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import styles from '@/constants/Styles';
-import { Colors } from '@/constants/Colors';
+import Dish from "@/interfaces/Dish";
+import Icon from 'react-native-vector-icons/Ionicons'; 
+import { ProfileContext } from "@/components/ProfileProvider";
+import { Animated } from 'react-native';
+
+////////
+// Pages
+////
+import HomePage from "@/components/HomePage";
+import FoodPage from "@/components/FoodPage";
+import LoginPage from "@/components/LoginPage";
+import RegisterPage from "@/components/RegistrationPage";
+import RecoverPage from "@/components/RecoverAccountPage";
+import BuildSandwich from "@/components/BuildWich";
+import ViewSandwich from "@/components/ViewWich";
+import ViewOneSandwich from "@/components/ViewOneSandwich";
+import BuildSandwichHomePage from "@/components/BuildWichHome";
+import ProfilePage from "@/components/ProfilePage";
+import ChooseBread from "@/components/ChooseBread";
+import FoodPageRating from "@/components/FoodPageRating";
+import FAQ from '@/components/FAQ'; // This is temporary until the FAQ page is implemented
 
 
-export default function buildSandwichHomePage({navigation}) {
-    return (
-      <View>
-        <Text>
-          Work in progress!
-        </Text>
-      </View>
-    );
-  };
+const Stack = createNativeStackNavigator();
+
+export default function EntryPoint() {
+  return (
+      <Stack.Navigator
+        initialRouteName="buildSandwichHomePage"
+        screenOptions={({ navigation }) => ({
+          headerTitle: props => <Header />,
+          headerStyle: {
+            backgroundColor: "maroon",
+          },
+          headerRight: props => <HeaderRight navigation={navigation} />,
+        })}
+      >
+        <Stack.Screen name="buildSandwichHomePage" component={BuildSandwichHomePage}
+          options={{ headerLeft: props => { }, headerRight: props => { } }} />
+        <Stack.Screen name="buildSandwich" component={BuildSandwich} />
+        <Stack.Screen name="viewSandwich" component={ViewSandwich} />
+        <Stack.Screen name="viewOneSandwich" component={ViewOneSandwich} />
+      </Stack.Navigator>
+  )
+}
+
