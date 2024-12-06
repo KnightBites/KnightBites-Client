@@ -1,5 +1,5 @@
 import React from 'react';
-import { useState, useContext } from 'react';
+import { useEffect, useState, useContext } from 'react';
 import {
   Image, StyleSheet, View, Text, FlatList,
   TouchableOpacity, Button, TextInput,
@@ -96,7 +96,14 @@ export default function LoginPage({ navigation }) {
                   loggedIn: true,
                 };
                 setProfile(user);
-                navigation.navigate("home");
+                
+                // Add a 100ms delay before navigating to "home" - somehow this fixes the double login thing
+                // (setProfile doesnt update it immediately enough, and this delay gives it time to update
+                // before the homepage boots us back here for having "not logged in")
+                setTimeout(() => {
+                  navigation.navigate("home");
+                }, 100);
+  
               } else {
                 alert('Your username or password is incorrect. Try again.');
               }
