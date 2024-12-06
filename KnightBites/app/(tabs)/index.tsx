@@ -8,7 +8,6 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import styles from '@/constants/Styles';
 import Dish from "@/interfaces/Dish";
-import { ProfileProvider } from "@/components/ProfileProvider";
 import Icon from 'react-native-vector-icons/Ionicons'; 
 import { ProfileContext } from "@/components/ProfileProvider";
 import { Animated } from 'react-native';
@@ -35,7 +34,6 @@ const Stack = createNativeStackNavigator();
 
 export default function EntryPoint() {
   return (
-    <ProfileProvider>
       <Stack.Navigator
         initialRouteName="login"
         screenOptions={({ navigation }) => ({
@@ -55,22 +53,16 @@ export default function EntryPoint() {
           }
         />
         <Stack.Screen name="login" component={LoginPage}
-          options={{ headerLeft: props => { }, headerRight: props => { } }} />
+          options={{ headerLeft: props => { }, headerRight: props => { }}} />
         <Stack.Screen name="registration" component={RegisterPage}
           options={{ headerLeft: props => { }, headerRight: props => { } }} />
         <Stack.Screen name="recovery" component={RecoverPage}
           options={{ headerLeft: props => { }, headerRight: props => { } }} />
-        <Stack.Screen name="buildSandwichHomePage" component={BuildSandwichHomePage}
-          options={{ headerLeft: props => { }, headerRight: props => { } }} />
-        <Stack.Screen name="buildSandwich" component={BuildSandwich} />
-        <Stack.Screen name="viewSandwich" component={ViewSandwich} />
-        <Stack.Screen name="viewOneSandwich" component={ViewOneSandwich} />
         <Stack.Screen name="profile" component={ProfilePage} />
         <Stack.Screen name="ChooseBread" component={ChooseBread} />
         <Stack.Screen name="rateDish" component={FoodPageRating} />
         <Stack.Screen name="FAQ" component={FAQ} />
       </Stack.Navigator>
-    </ProfileProvider>
   )
 }
 
