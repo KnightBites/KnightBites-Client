@@ -26,7 +26,20 @@ export default function Page5({pageHook}) {
             <FlatList numColumns={2} renderItem={({item}) => (
                 <TouchableOpacity
                     style={(sandwich.condiments.includes(item) ? styles.selected : styles.unselected)}
-                    onPress={() => updateSauces(item)}
+                    onPress={() => {
+                        if (item === "None") {
+                            setSandwich({ ...sandwich, condiments: ["None"] });
+                        } else {
+                            setSandwich({
+                                ...sandwich,
+                                condiments: sandwich.condiments?.includes("None")
+                                    ? [item] 
+                                    : sandwich.condiments?.includes(item)
+                                    ? sandwich.condiments.filter((condiments) => condiments !== item) // Deselect the item if already selected
+                                    : [...(sandwich.condiments || []), item], // Add the item if not selected
+                            })
+                        }
+                    }}
                 >
                     <Image style={styles.foodPic} source={require('@/assets/images/pizza.jpg')}/>
                     <Text style={styles.selectionText}>{item}</Text>
