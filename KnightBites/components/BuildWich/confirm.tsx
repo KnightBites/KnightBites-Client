@@ -16,18 +16,28 @@ export default function PageConfirm({navigation, pageHook}) {
         setSandwich({...sandwich, name: name});
     }
 
-    function confirm() {
+    async function confirm() {
         if (sandwich.name === "") {
             alert("Please name your sandwich");
             return;
         }
 
-        sandwich.creator = profile.username; // set creator to current user
+        const resp = await fetch(
+            "https://knightbitesapp-cda7eve7fce3dkgy.eastus2-01.azurewebsites.net/uppercrust",
+            {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                creator: profile.username,
+              })
+            }
+          );
+          if (!resp.ok) throw `Bad response: Error ${resp.status}`;
 
-        // **TODO** send sandwich to server 
-
-        alert("Your sandwich \"" + sandwich.name + "\" has been uploaded\n(Or, it would have been, if that was implemented)"); // send good alert
-        navigation.navigate("buildSandwichHomePage"); // navigate back to BuildAWich main screen
+          const json = await resp.json();
+          navigation.navigate("buildSandwichHomePage");
     }
 
     return (
@@ -43,8 +53,8 @@ export default function PageConfirm({navigation, pageHook}) {
                 numColumns={2}
                 renderItem={({item}) => (
                     <View style={styles.unselected}>
-                        <Image style={styles.foodPic} source={require('@/assets/images/pizza.jpg')}/>
-                        <Text style={styles.selectionText}>{item}</Text>
+                        <Image style={styles.foodPic} source={{uri: item.image}}/>
+                        <Text style={styles.selectionText}>{item.ingredient}</Text>
                     </View>
                 )} 
                 data={[sandwich.bread+" Bread", ...sandwich.protein, ...sandwich.cheese, ...sandwich.veggies, ...sandwich.condiments].filter((item) => item !== "None")}

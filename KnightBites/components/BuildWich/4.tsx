@@ -6,10 +6,9 @@ import { SandwichContext } from "@/components/SandwichProvider";
 import styles from '@/constants/BuildWichStyles';
 
 
-export default function Page4({pageHook}) {
+export default function Page4({pageHook, veggies}) {
 
     const {sandwich, setSandwich} = useContext(SandwichContext);
-    const veggies = ["Lettuce", "Green Pepper", "Onion", "Tomato", "Olives", "Pickles", "Jalapeño", "Spinach", "Red onion", "Hot pepper", "None"]
 
     function updateVeggies(veggy: string) {
         if (sandwich.veggies.includes(veggy)) {
@@ -29,8 +28,8 @@ export default function Page4({pageHook}) {
                     style={(sandwich.veggies.includes(item) ? styles.selected : styles.unselected)}
                     onPress={() => updateVeggies(item)}
                 >
-                    <Image style={styles.foodPic} source={require('@/assets/images/pizza.jpg')}/>
-                    <Text style={styles.selectionText}>{item}</Text>
+                    <Image style={styles.foodPic} source={{uri: item.image}}/>
+                    <Text style={styles.selectionText}>{item.ingredient}</Text>
                 </TouchableOpacity>
             )} data={veggies} keyExtractor={(item) =>
                 item

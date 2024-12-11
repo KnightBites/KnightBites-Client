@@ -6,10 +6,9 @@ import { SandwichContext } from "@/components/SandwichProvider";
 import styles from '@/constants/BuildWichStyles';
 
 
-export default function Page1({pageHook}) {
+export default function Page1({pageHook, breads}) {
 
     const {sandwich, setSandwich} = useContext(SandwichContext);
-    const breads = ["White", "Wheat", "Sour dough", "Multi grain", "Tortilla wrap", "Pretzel bun", "Spinach wrap"]
 
     return (
         <View style={styles.container}>
@@ -19,8 +18,8 @@ export default function Page1({pageHook}) {
                     style={(sandwich.bread == item ? styles.selected : styles.unselected)}
                     onPress={() => setSandwich({...sandwich, bread: item})}
                 >
-                    <Image style={styles.foodPic} source={require('@/assets/images/pizza.jpg')}/>
-                    <Text style={styles.selectionText}>{item}</Text>
+                    <Image style={styles.foodPic} source={{uri: item.image}} />
+                    <Text style={styles.selectionText}>{item.ingredient}</Text>
                 </TouchableOpacity>
             )} data={breads} keyExtractor={(item) =>
                 item
