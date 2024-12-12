@@ -17,7 +17,34 @@ export default function HomePage({ navigation }) {
   const [restaurant, setRestaurant] = useState("-1");
   const [mealtimeFilterOpen, setMealtimeFilterOpen] = useState(false);
   const [mealtime, setMealtime] = useState("-1");
+  const [sortOptionOpen, setSortOptionOpen] = useState(false);
+  const [sort, setSort] = useState("none");
+  const [sortorderOptionOpen, setSortorderOptionOpen] = useState(false);
+  const [sortorder, setSortorder] = useState("asc");
   const [dietary, setDietary] = useState({ vegan: false, vegetarian: false, halal: false });
+
+  const setActiveDropdown = (open, dropdown) => {
+    //close other dropdowns
+    setRestaurantFilterOpen(false);
+    setMealtimeFilterOpen(false);
+    setSortOptionOpen(false);
+    setSortorderOptionOpen(false);
+
+    switch (dropdown) {
+      case "restaurant":
+        setRestaurantFilterOpen(open);
+        break;
+      case "mealtime":
+        setMealtimeFilterOpen(open);
+        break;
+      case "sort":
+        setSortOptionOpen(open);
+        break;
+      case "sortorder":
+        setSortorderOptionOpen(open);
+        break;
+    }
+  }
 
   const restaurants = [
     { label: 'All Dining Halls', value: "-1" },
@@ -34,6 +61,17 @@ export default function HomePage({ navigation }) {
     { label: 'Lunch', value: "Lunch" },
     { label: 'Dinner', value: "Dinner" },
   ];
+
+  const sorts = [
+    { label: 'None', value: "none" },
+    { label: 'Rating', value: "rating" },
+    { label: 'Name', value: "foodname" },
+  ]
+
+  const sortorders = [
+    { label: 'First to Last', value: "asc" },
+    { label: 'Last to First', value: "desc" },
+  ]
 
   const editDietary = (restriction: string, value: boolean) => {
     setDietary({ ...dietary, [restriction]: value });
@@ -88,6 +126,25 @@ export default function HomePage({ navigation }) {
       (!dietary.halal || dish.halal)
     ));
 
+    // also gonna shoehorn in sorting here (Copilot immediately autofilled this, sorry if it's incomprehensible lmao)
+    if (sort == "rating") {
+      filtered.sort((a, b) => {
+        if (sortorder == "asc") {
+          return b.rating - a.rating;
+        } else {
+          return a.rating - b.rating;
+        }
+      });
+    } else if (sort == "foodname") {
+      filtered.sort((a, b) => {
+        if (sortorder == "asc") {
+          return a.foodname.localeCompare(b.foodname);
+        } else {
+          return b.foodname.localeCompare(a.foodname);
+        }
+      });
+    }
+
     return (filtered.length == 0 ? defaultDishData : filtered);
   };
 
@@ -137,7 +194,7 @@ export default function HomePage({ navigation }) {
             {/* Restaurant Dropdown */}
             <DropDownPicker
               open={restaurantFilterOpen}
-              setOpen={(open) => {setRestaurantFilterOpen(open); setMealtimeFilterOpen(false)}}
+              setOpen={(open) => {setActiveDropdown(open, "restaurant")}}
               items={restaurants}
               value={restaurant}
               setValue={setRestaurant}
@@ -153,7 +210,7 @@ export default function HomePage({ navigation }) {
             {/* Mealtime Dropdown */}
             <DropDownPicker
               open={mealtimeFilterOpen}
-              setOpen={(open) => {setMealtimeFilterOpen(open); setRestaurantFilterOpen(false)}}
+              setOpen={(open) => {setActiveDropdown(open, "mealtime")}}
               items={mealTimes}
               value={mealtime}
               setValue={setMealtime}
@@ -190,6 +247,41 @@ export default function HomePage({ navigation }) {
               >
                 <Text style={otherStyles.dietaryButtonText}>Halal</Text>
               </TouchableOpacity>
+            </View>
+
+            <Text style={otherStyles.popupTitle}>Sorting Options</Text>
+
+            <View style={{width: "100%", flexDirection: "row", justifyContent: "center", alignItems: "center", marginBottom: 15, zIndex: 1500}}>
+              <Text style={{fontSize: 16}}>Sort by: </Text>
+              <DropDownPicker
+                open={sortOptionOpen}
+                setOpen={(open) => {setActiveDropdown(open, "sort")}}
+                items={sorts}
+                value={sort}
+                setValue={setSort}
+                containerStyle={otherStyles.inlineDropdownContainer}
+                style={otherStyles.dropdown}
+                itemStyle={otherStyles.dropdownItem}
+                dropDownStyle={otherStyles.dropdownDropdown}
+                onChangeValue={value => setSort(value)}
+                zIndex={1000}
+                zIndexInverse={2000}
+              />
+              <Text style={{fontSize: 16}}> , Ordered: </Text>
+              <DropDownPicker
+                open={sortorderOptionOpen}
+                setOpen={(open) => {setActiveDropdown(open, "sortorder")}}
+                items={sortorders}
+                value={sortorder}
+                setValue={setSortorder}
+                containerStyle={otherStyles.inlineDropdownContainer}
+                style={otherStyles.dropdown}
+                itemStyle={otherStyles.dropdownItem}
+                dropDownStyle={otherStyles.dropdownDropdown}
+                onChangeValue={value => setSortorder(value)}
+                zIndex={1000}
+                zIndexInverse={2000}
+              />
             </View>
 
             {/* Confirm Button */}
@@ -280,6 +372,7 @@ const otherStyles = StyleSheet.create({
   popupConfirmButton: { backgroundColor: '#EECC0A', padding: 10, borderRadius: 10, flex: 1, alignItems: 'center' },
   closeText: { fontSize: 16, color: '#FFF', fontWeight: 'bold' },
   dropdownContainer: { width: '100%', marginBottom: 15 },
+  inlineDropdownContainer: { width: '30%' },
   dropdown: { backgroundColor: '#E0E0E0' },
   dropdownItem: { justifyContent: 'flex-start' },
   dropdownDropdown: { backgroundColor: '#E0E0E0'},
