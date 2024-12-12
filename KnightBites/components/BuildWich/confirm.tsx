@@ -22,6 +22,9 @@ export default function PageConfirm({navigation, pageHook}) {
             return;
         }
 
+        sandwich.creator = profile.username; // set creator to current user
+
+        const {creator, name: sandwichname, instructions: comment, ...sammy} = sandwich;
         const resp = await fetch(
             "https://knightbitesapp-cda7eve7fce3dkgy.eastus2-01.azurewebsites.net/uppercrust",
             {
@@ -30,7 +33,10 @@ export default function PageConfirm({navigation, pageHook}) {
                 "Content-Type": "application/json",
               },
               body: JSON.stringify({
-                creator: profile.username,
+                creator,
+                sandwichname,
+                comment,
+                sammy,
               })
             }
           );
