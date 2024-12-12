@@ -109,18 +109,6 @@ const ProfilePage = ({ navigation }) => {
           <Icon name="cutlery" style={styles.icon} />
           <Text style={styles.inputText}>{dietaryRestrictions || "Set Restrictions"}</Text>
         </TouchableOpacity>
-
-      </View>
-         {/* About FAQ */}
-         <View style={styles.section}>
-        <Text style={styles.sectionTitle}>About</Text>
-        <TouchableOpacity
-          style={styles.inputContainer}
-          onPress={() => navigation.navigate("FAQ")}
-        >
-          <Icon name="question-circle" style={styles.icon} />
-          <Text style={styles.inputText}>FAQ</Text>
-        </TouchableOpacity>
       </View>
 
       {/* Logout Button */}

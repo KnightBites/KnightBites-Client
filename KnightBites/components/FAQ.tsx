@@ -4,9 +4,9 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 
 // This is a list of FAQ items. Each item has a question and an answer.
 const faqData = [
-  { question: 'How do I rate dining hall food?', answer: 'Tap on a food card to see detailed information, read reviews from other users, and join the conversation by sharing your own comments.' },
-  { question: 'How do I browse popular dishes on campus?', answer: 'You can filter and sort the food list by dining hall, name, rating, or popularity to discover dishes that students are talking about the most.' },
-  { question: 'How does my dietary restriction affect my rating?', answer: 'KnightBites values inclusivity, giving everyone a voice. Users with dietary restrictions have extra influence in ratings, ensuring their needs are prioritized.' },
+  { question: 'How do I rate dining hall food?', answer: 'Tap on a food card to see detailed information, read reviews from other students, and join the conversation by sharing your own comments.' },
+  { question: 'How do I browse popular dishes on campus?', answer: 'You can filter and sort the food list by dining hall, dish name, dietary preference, or popularity to discover dishes that students are talking about the most.' },
+  { question: 'How does my dietary restriction affect my rating?', answer: 'KnightBites values inclusivity, giving everyone a voice. Users with dietary restrictions have extra weight in their ratings, ensuring their needs are prioritized.' },
   { question: 'How does KnightBites help reduce food waste?', answer: 'Clear, constructive feedback can guide Calvin Dining Services to focus on popular meals and reduce waste by making smarter decisions.' },
   { question: 'Why do I need an account to use KnightBites?', answer: 'KnightBites uses a user-based system to connect comments to real profiles, ensuring authentic reviews and building a stronger sense of community.' },
   { question: 'Can I submit feedback about dining service?', answer: 'While feedback about dining hall staff is possible, this app is focused on food reviews. For the best experience, please rate the food itself.' },
