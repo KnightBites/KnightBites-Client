@@ -69,8 +69,7 @@ export default function ViewSandwich({navigation}) {
     function load() {
         // ** TODO ** fetch from server - in the meantime, load fake data
         loadFakeSandwiches();
-
-        setLoading(false)
+        setLoading(false);
     }
 
     return (

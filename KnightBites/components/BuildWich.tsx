@@ -1,8 +1,8 @@
-import { useState, useContext } from 'react';
+import { useState, useContext, useEffect } from 'react';
 import { 
     Image, StyleSheet, View, Text, FlatList, 
     TouchableOpacity, Button, TextInput, 
-    Linking, Alert
+    Linking, Alert, ActivityIndicator
 } from 'react-native';
 import styles from '@/constants/Styles';
 import { Colors } from '@/constants/Colors';
@@ -19,6 +19,28 @@ import PageConfirm from "@/components/BuildWich/confirm";
 export default function BuildSandwich({navigation}) {
 
     const [ page, setPage ] = useState(0);
+    const [ ingredients, setIngredients ] = useState([]);
+    const [ loading, setLoading ] = useState(true);
+
+    const getIngredientData = async () => {
+      setLoading(true);
+      try {
+        const resp = await fetch(
+          "https://knightbitesapp-cda7eve7fce3dkgy.eastus2-01.azurewebsites.net/uppercrust"
+        );
+        const json = await resp.json();
+        setIngredients(json); // add rating to dish
+        console.log(json);
+      } catch (err) {
+        console.error(err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    useEffect(() => {
+      getIngredientData();
+    }, []);
 
     return (
       <SandwichProvider>
@@ -35,17 +57,18 @@ export default function BuildSandwich({navigation}) {
           <Text style={styles.uppercrustRuleText}>Step 5: Pick your condiments</Text>
           <Text style={styles.uppercrustRuleText}>Step 6: Special Instructions</Text>
 
-          <TouchableOpacity style={styles.uppercrustViewSandwiches} onPress={() => setPage(1)}>
-            <Text style={styles.uppercrustViewText}>Get Started!</Text>
-
-          </TouchableOpacity>
+          { loading ? <ActivityIndicator /> :
+            <TouchableOpacity style={styles.uppercrustViewSandwiches} onPress={() => setPage(1)}>
+              <Text style={styles.uppercrustViewText}>Get Started!</Text>
+            </TouchableOpacity>
+          }
 
         </View>
-        : ( page === 1 ? <Page1 pageHook={setPage}/> :
-          ( page === 2 ? <Page2 pageHook={setPage}/> :
-          ( page === 3 ? <Page3 pageHook={setPage}/> :
-          ( page === 4 ? <Page4 pageHook={setPage}/> :
-          ( page === 5 ? <Page5 pageHook={setPage}/> : 
+        : ( page === 1 ? <Page1 pageHook={setPage} breads={ingredients.filter(ingredient => ingredient.category === "Bread")} /> :
+          ( page === 2 ? <Page2 pageHook={setPage} proteins={ingredients.filter(ingredient => ingredient.category === "Meat")} /> :
+          ( page === 3 ? <Page3 pageHook={setPage} cheeses={ingredients.filter(ingredient => ingredient.category === "Cheese")} /> :
+          ( page === 4 ? <Page4 pageHook={setPage} veggies={ingredients.filter(ingredient => ingredient.category === "Veggie")} /> :
+          ( page === 5 ? <Page5 pageHook={setPage} sauces={ingredients.filter(ingredient => ingredient.category === "Condiment")} /> : 
           ( page <= 6 ? <Page6 pageHook={setPage}/> : <PageConfirm navigation={navigation} pageHook={setPage}/>
         ))))))
         }

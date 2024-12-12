@@ -6,11 +6,9 @@ import { SandwichContext } from "@/components/SandwichProvider";
 import styles from '@/constants/BuildWichStyles';
 
 
-export default function Page5({pageHook}) {
+export default function Page5({pageHook, sauces}) {
 
     const {sandwich, setSandwich} = useContext(SandwichContext);
-
-    const sauces = ["Mayo", "Spicy mayo", "Mustard", "Ketchup", "Ranch", "BBQ", "Hot sauce", "Hummus spread", "Avocado spread", "Balsamic vinegar", "Olive oil", "None"]
 
     function updateSauces(sauce: string) {
         if (sandwich.condiments.includes(sauce)) {
@@ -41,8 +39,8 @@ export default function Page5({pageHook}) {
                         }
                     }}
                 >
-                    <Image style={styles.foodPic} source={require('@/assets/images/pizza.jpg')}/>
-                    <Text style={styles.selectionText}>{item}</Text>
+                    <Image style={styles.foodPic} source={{uri: item.image}}/>
+                    <Text style={styles.selectionText}>{item.ingredient}</Text>
                 </TouchableOpacity>
             )} data={sauces} keyExtractor={(item) =>
                 item

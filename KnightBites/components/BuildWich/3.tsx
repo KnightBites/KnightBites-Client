@@ -6,10 +6,9 @@ import { SandwichContext } from "@/components/SandwichProvider";
 import styles from '@/constants/BuildWichStyles';
 
 
-export default function Page3({pageHook}) {
+export default function Page3({pageHook, cheeses}) {
 
     const {sandwich, setSandwich} = useContext(SandwichContext);
-    const cheeses = ["Cheddar", "Gouda", "Provalone", "Swiss", "Pepper jack", "Colby jack", "None"]
 
     function updateCheese(cheese: string) {
         if (sandwich.cheese.includes(cheese)) {
@@ -41,8 +40,8 @@ export default function Page3({pageHook}) {
                         }
                     }}
                 >
-                    <Image style={styles.foodPic} source={require('@/assets/images/pizza.jpg')}/>
-                    <Text style={styles.selectionText}>{item}</Text>
+                    <Image style={styles.foodPic} source={{uri: item.image}}/>
+                    <Text style={styles.selectionText}>{item.ingredient}</Text>
                 </TouchableOpacity>
             )} data={cheeses} keyExtractor={(item) =>
                 item
