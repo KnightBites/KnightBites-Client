@@ -51,8 +51,8 @@ export default function FAQPage() {
       <View style={{ backgroundColor: 'maroon', padding: 10 }}>
         <Text style={{ color: 'white', textAlign: 'center' }}>
           The KnightBites Team:{'\n'}
-          Kenny Howes, Lily McAboy, Jacob Tocila{'\n'}
-          Peter Lund, David Barry, Lujia Li
+          David Barry, Kenny Howes, Lujia Li,{'\n'}
+          Peter Lund, Lily McAboy, Jacob Tocila
         </Text>
       </View>
     </View>
