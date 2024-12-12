@@ -26,7 +26,20 @@ export default function Page3({pageHook}) {
 
                 <TouchableOpacity
                     style={(sandwich.cheese.includes(item) ? styles.selected : styles.unselected)}
-                    onPress={() => updateCheese(item)}
+                    onPress={() => {
+                        if (item === "None") {
+                            setSandwich({ ...sandwich, cheese: ["None"] });
+                        } else {
+                            setSandwich({
+                                ...sandwich,
+                                cheese: sandwich.cheese?.includes("None")
+                                    ? [item] 
+                                    : sandwich.cheese?.includes(item)
+                                    ? sandwich.cheese.filter((cheese) => cheese !== item) // Deselect the item if already selected
+                                    : [...(sandwich.cheese || []), item], // Add the item if not selected
+                            })
+                        }
+                    }}
                 >
                     <Image style={styles.foodPic} source={require('@/assets/images/pizza.jpg')}/>
                     <Text style={styles.selectionText}>{item}</Text>
