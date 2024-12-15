@@ -2,6 +2,7 @@ import React, { useState, useContext } from 'react';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { Modal, View, Text, TextInput, StyleSheet, TouchableOpacity } from 'react-native';
 import { ProfileContext, defaultProfile } from "@/components/ProfileProvider";
+const md5 = require("md5");
 
 const ProfilePage = ({ navigation }) => {
   const {profile, setProfile } = useContext(ProfileContext);
@@ -9,45 +10,51 @@ const ProfilePage = ({ navigation }) => {
   const [changingEmail, setChangingEmail] = useState(false);
   const [changingDietaryRestrictions, setChangingDietaryRestrictions] = useState(false);
   const [dietaryRestrictions, setDietaryRestrictions] = useState('');
+  
+  // Fields should be an object. Example for updating username
+  // {username: "test"}
+  const updateFields = async (fields) => {
+    try {
+      const resp = await fetch(
+        `https://knightbitesapp-cda7eve7fce3dkgy.eastus2-01.azurewebsites.net/user/${profile.id}`,
+        {
+          method: "PUT",
+          headers: {"Content-Type": "application/json"},
+          body: JSON.stringify({
+            ...profile,
+            ...fields,
+          }),
+        }
+      );
+      const json = await resp.json();
+      console.log(json);
+    } catch (e) {
+      console.error(e);
+    }
+  }
 
   // For email popup
   const [newEmail, setNewEmail] = useState('');
-  const [verificationCode, setVerificationCode] = useState('');
   
   const initEmailPopup = () => {
     setNewEmail('');
-    setVerificationCode('');
     setChangingEmail(true);
   };
 
-  const sendEmail = () => {
-    alert('Verification code sent to your new email.');
-  };
-
-  const checkVerificationCode = (code) => {
-    return code === '123456'; // Simulate checking the code
-  };
-
   // For password popup
-  const [oldPassword, setOldPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');
   const [confNewPassword, setConfNewPassword] = useState('');
   const [warning, setWarning] = useState('');
 
   const initPasswordPopup = () => {
-    setOldPassword('');
     setNewPassword('');
     setConfNewPassword('');
     setWarning('');
     setChangingPassword(true);
   };
 
-  const checkPassword = (password) => {
-    return password === 'old_password'; // Simulate checking old password
-  };
-
   const updatePassword = (password) => {
-    alert('Password changed successfully!');
+    updateFields({password: md5(password)});
   };
 
   const handleLogout = () => {
@@ -84,7 +91,7 @@ const ProfilePage = ({ navigation }) => {
           style={styles.inputContainer} 
           onPress={initEmailPopup}>
           <Icon name="envelope" style={styles.icon} />
-          <Text style={styles.inputText}>abc123@calvin.edu</Text>
+          <Text style={styles.inputText}>{profile.email}</Text>
         </TouchableOpacity>
       </View>
 
@@ -128,35 +135,13 @@ const ProfilePage = ({ navigation }) => {
               placeholder="Enter your new email"
               keyboardType="email-address"
             />
-            
-            <TouchableOpacity
-              style={styles.sendCodeButton}
-              onPress={() => sendEmail()}>
-              <Text style={styles.sendCodeText}>Send Verification Code</Text>
-            </TouchableOpacity>
-
-              <TextInput
-                style={styles.popupInput}
-                value={verificationCode}
-                onChangeText={(val) => setVerificationCode(val)}
-                placeholder="Enter verification code"
-                keyboardType="numeric"
-              />
-
             <View style={styles.popupButtonContainer}>
               <TouchableOpacity style={styles.popupCloseButton} onPress={() => setChangingEmail(false)}>
                 <Text style={styles.closeText}>Cancel</Text>
               </TouchableOpacity>
               <TouchableOpacity
                 style={styles.popupConfirmButton}
-                onPress={() => {
-                  if (checkVerificationCode(verificationCode)) {
-                    alert('Email updated successfully!');
-                    setChangingEmail(false);
-                  } else {
-                    alert('Invalid verification code');
-                  }
-                }}
+                onPress={() => { updateFields({email: newEmail}); setChangingEmail(false); } }
               >
                 <Text style={styles.closeText}>Confirm</Text>
               </TouchableOpacity>
@@ -170,13 +155,6 @@ const ProfilePage = ({ navigation }) => {
         <View style={styles.popupOverlay}>
           <View style={styles.popupContent}>
             <Text style={styles.popupTitle}>Change Your Password</Text>
-            <TextInput
-              style={styles.popupInput}
-              value={oldPassword}
-              onChangeText={(val) => setOldPassword(val)}
-              placeholder="Old Password"
-              secureTextEntry={true}
-            />
             <TextInput
               style={styles.popupInput}
               value={newPassword}
@@ -202,10 +180,6 @@ const ProfilePage = ({ navigation }) => {
               <TouchableOpacity
                 style={styles.popupConfirmButton}
                 onPress={() => {
-                  if (!checkPassword(oldPassword)) {
-                    setWarning('Old password is incorrect');
-                    return;
-                  }
                   if (newPassword !== confNewPassword) {
                     setWarning('New passwords do not match');
                     return;
@@ -267,7 +241,7 @@ const ProfilePage = ({ navigation }) => {
               <TouchableOpacity
                 style={styles.popupConfirmButton}
                 onPress={() => {
-                  alert('Dietary restrictions updated successfully!');
+                  updateFields({...profile.restrictions});
                   setChangingDietaryRestrictions(false);
                 }}
               >
