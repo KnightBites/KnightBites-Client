@@ -9,6 +9,28 @@ const ProfilePage = ({ navigation }) => {
   const [changingEmail, setChangingEmail] = useState(false);
   const [changingDietaryRestrictions, setChangingDietaryRestrictions] = useState(false);
   const [dietaryRestrictions, setDietaryRestrictions] = useState('');
+  
+  // Fields should be an object. Example for updating username
+  // {username: "test"}
+  const updateFields = async (fields) => {
+    try {
+      const resp = await fetch(
+        `https://knightbitesapp-cda7eve7fce3dkgy.eastus2-01.azurewebsites.net/user/${profile.id}`,
+        {
+          method: "PUT",
+          headers: {"Content-Type": "application/json"},
+          body: JSON.stringify({
+            ...profile,
+            ...fields,
+          }),
+        }
+      );
+      const json = await resp.json();
+      console.log(json);
+    } catch (e) {
+      console.error(e);
+    }
+  }
 
   // For email popup
   const [newEmail, setNewEmail] = useState('');
@@ -161,14 +183,7 @@ const ProfilePage = ({ navigation }) => {
               </TouchableOpacity>
               <TouchableOpacity
                 style={styles.popupConfirmButton}
-                onPress={() => {
-                  if (checkVerificationCode(verificationCode)) {
-                    alert('Email updated successfully!');
-                    setChangingEmail(false);
-                  } else {
-                    alert('Invalid verification code');
-                  }
-                }}
+                onPress={() => updateFields({email: newEmail})}
               >
                 <Text style={styles.closeText}>Confirm</Text>
               </TouchableOpacity>
