@@ -30,7 +30,6 @@ export default function BuildSandwich({navigation}) {
         );
         const json = await resp.json();
         setIngredients(json); // add rating to dish
-        console.log(json);
       } catch (err) {
         console.error(err);
       } finally {

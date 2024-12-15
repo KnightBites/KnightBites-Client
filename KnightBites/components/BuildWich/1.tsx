@@ -21,9 +21,7 @@ export default function Page1({pageHook, breads}) {
                     <Image style={styles.foodPic} source={{uri: item.image}} />
                     <Text style={styles.selectionText}>{item.ingredient}</Text>
                 </TouchableOpacity>
-            )} data={breads} keyExtractor={(item) =>
-                item
-            }/>
+            )} data={breads} keyExtractor={(item, index) => index}/>
 
             {/* will probably look bad on desktop - whatever */}
             <View style={styles.bottom}>

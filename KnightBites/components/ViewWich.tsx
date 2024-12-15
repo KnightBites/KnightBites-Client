@@ -13,64 +13,24 @@ export default function ViewSandwich({navigation}) {
     const [ loading, setLoading ] = useState(true);
     const [ sandwiches, setSandwiches ] = useState([] as Sandwich[]);
 
-    useEffect(() => {
-        load();
-    }, []);
-
-    function loadFakeSandwiches() {
-        setSandwiches([
-            {
-                name: "The Classic",
-                bread: "White",
-                protein: ["Ham"],
-                cheese: ["Cheddar"],
-                veggies: ["Lettuce"],
-                condiments: ["Mayo"],
-                instructions: "A simple & classic sandwich",
-                grilled: false,
-                creator: "John Doe",
-            },
-            {
-                name: "My Fav",
-                bread: "White",
-                protein: ["Ham", "Pepperoni", "Bacon"],
-                cheese: ["Peperjack"],
-                veggies: ["Jalapeños"],
-                condiments: ["Spicy Mayo"],
-                instructions: "Peter's personal favorite!",
-                grilled: true,
-                creator: "CheetoLord211738"
-            },
-            {
-                name: "The Veggie",
-                bread: "Wheat",
-                protein: [],
-                cheese: ["Swiss"],
-                veggies: ["Lettuce", "Tomato", "Onion", "Pickles"],
-                condiments: ["Mustard"],
-                instructions: "A vegetarian sandwich for vegetarians",
-                grilled: false,
-                creator: "Peta"
-            },
-            {
-                name: "Sandvich TF2",
-                bread: "White",
-                protein: ["Bologna", "Ham"],
-                cheese: ["Swiss"],
-                veggies: ["Lettuce", "Tomato", "Olive"],
-                condiments: [],
-                instructions: "Cut diagonally, insert toothpick with olive on end",
-                grilled: false,
-                creator: "HeavyWeaponsGuy"
-            }
-        ]);
-    }
-
-    function load() {
-        // ** TODO ** fetch from server - in the meantime, load fake data
-        loadFakeSandwiches();
+    const getSandwichData = async () => {
+      setLoading(true);
+      try {
+        const resp = await fetch(
+          "https://knightbitesapp-cda7eve7fce3dkgy.eastus2-01.azurewebsites.net/uppercrust-creations"
+        );
+        const json = await resp.json();
+        setSandwiches(json); // add rating to dish
+        console.log(json);
+      } catch (err) {
+        console.error(err);
+      } finally {
         setLoading(false);
-    }
+      }
+    };
+    useEffect(() => {
+        getSandwichData();
+    }, []);
 
     return (
         <View style={styles.container}>
@@ -86,11 +46,11 @@ export default function ViewSandwich({navigation}) {
                                 style={styles.listItem}
                                 onPress={() => navigation.navigate('viewOneSandwich', {sandwich: item})}
                             >
-                                <Text style={styles.listItemText}>{item.name}</Text>
+                                <Text style={styles.listItemText}>{item.sandwichname}</Text>
                                 <Text style={styles.listItemText}>Creator: {item.creator}</Text>
                             </TouchableOpacity>
                         )}
-                        keyExtractor={item => item.name}
+                        keyExtractor={(item, index) => index}
                     />
                 </View>
             }

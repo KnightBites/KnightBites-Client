@@ -42,8 +42,8 @@ export default function Page2({pageHook, proteins}) {
                     <Image style={styles.foodPic} source={{uri: item.image}}/>
                     <Text style={styles.selectionText}>{item.ingredient}</Text>
                 </TouchableOpacity>
-            )} data={proteins} keyExtractor={(item) =>
-                item
+            )} data={proteins} keyExtractor={(item, index) =>
+              index
             }/>
             {/* will probably look bad on desktop - whatever */}
             <View style={styles.bottom}>

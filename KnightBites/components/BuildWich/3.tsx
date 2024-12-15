@@ -43,8 +43,8 @@ export default function Page3({pageHook, cheeses}) {
                     <Image style={styles.foodPic} source={{uri: item.image}}/>
                     <Text style={styles.selectionText}>{item.ingredient}</Text>
                 </TouchableOpacity>
-            )} data={cheeses} keyExtractor={(item) =>
-                item
+            )} data={cheeses} keyExtractor={(item, index) =>
+              index
             }/>
             {/* will probably look bad on desktop - whatever */}
             <View style={styles.bottom}>
