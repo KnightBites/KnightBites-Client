@@ -31,8 +31,8 @@ export default function Page4({pageHook, veggies}) {
                     <Image style={styles.foodPic} source={{uri: item.image}}/>
                     <Text style={styles.selectionText}>{item.ingredient}</Text>
                 </TouchableOpacity>
-            )} data={veggies} keyExtractor={(item) =>
-                item
+            )} data={veggies} keyExtractor={(item, index) =>
+              index
             }/>
             {/* will probably look bad on desktop - whatever */}
             <View style={styles.bottom}>

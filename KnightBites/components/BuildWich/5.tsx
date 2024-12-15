@@ -29,9 +29,7 @@ export default function Page5({pageHook, sauces}) {
                     <Image style={styles.foodPic} source={{uri: item.image}}/>
                     <Text style={styles.selectionText}>{item.ingredient}</Text>
                 </TouchableOpacity>
-            )} data={sauces} keyExtractor={(item) =>
-                item
-            }/>
+            )} data={sauces} keyExtractor={(item, index) => index }/>
             {/* will probably look bad on desktop - whatever */}
             <View style={styles.bottom}>
                 <TouchableOpacity style={styles.bottomButton} onPress={() => pageHook(4)}>

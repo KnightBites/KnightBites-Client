@@ -63,10 +63,8 @@ export default function PageConfirm({navigation, pageHook}) {
                         <Text style={styles.selectionText}>{item.ingredient}</Text>
                     </View>
                 )} 
-                data={[sandwich.bread+" Bread", ...sandwich.protein, ...sandwich.cheese, ...sandwich.veggies, ...sandwich.condiments].filter((item) => item !== "None")}
-                keyExtractor={(item) =>
-                    item
-                }
+                data={[sandwich.bread, ...sandwich.protein, ...sandwich.cheese, ...sandwich.veggies, ...sandwich.condiments].filter((item) => item !== "None")}
+                keyExtractor={(item, index) => index }
             />
             {/* will probably look bad on desktop - whatever */}
             <View style={styles.bottom}>

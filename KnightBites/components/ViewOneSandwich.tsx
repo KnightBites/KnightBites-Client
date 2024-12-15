@@ -16,19 +16,25 @@ export default function ViewOneSandwich({route, navigation}) {
     return (
         <View style={styles.container}>
             <View style={styles.container}>
-                <Text style={styles.title}>{sandwich.name}</Text>
+                <Text style={styles.title}>{sandwich.sandwichname}</Text>
                 <Text style={styles.instructionText}>Creator: {sandwich.creator}</Text>
                 <Text style={styles.instructionText}>Instructions: {sandwich.instructions}</Text>
                 <FlatList
                     numColumns={2}
-                    data={[sandwich.bread+" Bread", ...sandwich.protein, ...sandwich.cheese, ...sandwich.veggies, ...sandwich.condiments]}
+                    data={[
+                            sandwich.sammy.bread,
+                            ...sandwich.sammy.protein,
+                            ...sandwich.sammy.cheese,
+                            ...sandwich.sammy.veggies,
+                            ...sandwich.sammy.condiments,
+                          ]}
                     renderItem={({item}) => (
                         <View style={styles.unselected}>
-                            <Image style={styles.foodPic} source={require("@/assets/images/pizza.jpg")} />
-                            <Text style={styles.selectionText}>{item}</Text>
+                            <Image style={styles.foodPic} source={{uri: item.image}} />
+                            <Text style={styles.selectionText}>{item.ingredient}</Text>
                         </View>
                     )}
-                    keyExtractor={(item) => item}
+                    keyExtractor={(item, index) => index}
                 />
                 {(sandwich.grilled ? <Text style={styles.grilledText}>Grilled</Text> : null)}
             </View>
