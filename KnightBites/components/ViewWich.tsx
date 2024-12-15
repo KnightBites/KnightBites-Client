@@ -46,7 +46,7 @@ export default function ViewSandwich({navigation}) {
                                 style={styles.listItem}
                                 onPress={() => navigation.navigate('viewOneSandwich', {sandwich: item})}
                             >
-                                <Text style={styles.listItemText}>{item.sandwichname}</Text>
+                                <Text style={styles.listItemText}>Name: {item.sandwichname}</Text>
                                 <Text style={styles.listItemText}>Creator: {item.creator}</Text>
                             </TouchableOpacity>
                         )}
@@ -70,13 +70,16 @@ const styles = StyleSheet.create({
         height: 75,
         borderWidth: 1,
         borderRadius: 5,
-        padding: 20,
+        padding: 5,
         borderBottomWidth: 1,
         borderBottomColor: Colors.light.text,
+        alignContent: "center"
     },
     listItemText: {
         fontSize: 18,
-        padding: 5
+        marginTop: 5,
+        marginBottom: 10,
+        alignContent: "center"
     },
 
     title: {
