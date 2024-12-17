@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { 
-    Image, StyleSheet, View, Text, FlatList, 
-    TouchableOpacity, Button, TextInput, 
+    View, Text, 
+    TouchableOpacity, TextInput, 
     Linking, Alert
 } from 'react-native';
 import styles from '@/constants/Styles';

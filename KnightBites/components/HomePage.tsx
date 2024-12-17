@@ -1,10 +1,10 @@
 import React from 'react';
 import { View, Text, FlatList, TouchableOpacity,
         TextInput, Pressable, ActivityIndicator,
-        Switch, Dimensions, StyleSheet, Modal } from 'react-native';
+        StyleSheet, Modal } from 'react-native';
 import DropDownPicker from 'react-native-dropdown-picker';
 import FoodPanel from '@/components/FoodPanel';
-import { useState, useEffect, useContext } from 'react';
+import { useState, useEffect } from 'react';
 import styles from '@/constants/Styles';
 import { Dish } from "@/interfaces/Dish";
 import Icon from 'react-native-vector-icons/Ionicons'; 

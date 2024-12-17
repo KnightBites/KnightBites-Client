@@ -1,9 +1,8 @@
 import React, { useContext} from "react";
-import { Image, Text, View, TouchableOpacity } from "react-native";
+import { Text, View, TouchableOpacity } from "react-native";
 import styles from "@/constants/Styles";
 import { ProfileContext } from "@/components/ProfileProvider";
 import Icon from 'react-native-vector-icons/FontAwesome'; // using FontAwesome for icons
-import { Avatar } from 'react-native-elements';
 
 const Header = () => {
   return (

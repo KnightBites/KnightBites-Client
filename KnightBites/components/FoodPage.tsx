@@ -1,5 +1,6 @@
+import React from "react";
 import { Text, View, Image, TouchableOpacity, ScrollView } from "react-native";
-import { React, useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import Dish from "@/interfaces/Dish";
 import StarRating from "@/components/StarRating";
 import Comment from "@/components/Comment";

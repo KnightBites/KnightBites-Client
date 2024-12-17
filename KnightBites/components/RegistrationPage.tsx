@@ -1,12 +1,12 @@
 import { useState } from 'react';
 import { 
-    Image, StyleSheet, View, Text, FlatList, 
-    TouchableOpacity, Button, TextInput, 
-    Linking, ActivityIndicator,
+    StyleSheet, View, Text, 
+    TouchableOpacity, TextInput, 
+    ActivityIndicator,
 } from 'react-native';
 import styles from '@/constants/Styles';
 import { Colors } from '@/constants/Colors';
-const md5 = require("md5");
+import md5 from "md5";
 
 export default function RegistrationPage({navigation}) {
 
