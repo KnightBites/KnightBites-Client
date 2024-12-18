@@ -36,17 +36,15 @@ export default function TabLayout() {
             title: 'Build-a-Wich',
             tabBarIcon: ({ color, focused }) => (
               <TabBarIcon name={focused ? 'fast-food' : 'fast-food-outline'} color={color} />
-              // https://ionic.io/ionicons is where you can find the names of the icons such as 'help-circle-outline'
             ),
           }}
         />
         <Tabs.Screen
-          name="explore"
+          name="prayer"
           options={{
-            title: 'About',
+            title: 'Prayers',
             tabBarIcon: ({ color, focused }) => (
-              <TabBarIcon name={focused ? 'help-circle' : 'help-circle-outline'} color={color} />
-              // https://ionic.io/ionicons is where you can find the names of the icons such as 'help-circle-outline'
+              <TabBarIcon name={focused ? 'book' : 'book-outline'} color={color} />
             ),
           }}
         />

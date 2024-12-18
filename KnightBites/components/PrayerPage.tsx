@@ -1,21 +1,46 @@
-import React, { useState, useContext } from 'react';
-import { StyleSheet, Text, View, ImageBackground, ScrollView } from 'react-native';
+import React, { useState, useContext, useEffect } from 'react';
+import { StyleSheet, Text, View, ImageBackground, ScrollView, ActivityIndicator } from 'react-native';
 
-export default function App() {
+export default function PrayerPage() {
+  const [loading, setLoading] = useState(false);
+  const [prayer, setPrayer] = useState({prayertitle: "", prayer: ""});
+
+  const getPrayerData = async () => {
+    setLoading(true);
+    try {
+      const resp = await fetch(
+        "https://knightbitesapp-cda7eve7fce3dkgy.eastus2-01.azurewebsites.net/prayer"
+      );
+      const json = await resp.json();
+      setPrayer(json[0]);
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    getPrayerData();
+  }, []);
+
   return (
     <ImageBackground
-      source={require('./assets/angel.png')} // Background image path
+      source={require('@/assets/images/angel.png')} // Background image path
       style={styles.backgroundImage}
       resizeMode="cover"
     >
-      <ScrollView contentContainerStyle={styles.container}>
-        <View style={styles.prayerContainer}>
-          <Text style={styles.prayerText}>
-            <Text style={styles.boldText}>"Heavenly</Text> Father, thank you for this meal we've been given. Please bless the hands that have prepared it. Bless this food unto our bodies so it may help us grow and be strong and sustain us for the rest of our day. Be with those we love who are near and far. In the name of your son Jesus Christ. Amen."
-          </Text>
-        </View>
-        <Text style={styles.prayerName}>Short Prayer of Thanks</Text>
-      </ScrollView>
+      { loading ? <ActivityIndicator /> :
+        <ScrollView contentContainerStyle={styles.container}>
+          <View style={styles.prayerContainer}>
+            <Text style={styles.prayerText}>
+              <Text style={styles.boldText}>{prayer.prayer.split(" ")[0]} </Text>
+              <Text>{prayer.prayer.split(" ").slice(1).join(" ")}</Text>
+            </Text>
+          </View>
+          <Text style={styles.prayerName}>{prayer.prayertitle}</Text>
+        </ScrollView>
+      }
     </ImageBackground>
   );
 }
