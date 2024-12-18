@@ -70,15 +70,19 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   commentEntry: {
-    width: 400,
+    width: 300,
     height: 175,
     backgroundColor: "#efeeee",
+    marginRight: 10,
+    marginLeft: 10
 
   },
   
   characterLength: {
     fontSize: 15,
     marginTop: 10,
-    marginBottom :10
+    marginBottom :10,
+    marginRight: 5,
+    marginLeft: 5
   }
 });

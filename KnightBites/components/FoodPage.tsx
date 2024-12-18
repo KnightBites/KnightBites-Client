@@ -36,13 +36,11 @@ export default function FoodPage(props: {route, navigation}) {
           <Image style={FoodPageStyles.foodImage} source={{uri: dish.image}} />
         </View>
         <View style={FoodPageStyles.infoContainer}>
-          <View style={FoodPageStyles.infoTitleLocationContainer}>
             <Text style={FoodPageStyles.infoTitle}>{dish.foodname}</Text>
             <Text style={FoodPageStyles.infoLocation}>
               <Icon name="location-pin" size={18}/>
               {dish.dininghall}
             </Text>
-          </View>
           <View style={FoodPageStyles.infoRatingContainer}>
             <StarRating style={FoodPageStyles.infoStarRating} foodRating={dish.rating} />
             <Text style={FoodPageStyles.infoNumberRating}>{dish.rating}</Text>
