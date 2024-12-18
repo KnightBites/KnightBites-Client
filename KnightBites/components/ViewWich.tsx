@@ -1,8 +1,7 @@
 import { useState, useEffect } from 'react';
 import { 
-    Image, StyleSheet, View, Text, FlatList, 
-    TouchableOpacity, Button, TextInput, 
-    Linking, Alert
+    StyleSheet, View, Text, FlatList, 
+    TouchableOpacity
 } from 'react-native';
 import { Colors } from '@/constants/Colors';
 import { Sandwich } from "@/interfaces/Sandwich";

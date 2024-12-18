@@ -1,6 +1,6 @@
-import React, { useState, useContext } from 'react';
+import React, { useContext } from 'react';
 import { 
-    Image, StyleSheet, View, Text, FlatList, TouchableOpacity
+    Image, View, Text, FlatList, TouchableOpacity
 } from 'react-native';
 import { SandwichContext } from "@/components/SandwichProvider";
 import styles from '@/constants/BuildWichStyles';

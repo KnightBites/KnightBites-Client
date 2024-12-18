@@ -1,10 +1,9 @@
-import { View, StyleSheet, TextInput, Text, TouchableOpacity, ActivityIndicator } from "react-native";
-import { React } from "react";
+import React from "react";
+import { View, StyleSheet, TextInput, Text, TouchableOpacity } from "react-native";
 import { useState, useContext } from "react";
 import RankableStars from "@/components/RankableStars";
 import FoodPageStyles from "@/constants/FoodPageStyles";
 import { ProfileContext } from "@/components/ProfileProvider";
-import { Profile } from '@/interfaces/Profile';
 
 
 export default function FoodPageRating(props: {route, navigation}) {
