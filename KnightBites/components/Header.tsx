@@ -4,7 +4,6 @@ import Modal from "react-native-modal";
 import styles from "@/constants/Styles";
 import { ProfileContext } from "@/components/ProfileProvider";
 import Icon from 'react-native-vector-icons/FontAwesome'; // using FontAwesome for icons
-import { Avatar } from 'react-native-elements';
 
 const Header = () => {
   return (

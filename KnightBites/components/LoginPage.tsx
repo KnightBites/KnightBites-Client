@@ -1,16 +1,15 @@
 import React from 'react';
-import { useEffect, useState, useContext } from 'react';
+import { useState, useContext } from 'react';
 import {
-  Image, StyleSheet, View, Text, FlatList,
-  TouchableOpacity, Button, TextInput,
-  Linking, Animated, ActivityIndicator
+  View, Text, 
+  TouchableOpacity, TextInput,
+  ActivityIndicator
 } from 'react-native';
 import styles from '@/constants/Styles';
 import { Colors } from '@/constants/Colors';
 import { ProfileContext } from "@/components/ProfileProvider";
 import { Profile } from '@/interfaces/Profile';
-import FAQ from '@/components/FAQ'; // This is temporary until the FAQ page is implemented
-const mp5 = require("md5");
+import mp5 from 'md5';
 
 
 export default function LoginPage({ navigation }) {

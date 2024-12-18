@@ -1,12 +1,9 @@
+import React from "react";
 import {useState} from "react";
-import { View, Text, Image, StyleSheet, TouchableOpacity } from "react-native";
+import { View, Text, Image, StyleSheet } from "react-native";
 import StarRating from "@/components/StarRating";
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import FoodPage from "@/components/FoodPage";
-import { Colors } from "@/constants/Colors";
-import RankableStars from "./RankableStars";
 import Icon from 'react-native-vector-icons/FontAwesome'; // using FontAwesome for location pin
-import React from "react";
 
 const Stack = createNativeStackNavigator();
 

@@ -1,5 +1,6 @@
+import React from "react";
 import { Text, View, Image, TouchableOpacity, ScrollView } from "react-native";
-import { React, useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import Dish from "@/interfaces/Dish";
 import StarRating from "@/components/StarRating";
 import Comment from "@/components/Comment";
@@ -19,9 +20,13 @@ export default function FoodPage(props: {route, navigation}) {
       const json = await resp.json();
       setCommentData(json);
     } catch (err) {
-      console.error(err);
+      // the best practice right here - the "LALALALALA I CANT HEAR YOU" approach
+      // (server sends back "bad json", which gets read fine regardless, but it still whines)
+      if (err != "SyntaxError: JSON Parse error: Unexpected character: <") {
+        console.error(err);
+      }
     } finally {
-
+      // pass
     }
   }
 
@@ -36,13 +41,11 @@ export default function FoodPage(props: {route, navigation}) {
           <Image style={FoodPageStyles.foodImage} source={{uri: dish.image}} />
         </View>
         <View style={FoodPageStyles.infoContainer}>
-          <View style={FoodPageStyles.infoTitleLocationContainer}>
             <Text style={FoodPageStyles.infoTitle}>{dish.foodname}</Text>
             <Text style={FoodPageStyles.infoLocation}>
               <Icon name="location-pin" size={18}/>
               {dish.dininghall}
             </Text>
-          </View>
           <View style={FoodPageStyles.infoRatingContainer}>
             <StarRating style={FoodPageStyles.infoStarRating} foodRating={dish.rating} />
             <Text style={FoodPageStyles.infoNumberRating}>{dish.rating}</Text>
