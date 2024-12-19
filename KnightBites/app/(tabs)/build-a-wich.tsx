@@ -28,7 +28,7 @@ export default function EntryPoint() {
         })}
       >
         <Stack.Screen name="buildSandwichHomePage" component={BuildSandwichHomePage}
-          options={{ headerLeft: props => { }, headerRight: props => { } }} />
+          options={{ headerLeft: props => { } }} />
         <Stack.Screen name="buildSandwich" component={BuildSandwich} />
         <Stack.Screen name="viewSandwich" component={ViewSandwich} />
         <Stack.Screen name="viewOneSandwich" component={ViewOneSandwich} />
