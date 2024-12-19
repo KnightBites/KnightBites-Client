@@ -33,7 +33,7 @@ export default function TabLayout() {
         <Tabs.Screen
           name="build-a-wich"
           options={{
-            title: 'Build-a-Wich',
+            title: 'UpperCrust',
             tabBarIcon: ({ color, focused }) => (
               <TabBarIcon name={focused ? 'fast-food' : 'fast-food-outline'} color={color} />
             ),
