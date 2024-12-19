@@ -2,7 +2,7 @@ import React from 'react';
 import { FlatList, StyleSheet, View, Text, TouchableOpacity, Image } from 'react-native';
 import Modal from 'react-native-modal';
 import { useState, useEffect } from 'react';
-import { homeHelp, profileHelp, foodPageHelp } from '@/components/Helps';
+import { homeHelp, profileHelp, foodPageHelp, BAWHome, BuildSandwich, viewSandwich } from '@/components/Helps';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 export default function HelpModal({ helpOpen, setHelpOpen, screenName, helpHook }) {
@@ -20,6 +20,15 @@ export default function HelpModal({ helpOpen, setHelpOpen, screenName, helpHook 
         break;
       case "foodPage":
         setPages(foodPageHelp);
+        break;
+      case "buildSandwichHomePage":
+        setPages(BAWHome);
+        break;
+      case "buildSandwich":
+        setPages(BuildSandwich);
+        break;
+      case "viewSandwich":
+        setPages(viewSandwich);
         break;
       default:
         enabled = false;

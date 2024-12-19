@@ -6,6 +6,7 @@ import FoodPage_Overview1 from '@/assets/images/Help/FoodPage_Overview1.png';
 import Profile_Email1 from '@/assets/images/Help/Profile_Email1.png';
 import Profile_Pass1 from '@/assets/images/Help/Profile_Pass1.png';
 import Profile_Dietary1 from '@/assets/images/Help/Profile_Dietary1.png';
+import BAW_Overview1 from '@/assets/images/Help/BAW_Overview1.png';
 
 const helpStyles = StyleSheet.create({
     container: {
@@ -101,4 +102,37 @@ const profileHelp = [
     },
 ]
 
-export { homeHelp, profileHelp, foodPageHelp };
+// BuildAWichHome
+const BAWHome = [
+    {
+        title: "Overview",
+        content:
+            <ScrollView>
+                <Text style={helpStyles.text}>This is the Build-A-Wich page, the section of the app dedicated to Uppercrust. Here, you can recreate your own favorite sandwiches to share with the world, or browse sandwiches others have made.</Text>
+            </ScrollView>
+    }
+];
+
+const BuildSandwich = [
+    {
+        title: "Overview",
+        content:
+            <ScrollView>
+                <Text style={helpStyles.text}>In this page, you walk through around 7 steps to recreate a sandwich. Use the 2 buttons at the bottom to go back and forth to any step.</Text>
+                <View style={helpStyles.imageContainer}><Image source={BAW_Overview1} style={helpStyles.image} /></View>
+                <Text style={helpStyles.text}>You can select every option, none of them, or everything in between! And near the end, you will be asked to (optionally) add a special description, and finally, you will have to review your creation and name it. After that, click finish, and the sandwich will be published!</Text>
+            </ScrollView>
+    }
+];
+
+const viewSandwich = [
+    {
+        title: "Overview",
+        content:
+            <ScrollView>
+                <Text style={helpStyles.text}>This is the View Sandwich page, where you can see a sandwich that has been made by another user.</Text>
+            </ScrollView>
+    }
+];
+
+export { homeHelp, profileHelp, foodPageHelp, BAWHome, BuildSandwich, viewSandwich };
