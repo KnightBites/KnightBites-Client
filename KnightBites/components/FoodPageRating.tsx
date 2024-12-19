@@ -1,5 +1,5 @@
 import React from "react";
-import { View, StyleSheet, TextInput, Text, TouchableOpacity } from "react-native";
+import { View, StyleSheet, TextInput, Text, TouchableOpacity, Keyboard } from "react-native";
 import { useState, useContext } from "react";
 import RankableStars from "@/components/RankableStars";
 import FoodPageStyles from "@/constants/FoodPageStyles";
@@ -48,8 +48,22 @@ export default function FoodPageRating(props: {route, navigation}) {
       <RankableStars size={48} onPress={setRating}/>
       <Text style={styles.texts}>My Comment</Text>
       <Text style={styles.characterLength}>Note: Your username will be posted with your comment.</Text> 
-     <TextInput style={[styles.commentEntry, FoodPageStyles.boxShadow]} multiline numberOfLines={10} maxLength={150} onChangeText={ text => { setTextLength(text.length); setComment(text); } } />
-      <Text style={styles.characterLength}>{ textLength }/150</Text>
+      <TextInput
+  style={[styles.commentEntry, FoodPageStyles.boxShadow]}
+  multiline
+  numberOfLines={10}
+  maxLength={150}
+  onChangeText={text => {
+    setTextLength(text.length);
+    setComment(text);
+  }}
+  onKeyPress={({ nativeEvent }) => {
+    if (nativeEvent.key === 'Enter') {
+      Keyboard.dismiss(); // Dismiss the keyboard on Enter key press
+    }
+  }}
+  returnKeyType="done"
+/>      <Text style={styles.characterLength}>{ textLength }/150</Text>
       <TouchableOpacity style={FoodPageStyles.rateButton} onPress={() => recordComment()}><Text style={FoodPageStyles.rateButtonText}>Post My Review</Text></TouchableOpacity>
     </View>
   );
