@@ -30,13 +30,13 @@ const HeaderRight = ({navigation}) => {
   return (
     <View style={{flexDirection: 'row', marginRight: 10}}>
       {(hasHelp ? 
-      <TouchableOpacity onPress={() => setHelpOpen(!helpOpen)} style={{marginRight: 20}}>
-        <Icon name="info-circle" style={{fontSize: 30, color: "#ffffff", fontWeight:"bold"}} />
+      <TouchableOpacity onPress={() => setHelpOpen(!helpOpen)} style={headerStyles.sidebarOpenButtonContainer}>
+        <Icon name="info-circle" style={headerStyles.helpOpenButton} />
       </TouchableOpacity> : null
       )}
       <HelpModal helpOpen={helpOpen} setHelpOpen={setHelpOpen} screenName={getScreenName(navigation)} helpHook={setHasHelp}/>
       
-      <TouchableOpacity onPress={() => setSidebarOpen(!sidebarOpen)} style={styles.sidebarOpenButton}>
+      <TouchableOpacity onPress={() => setSidebarOpen(!sidebarOpen)} style={headerStyles.sidebarOpenButtonContainer}>
         <Icon name="bars" style={headerStyles.sidebarOpenButton}/>
       </TouchableOpacity>
 
@@ -96,6 +96,9 @@ const headerStyles = StyleSheet.create({
     right: 0,
     top: 0,
   },
+  sidebarOpenButtonContainer: {
+    
+  },
   sidebarButton: {
     flexDirection: "row",
     padding: 10,
@@ -115,6 +118,13 @@ const headerStyles = StyleSheet.create({
     color: "black",
   },
   sidebarOpenButton: {
+    padding: 10,
+    margin: 10,
+    fontSize: 32,
+    color: "white",
+    fontWeight: "bold",
+  },
+  helpOpenButton: {
     padding: 10,
     margin: 10,
     fontSize: 32,
