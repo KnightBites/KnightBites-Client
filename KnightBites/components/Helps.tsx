@@ -60,7 +60,7 @@ const foodPageHelp = [
             <ScrollView>
                 <Text style={helpStyles.text}>This is the food page, where you can find more information about a specific food item. Here you can find the name of the dish, the dining hall it is served at, and the meal type it is typically served as.</Text>
                 <View style={helpStyles.imageContainer}><Image source={FoodPage_Overview1} style={helpStyles.image} /></View>
-                <Text style={helpStyles.text}>More notable, however, are the ratings left by other users. You can see the average rating on this dish, as well as comments left by other users.<br/><br/>Should you want to leave your own review, you can click on the button on the bottom of the screen that says "Rate this dish". This will allow you to give the food 1-5 stars, as well as optionally type out a comment for more detail.</Text>
+                <Text style={helpStyles.text}>More notable, however, are the ratings left by other users. You can see the average rating on this dish, as well as comments left by other users.Should you want to leave your own review, you can click on the button on the bottom of the screen that says "Rate this dish". This will allow you to give the food 1-5 stars, as well as optionally type out a comment for more detail.</Text>
             </ScrollView>
     }
 ];
@@ -97,7 +97,7 @@ const profileHelp = [
             <ScrollView>
                 <Text style={helpStyles.text}>You can click on the {'"'}Set Restrictions{'"'} to open a popup menu, where you can change your dietary restrictions.</Text>
                 <View style={helpStyles.imageContainer}><Image source={Profile_Dietary1} style={helpStyles.image} /></View>
-                <Text style={helpStyles.text}>A red button here indicates that you DO have the restriction, and a gray button indicates that you DO NOt have this restriction<br/><br/>Changing your restrictions here is not strictly necessary - it is simply useful for users who have a restriction, as they will see an small indicator when viewing a dish that violates their restrictions.</Text>
+                <Text style={helpStyles.text}>A red button here indicates that you DO have the restriction, and a gray button indicates that you DO NOt have this restriction. Changing your restrictions here is not strictly necessary - it is simply useful for users who have a restriction, as they will see an small indicator when viewing a dish that violates their restrictions.</Text>
             </ScrollView>
     },
 ]
