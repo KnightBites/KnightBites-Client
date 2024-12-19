@@ -24,13 +24,16 @@ const HeaderRight = ({navigation}) => {
   const { profile, setProfile } = useContext(ProfileContext);
 
   const [ helpOpen, setHelpOpen ] = useState(false);
+  const [ hasHelp, setHasHelp ] = useState(false);
 
   return (
     <View style={{flexDirection: 'row', marginRight: 10}}>
+      {(hasHelp ? 
       <TouchableOpacity onPress={() => setHelpOpen(!helpOpen)} style={{marginRight: 20}}>
         <Icon name="info-circle" style={{fontSize: 30, color: "#ffffff", fontWeight:"bold"}} />
-      </TouchableOpacity>
-      <HelpModal helpOpen={helpOpen} setHelpOpen={setHelpOpen} screenName={getScreenName(navigation)}/>
+      </TouchableOpacity> : null
+      )}
+      <HelpModal helpOpen={helpOpen} setHelpOpen={setHelpOpen} screenName={getScreenName(navigation)} helpHook={setHasHelp}/>
 
       <TouchableOpacity onPress={() => navigation.navigate("FAQ")} style={{marginRight: 20}}>
         <Icon name="question-circle" size={30} color="#FFFFFF" />
