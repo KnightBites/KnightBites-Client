@@ -115,7 +115,7 @@ export default function LoginPage({ navigation }) {
         <Text style={styles.submitText}>Submit</Text>
       </TouchableOpacity>
       <TouchableOpacity onPress={() => navigation.navigate("registration")}><Text style={{ marginTop: 15, color: "blue" }}>Don't have an account? Register here.</Text></TouchableOpacity>
-      <TouchableOpacity onPress={() => navigation.navigate("recovery")}><Text style={{ marginTop: 15, color: "blue" }}>Forgot your password? Recover account here.</Text></TouchableOpacity>
+      {/* <TouchableOpacity onPress={() => navigation.navigate("recovery")}><Text style={{ marginTop: 15, color: "blue" }}>Forgot your password? Recover account here.</Text></TouchableOpacity> */}
       {/*<TouchableOpacity onPress={() => navigation.navigate("buildSandwichHomePage")}><Text style={{ marginTop: 15, color: "blue" }}>View Uppercrust.</Text></TouchableOpacity>*/}
       {loading && <ActivityIndicator />}
     </View>
