@@ -1,11 +1,9 @@
-import { useState, useContext, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { 
-    Image, StyleSheet, View, Text, FlatList, 
-    TouchableOpacity, Button, TextInput, 
-    Linking, Alert, ActivityIndicator
+    View, Text, 
+    TouchableOpacity, ActivityIndicator
 } from 'react-native';
 import styles from '@/constants/Styles';
-import { Colors } from '@/constants/Colors';
 import { SandwichProvider } from "@/components/SandwichProvider";
 import Page1 from "@/components/BuildWich/1";
 import Page2 from "@/components/BuildWich/2";

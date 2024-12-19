@@ -1,6 +1,5 @@
-import { StyleSheet, Dimensions, SwitchComponent } from "react-native";
+import { StyleSheet } from "react-native";
 import { Colors } from "@/constants/Colors";
-import { ColorSpace } from "react-native-reanimated";
 
 const styles = StyleSheet.create({
     headerBar: {

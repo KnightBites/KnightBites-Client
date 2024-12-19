@@ -1,10 +1,7 @@
-import { useState, useEffect } from 'react';
+import React from 'react';
 import { 
-    Image, StyleSheet, View, Text, FlatList, 
-    TouchableOpacity, Button, TextInput, 
-    Linking, Alert
+    Image, View, Text, FlatList,
 } from 'react-native';
-import { Colors } from '@/constants/Colors';
 import { Sandwich } from "@/interfaces/Sandwich";
 import styles from "@/constants/BuildWichStyles"; // happens to have all the styles I need in this page
 

@@ -1,6 +1,5 @@
-import { StyleSheet, Dimensions } from "react-native";
+import { StyleSheet } from "react-native";
 import { Colors } from "@/constants/Colors";
-import { ColorSpace } from "react-native-reanimated";
 
 const styles = StyleSheet.create({
     container: {
@@ -33,7 +32,7 @@ const styles = StyleSheet.create({
         padding: 10,
         margin: 10,
         width: 120,
-        height: 120,
+        height: 150,
         maxWidth: 120, // Constrain button width
         maxHeight: 120, // Constrain button height
         justifyContent: "flex-end",
@@ -51,7 +50,7 @@ const styles = StyleSheet.create({
         padding: 10,
         margin: 10,
         width: 120,
-        height: 120,
+        height: 150,
         maxWidth: 120, // Constrain button width
         maxHeight: 120, // Constrain button height
         justifyContent: "flex-end",
@@ -68,7 +67,7 @@ const styles = StyleSheet.create({
         alignItems: "center",
         justifyContent: "center",
         textAlign: "center",
-        fontSize: 20,
+        fontSize: 15,
     },
     title: {
         fontSize: 30,

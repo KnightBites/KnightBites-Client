@@ -2,7 +2,7 @@ import React, { useState, useContext } from 'react';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { Modal, View, Text, TextInput, StyleSheet, TouchableOpacity } from 'react-native';
 import { ProfileContext, defaultProfile } from "@/components/ProfileProvider";
-const md5 = require("md5");
+import md5 from 'md5';
 
 const ProfilePage = ({ navigation }) => {
   const {profile, setProfile } = useContext(ProfileContext);
