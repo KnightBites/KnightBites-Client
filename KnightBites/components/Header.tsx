@@ -4,6 +4,13 @@ import Modal from "react-native-modal";
 import styles from "@/constants/Styles";
 import { ProfileContext } from "@/components/ProfileProvider";
 import Icon from 'react-native-vector-icons/FontAwesome'; // using FontAwesome for icons
+import HelpModal from '@/components/HelpModal';
+        
+const getScreenName = (navigation) => {
+  const state = navigation.getState();
+  const route = state.routes[state.index];
+  return route.name;
+}
 
 const Header = () => {
   return (
@@ -16,12 +23,20 @@ const Header = () => {
 const HeaderRight = ({navigation}) => {
   const { profile, setProfile } = useContext(ProfileContext);
 
+  const [ helpOpen, setHelpOpen ] = useState(false);
+  const [ hasHelp, setHasHelp ] = useState(false);
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   return (
-    <View>
+    <View style={{flexDirection: 'row', marginRight: 10}}>
+      {(hasHelp ? 
+      <TouchableOpacity onPress={() => setHelpOpen(!helpOpen)} style={headerStyles.sidebarOpenButtonContainer}>
+        <Icon name="info-circle" style={headerStyles.helpOpenButton} />
+      </TouchableOpacity> : null
+      )}
+      <HelpModal helpOpen={helpOpen} setHelpOpen={setHelpOpen} screenName={getScreenName(navigation)} helpHook={setHasHelp}/>
       
-      <TouchableOpacity onPress={() => setSidebarOpen(!sidebarOpen)} style={styles.sidebarOpenButton}>
+      <TouchableOpacity onPress={() => setSidebarOpen(!sidebarOpen)} style={headerStyles.sidebarOpenButtonContainer}>
         <Icon name="bars" style={headerStyles.sidebarOpenButton}/>
       </TouchableOpacity>
 
@@ -81,6 +96,9 @@ const headerStyles = StyleSheet.create({
     right: 0,
     top: 0,
   },
+  sidebarOpenButtonContainer: {
+    
+  },
   sidebarButton: {
     flexDirection: "row",
     padding: 10,
@@ -101,6 +119,13 @@ const headerStyles = StyleSheet.create({
   },
   sidebarOpenButton: {
     padding: 0,
+    margin: 10,
+    fontSize: 32,
+    color: "white",
+    fontWeight: "bold",
+  },
+  helpOpenButton: {
+    padding: 10,
     margin: 10,
     fontSize: 32,
     color: "white",
