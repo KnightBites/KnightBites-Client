@@ -125,7 +125,7 @@ const headerStyles = StyleSheet.create({
     fontWeight: "bold",
   },
   helpOpenButton: {
-    padding: 10,
+    padding: 0,
     margin: 10,
     fontSize: 32,
     color: "white",
