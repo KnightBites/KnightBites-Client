@@ -34,11 +34,11 @@ export default function PrayerPage() {
         <ScrollView contentContainerStyle={styles.container}>
           <View style={styles.prayerContainer}>
             <Text style={styles.prayerText}>
+            <Text style={styles.prayerName}>{prayer.prayertitle}</Text>{"\n"}
               <Text style={styles.boldText}>{prayer.prayer.split(" ")[0]} </Text>
               <Text>{prayer.prayer.split(" ").slice(1).join(" ")}</Text>
             </Text>
           </View>
-          <Text style={styles.prayerName}>{prayer.prayertitle}</Text>
         </ScrollView>
       }
     </ImageBackground>
