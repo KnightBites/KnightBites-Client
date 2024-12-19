@@ -11,8 +11,8 @@ export default function ViewOneSandwich({route, navigation}) {
     const {sandwich} = route.params;
     
     return (
-        <View style={styles.container}>
-            <View style={styles.container}>
+        <View style={[styles.container, { backgroundColor: 'white' }]}>
+            <View style={[styles.container, { backgroundColor: 'white' }]}>
                 <Text style={styles.title}>{sandwich.sandwichname}</Text>
                 <Text style={styles.instructionText}>Creator: {sandwich.creator}</Text>
                 <Text style={styles.instructionText}>Instructions: {sandwich.instructions}</Text>

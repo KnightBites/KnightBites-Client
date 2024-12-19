@@ -1,49 +1,49 @@
 import { useState, useEffect } from 'react';
-import { 
-    StyleSheet, View, Text, FlatList, 
+import {
+    StyleSheet, View, Text, FlatList,
     TouchableOpacity
 } from 'react-native';
 import { Colors } from '@/constants/Colors';
 import { Sandwich } from "@/interfaces/Sandwich";
 
 
-export default function ViewSandwich({navigation}) {
+export default function ViewSandwich({ navigation }) {
 
-    const [ loading, setLoading ] = useState(true);
-    const [ sandwiches, setSandwiches ] = useState([] as Sandwich[]);
+    const [loading, setLoading] = useState(true);
+    const [sandwiches, setSandwiches] = useState([] as Sandwich[]);
 
     const getSandwichData = async () => {
-      setLoading(true);
-      try {
-        const resp = await fetch(
-          "https://knightbitesapp-cda7eve7fce3dkgy.eastus2-01.azurewebsites.net/uppercrust-creations"
-        );
-        const json = await resp.json();
-        setSandwiches(json); // add rating to dish
-        console.log(json);
-      } catch (err) {
-        console.error(err);
-      } finally {
-        setLoading(false);
-      }
+        setLoading(true);
+        try {
+            const resp = await fetch(
+                "https://knightbitesapp-cda7eve7fce3dkgy.eastus2-01.azurewebsites.net/uppercrust-creations"
+            );
+            const json = await resp.json();
+            setSandwiches(json); // add rating to dish
+            console.log(json);
+        } catch (err) {
+            console.error(err);
+        } finally {
+            setLoading(false);
+        }
     };
     useEffect(() => {
         getSandwichData();
     }, []);
 
     return (
-        <View style={styles.container}>
-            {loading ? <Text style={{fontSize: 32, margin: 10}}>Loading...</Text> :
+        <View style={[styles.container, { backgroundColor: 'white' }]}>
+            {loading ? <Text style={{ fontSize: 32, margin: 10 }}>Loading...</Text> :
                 <View>
                     <Text style={styles.title}>
                         Existing Sandwich Creations
                     </Text>
                     <FlatList
                         data={sandwiches}
-                        renderItem={({item}) => (
+                        renderItem={({ item }) => (
                             <TouchableOpacity
                                 style={styles.listItem}
-                                onPress={() => navigation.navigate('viewOneSandwich', {sandwich: item})}
+                                onPress={() => navigation.navigate('viewOneSandwich', { sandwich: item })}
                             >
                                 <Text style={styles.listItemText}>Name: {item.sandwichname}</Text>
                                 <Text style={styles.listItemText}>Creator: {item.creator}</Text>
@@ -55,14 +55,14 @@ export default function ViewSandwich({navigation}) {
             }
         </View>
     );
-  };
+};
 
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        marginTop: 10,
-        marginBottom: 10
+        marginTop: 0,
+        marginBottom: 0
     },
     listItem: {
         margin: 10,
